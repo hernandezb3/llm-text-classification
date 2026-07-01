@@ -1,0 +1,13 @@
+
+pandas
+pydantic
+tenacity
+
+# third party calls
+python-dotenv
+openai
+anthropic 
+google-generativeai 
+
+# local calls
+ollama
