@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+requires-python = ">= 3.12.2"
+name = "library"
+version = "1.0.0"
+
+[tool.setuptools.packages.find]
+where = ["src"]
