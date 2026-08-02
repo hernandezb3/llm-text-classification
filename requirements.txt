@@ -1,13 +1,20 @@
 
+
 pandas
 pydantic
 tenacity
 
-# third party calls
+# ------- api calls ------- #
+# secrets managment
 python-dotenv
+# third party models
 openai
 anthropic 
 google-generativeai 
 
-# local calls
+
+
+# ------- local calls ------- #
 ollama
+hugging_face
+
