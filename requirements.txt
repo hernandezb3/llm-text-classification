@@ -1,8 +1,11 @@
-
-
 pandas
+scikit-learn
 pydantic
 tenacity
+tqdm
+
+kagglehub
+datasets
 
 # ------- api calls ------- #
 # secrets managment
@@ -13,8 +16,18 @@ anthropic
 google-generativeai 
 
 
-
 # ------- local calls ------- #
 ollama
-hugging_face
+huggingface_hub
 
+
+# ------- fine tuning ------- #
+torch
+transformers
+accelerate
+peft
+trl
+datasets
+bitsandbytes>=0.46.1
+torchao>=0.16.0
+kagglehub
