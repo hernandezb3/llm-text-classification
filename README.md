@@ -1,8 +1,8 @@
 # Text Classification with Large Language Models
-AIMEcon tutorial: *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
-By: Brittney Hernandez, Claudia Ventura, Kylie Anglin
+AIMEcon tutorial, *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
+By Brittney Hernandez, Claudia Ventura, Kylie Anglin
 
-# Pre Requisites:
+# Pre Requisites
 - VS Code
 - Python 3.12.2
 - HuggingFace Account
@@ -23,11 +23,14 @@ We'll use virtual environments to standardize our package repository.
 
 *Virtual environements* are 
 
-install packages from requirements.txt
-assumes the requirements.txt file is in your working directory
-```
-pip install -r requirements.txt
-```
+
+### STEP A: Start a Virtual Environment
+
+To do this:
+- Press `CMD + SHIFT + P`
+- Select `Python: Create Environment`
+
+
 
 check package dependencies
 ```
@@ -39,8 +42,14 @@ check what pip would resolve without actually installing packages
 pip install --dry-run -r requirements.txt
 ```
 
-### STEP A: Start a Virtual Environment
+install packages from requirements.txt
+assumes the requirements.txt file is in your working directory
+```
+pip install -r requirements.txt
+```
+
+## Tokens
+### STEP B: Save credentials
 
 To do this:
-- Press `CMD + SHIFT + P`
-- Select `Python: Create Environment`
+- Save credentials to a file called .env (template is in dotenv.txt)
