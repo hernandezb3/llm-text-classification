@@ -13,7 +13,7 @@ python-dotenv
 # third party models
 openai
 anthropic 
-google-generativeai 
+google.genai
 
 
 # ------- local calls ------- #
