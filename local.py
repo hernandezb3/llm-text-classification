@@ -92,7 +92,7 @@ if not missing_pred.empty:
 codes = codes[codes["y_true"].notna() & codes["y_pred"].notna()]
 
 confusion = confusion_matrix(codes["y_true"], codes["y_pred"])
-print(confusion)
+print(f"\nCONFUSION MATRIX\n{confusion}")
 
 TN, FP, FN, TP = confusion.ravel()
 
