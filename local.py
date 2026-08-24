@@ -1,4 +1,5 @@
 import os
+import re
 
 from dotenv import load_dotenv
 from huggingface_hub import login
@@ -20,14 +21,21 @@ FOCUS_PATH = ONEDRIVE_PATH + "focus/project focus/focus_main/"
 path_to_prompts = AIMECON_PATH + "data_management/"
 prompts = pd.read_excel(path_to_prompts + "prompt_codebook.xlsx")
 
-PROMPT = prompts.loc[prompts.id == "P1", "prompt"].item() + prompts.loc[prompts.id == "P2", "prompt"].item()
+PROMPT = (prompts.loc[prompts.id == "Coding", "prompt"].item() + " " +
+          prompts.loc[prompts.id == "Construct", "prompt"].item() + " " +
+          prompts.loc[prompts.id == "Prompt1", "prompt"].item())
+
+output_structure = "Format your response as a number surrounded by three ticks. For example, ```1```"
 
 
 # ---- get data ----
 path_to_data = FOCUS_PATH + "data/prompt_codes/cgi/clean/"
 df = pd.read_excel(path_to_data + "cgi_full_data.xlsx")
-DATA = df.loc[0, "Text"]
+df.columns = map(str.lower, df.columns) # columns to lowercase
+df = df[df["text"].isna() == False] # drop rows where the text is empty (load error?)
 
+df_sample = df.sample(n = 10, random_state = 42, ignore_index = True)
+DATA = df_sample
 
 
 # ---- set up model ----
@@ -45,7 +53,21 @@ weights = {"torch_dtype": QUANTIZATION}
 # make sure permissions are on 
 pipeline = transformers.pipeline(TASK, model = MODEL, model_kwargs = weights, token = os.getenv("HF_TOKEN")) # initate pipeline
 
-prompt_case = PROMPT + " " + DATA
-input = [{"role": "user", "content": prompt_case}]
-output = pipeline(input, max_new_tokens = TOKENS)
-response = output[0]["generated_text"][-1]["content"]
+
+# FOR TESTING
+each_case = 0
+
+classifications = []
+for each_case in range(0, len(DATA)):
+    CASE = DATA.loc[each_case, "text"]
+    prompt_case = PROMPT + " \"" + CASE + "\" " + output_structure
+    input = [{"role": "user", "content": prompt_case}]
+    output = pipeline(input, max_new_tokens = TOKENS)
+    response = output[0]["generated_text"][-1]["content"]
+    pattern = r"```(0|1)```"
+    structured_response = re.search(pattern, response)
+    if structured_response:
+        classify_case = int(structured_response.group(1))
+    else:
+        print(f"no regex pattern detected in response: {response}")
+    classifications.append(classify_case)
