@@ -48,8 +48,19 @@ assumes the requirements.txt file is in your working directory
 pip install -r requirements.txt
 ```
 
-## Tokens
+## API Keys
+These calls are made via application programming interface (API), which allow the provider to verify who is making the request (aka who to bill for it). That's where API keys come in; they're the credential that authenticates each request. 
+
+*Secrets management* is the process of controlling IT credentials, such as API keys, passwords, and configuration files. One approach for storing secrets is as environment variables. 
+
 ### STEP B: Save credentials
 
-To do this:
-- Save credentials to a file called .env (template is in dotenv.txt)
+To do this: 
+- Create a file called `.env` in your working directory 
+- Ensure that `.env` is in your `.gitignore` file
+- Add your keys to `.env`:
+   ```
+   OPENAI_API_KEY=sk-...
+   ANTHROPIC_API_KEY=sk-ant-...
+   GOOGLE_API_KEY=AQ...
+   ```
