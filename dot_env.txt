@@ -1,0 +1,11 @@
+USER_PATH = ""
+
+
+# non-local
+# testing keys - associated with personal gmail account
+OPENAI_API_KEY = ""
+ANTHROPIC_API_KEY = ""
+GOOGLE_API_KEY = ""
+
+# local
+HF_TOKEN = ""
