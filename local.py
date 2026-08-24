@@ -35,7 +35,10 @@ df = pd.read_excel(path_to_data + "cgi_full_data.xlsx")
 df.columns = map(str.lower, df.columns) # columns to lowercase
 df = df[df["text"].isna() == False] # drop rows where the text is empty (load error?)
 
-df_sample = df.sample(n = 10, random_state = 42, ignore_index = True)
+df_sample = df.sample(n = 30, ignore_index = True)
+# call out in the room, what performance did you estimate
+# performance metrics are estimates > seguey to uncertainty
+
 DATA = df_sample
 
 
