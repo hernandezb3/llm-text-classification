@@ -20,12 +20,12 @@ FOCUS_PATH = ONEDRIVE_PATH + "focus/project focus/focus_main/"
 path_to_prompts = AIMECON_PATH + "data_management/"
 prompts = pd.read_excel(path_to_prompts + "prompt_codebook.xlsx")
 
-PROMPT = prompts.loc[prompts.id == "P1", "prompt"].item() + prompts.loc[prompts.id == "P2", "prompt"].item()
-
+PROMPT = prompts.loc[prompts.id == "Coding", "prompt"].item() + prompts.loc[prompts.id == "Prompt1", "prompt"].item()
 
 # ---- get data ----
 path_to_data = FOCUS_PATH + "data/prompt_codes/cgi/clean/"
 df = pd.read_excel(path_to_data + "cgi_full_data.xlsx")
+df_sample = df.sample(n = 10, random_state = 42, ignore_index = True)
 DATA = df.loc[0, "Text"]
 
 prompt_case = PROMPT + " " + DATA
@@ -35,8 +35,8 @@ TOKENS = 100
 TEMPERATURE = 0.2
 
 GPT_MODEL = "o3-2025-04-16" # https://developers.openai.com/api/docs/models/all
-CLAUDE_MODEL = "claude-3-5-sonnet-20240620" # 
-GEMINI_MODEL = "gemini-3.6-flash" # 
+CLAUDE_MODEL = "claude-3-5-sonnet-20240620" # https://platform.claude.com/docs/en/about-claude/models/overview
+GEMINI_MODEL = "gemini-3.6-flash" # https://ai.google.dev/gemini-api/docs/models
 
 
 # ---- GPT ----
@@ -90,7 +90,7 @@ prompt_claude = claude.messages.create(
     max_tokens = TOKENS,
     temperature = TEMPERATURE, # range = 0-1
     system = CONTEXT,
-    messages = [{"role": "user", "content": TASK},],
+    messages = [{"role": "user", "content": prompt_case},],
     )
 
 response = prompt_claude.content[0].text
@@ -115,7 +115,7 @@ client = genai.Client()
 # https://ai.google.dev/api/generate-content
 prompt_gemini = client.models.generate_content(
     model = GEMINI_MODEL,
-    contents = types.Part.from_text(text = TASK),
+    contents = types.Part.from_text(text = prompt_case),
     config = types.GenerateContentConfig(
         temperature = TEMPERATURE, # range = 0-2
         ),
