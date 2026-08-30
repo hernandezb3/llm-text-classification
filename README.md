@@ -4,7 +4,7 @@ By Brittney Hernandez, Claudia Ventura, Kylie Anglin
 
 # Pre Requisites
 - VS Code
-- Python 3.12.2
+- Python 3.12.3
 - HuggingFace Account
 - Ollama?
 
