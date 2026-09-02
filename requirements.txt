@@ -31,3 +31,7 @@ datasets
 bitsandbytes>=0.46.1
 torchao>=0.16.0
 kagglehub
+
+
+openpyxl 
+pyarrow
