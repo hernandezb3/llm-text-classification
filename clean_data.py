@@ -23,6 +23,7 @@ MAX_INPUT_TOKENS = 2048
 CODERS = ["hima", "kelsi", "brittney"]
 
 manifest = pd.read_excel(CODING_MANIFEST)
+manifest["sample_size"] = None
 
 # FOR TESTING
 row = 3
@@ -55,8 +56,8 @@ for row in range(0, manifest.shape[0]):
             end = df.shape[0]
             
         sample = df.iloc[start:end]
-        nas = sample['dialogic_prompt'].isna().sum()
-        sample['dialogic_prompt'] = sample['dialogic_prompt'].fillna(0)
+        #nas = sample['dialogic_prompt'].isna().sum()
+        #sample['dialogic_prompt'] = sample['dialogic_prompt'].fillna(0)
 
         if merged is None:
             merged = sample
@@ -67,23 +68,29 @@ for row in range(0, manifest.shape[0]):
         else:
             merged[f"prompt_{coder_name}"] = sample["dialogic_prompt"]
 
-        print(f"✔️ Added the prompt_{coder_name}. {nas} cases recoded from nan to 0")
+        print(f"✔️ Added the prompt_{coder_name}")
 
     cols = merged.columns[merged.columns.str.startswith('prompt_')]
-    merged["code_human"] = merged[cols].mode(axis = 1)
+    merged["code_human"] = merged[cols].mode(axis = 1)[0]
+
+    nas = merged[cols].isna().sum()
+    merged = merged.dropna(subset = cols)
+
+    print(f"There were {nas} missing cases found.")
+
+    manifest.loc[row, "sample_size"] = merged.shape[0]
 
     coder_cols = list(merged[cols].columns)
     pairs = list(combinations(coder_cols, 2))
 
-    for each_pair in pairs:
-        column_name = f"kappa_{each_pair[0]}_{each_pair[1]}"
-        manifest[column_name] = None
-        
-    for each_pair in pairs:
-        column_name = f"kappa_{each_pair[0]}_vs_{each_pair[1]}"
-        kappa = cohen_kappa_score(merged[each_pair[0]], merged[each_pair[1]])
-        manifest.loc[row, column_name] = kappa
-        print(f"Kappa for {file_name} {each_pair} = {round(kappa, ndigits = 4)}")
+    if merged.shape[0] > 0:
+        for each_pair in pairs:
+            column_name = f"kappa_{each_pair[0]}_{each_pair[1]}"
+            if column_name not in manifest.columns:
+                manifest[column_name] = None
+            kappa = cohen_kappa_score(merged[each_pair[0]], merged[each_pair[1]])
+            manifest.loc[row, column_name] = kappa
+            print(f"Kappa for {file_name} {each_pair} = {round(kappa, ndigits = 4)}")
 
     if all_merged_files is None:
         all_merged_files = merged
@@ -95,6 +102,8 @@ for row in range(0, manifest.shape[0]):
 manifest.to_excel(FOCUS_DATA_DIR / "coding_assignments_kappa.xlsx", index = False)
 all_merged_files.to_excel(SOURCE_FILE, index = False)
 print(f"Saved cgi_finetune_data.xlsx to {AIMECON_DATA_DIR}")
+
+#manifest[row, "kappa_sample_size"] = merged.shape[0]
     
             
 
