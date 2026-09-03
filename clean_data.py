@@ -16,18 +16,13 @@ TRAIN_FILE = AIMECON_DATA_DIR / "cgi_train.parquet"
 DEV_FILE = AIMECON_DATA_DIR / "cgi_dev.parquet"
 TEST_FILE = AIMECON_DATA_DIR / "cgi_test.parquet"
 
-
-MODEL_NAME = "Qwen/Qwen2-7B-Instruct"
-MAX_INPUT_TOKENS = 2048
-
 CODERS = ["hima", "kelsi", "brittney"]
 
 manifest = pd.read_excel(CODING_MANIFEST)
-manifest["sample_size"] = None
 
 # FOR TESTING
-row = 3
-item = 0
+row = 48
+item = 2
 each_pair = ('prompt_hima', 'prompt_kelsi')
 
 all_merged_files = None
@@ -43,7 +38,7 @@ for row in range(0, manifest.shape[0]):
     ext = re.search(pattern, file).group(0)
     file_name = name + "_coding" + ext
 
-    print(f"\n🚦 Starting merge for file: {file_name}\n")
+    print(f"\n🚦 ({row}) Starting merge for file: {file_name}\n")
 
     merged = None
     for item in range(0, len(CODERS)):
@@ -56,8 +51,6 @@ for row in range(0, manifest.shape[0]):
             end = df.shape[0]
             
         sample = df.iloc[start:end]
-        #nas = sample['dialogic_prompt'].isna().sum()
-        #sample['dialogic_prompt'] = sample['dialogic_prompt'].fillna(0)
 
         if merged is None:
             merged = sample
@@ -76,16 +69,25 @@ for row in range(0, manifest.shape[0]):
     nas = merged[cols].isna().sum()
     merged = merged.dropna(subset = cols)
 
-    print(f"There were {nas} missing cases found.")
+    print(f"\nThe number of missing cases dropped were:\n{nas}\n")
 
-    manifest.loc[row, "sample_size"] = merged.shape[0]
+    manifest.loc[row, "actual_n"] = merged.shape[0]            
+    manifest.loc[row, "target_n"] = end - start
+    manifest.loc[row, "actual_target"] = (manifest.loc[row, "actual_n"] == manifest.loc[row, "target_n"])
+    manifest.loc[row, "teacher_turns"] = list(merged["speaker"]).count("Teacher")
+    manifest.loc[row, "prevelance"] = (merged['code_human'] == 1).sum()
+    no_q_prompt = ((merged["text"].str.contains(r"\?") == False) & (merged['code_human'] == 1)).sum()
+    q_no_prompt = ((merged["text"].str.contains(r"\?")) & (merged['code_human'] == 0)).sum()
+    manifest.loc[row, "tricky"] = no_q_prompt + q_no_prompt
 
     coder_cols = list(merged[cols].columns)
     pairs = list(combinations(coder_cols, 2))
 
     if merged.shape[0] > 0:
         for each_pair in pairs:
-            column_name = f"kappa_{each_pair[0]}_{each_pair[1]}"
+            coder1 = re.sub("prompt_", "", each_pair[0])
+            coder2 = re.sub("prompt_", "", each_pair[1])
+            column_name = f"kappa_{coder1}_{coder2}"
             if column_name not in manifest.columns:
                 manifest[column_name] = None
             kappa = cohen_kappa_score(merged[each_pair[0]], merged[each_pair[1]])
@@ -97,9 +99,9 @@ for row in range(0, manifest.shape[0]):
     else:
         all_merged_files = pd.concat([all_merged_files, merged], axis = 0)
 
-    print(f"Added {file_name} to all_merged_files")
+    print(f"\nAdded {file_name} to all_merged_files\n")
 
-manifest.to_excel(FOCUS_DATA_DIR / "coding_assignments_kappa.xlsx", index = False)
+manifest.to_excel(FOCUS_DATA_DIR / "coding_assignments_metadata.xlsx", index = False)
 all_merged_files.to_excel(SOURCE_FILE, index = False)
 print(f"Saved cgi_finetune_data.xlsx to {AIMECON_DATA_DIR}")
 
