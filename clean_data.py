@@ -21,8 +21,8 @@ CODERS = ["hima", "kelsi", "brittney"]
 manifest = pd.read_excel(CODING_MANIFEST)
 
 # FOR TESTING
-row = 48
-item = 2
+row = 5
+item = 1
 each_pair = ('prompt_hima', 'prompt_kelsi')
 
 all_merged_files = None
@@ -55,6 +55,7 @@ for row in range(0, manifest.shape[0]):
         if merged is None:
             merged = sample
             merged.insert(0, 'index', merged.index)
+            merged.insert(1, "filename", file)
             merged = merged.drop(columns = ["needs_redacting"])
             merged.rename(columns = {"dialogic_prompt": f"prompt_{coder_name}"}, 
                           inplace = True)
