@@ -33,8 +33,8 @@ each_pair = ('prompt_hima', 'prompt_kelsi')
 all_merged_files = None
 for row in range(0, manifest.shape[0]):
     file = manifest.loc[row, "file"]
-    rows_coded = manifest.loc[row, "number_of_turns"]
-    start = manifest.loc[row, "turn_to_start"]
+    rows_coded = manifest.loc[row, "total_turns"]
+    start = manifest.loc[row, "row_to_start"]
     end = start + 100
 
     pattern = r"([0-9_A-Za-z]*)"
