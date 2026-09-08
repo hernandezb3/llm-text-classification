@@ -50,7 +50,7 @@ for each_df in [training, validation, testing]:
     prompts = each_df[each_df["code_human"] == 1].shape[0]
     print(f"{each_df} df has:\nfiles = {files},\nutterance = {utterances},\ndialogic prompts = {prompts}")
 
-training.to_csv(TRAIN_FILE)
-validation.to_csv(VAL_FILE)
-testing.to_csv(TEST_FILE)
+training.to_excel(TRAIN_FILE)
+validation.to_excel(VAL_FILE)
+testing.to_excel(TEST_FILE)
     
