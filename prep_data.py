@@ -11,7 +11,7 @@ CODING_MANIFEST = FOCUS_DATA_DIR / "coding_assignments_all.xlsx"
 
 SOURCE_FILE = AIMECON_DATA_DIR / "cgi_finetune_data.xlsx"
 TRAIN_FILE = AIMECON_DATA_DIR / "cgi_train.xlsx"
-VAL_FILE = AIMECON_DATA_DIR / "cgi_validate.xlsx"
+DEV_FILE = AIMECON_DATA_DIR / "cgi_dev.xlsx"
 TEST_FILE = AIMECON_DATA_DIR / "cgi_test.xlsx"
 
 kyli_cgi = pd.read_parquet("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/kylies replication/data_cgi/cgi_train.parquet")
@@ -21,7 +21,7 @@ df = pd.read_excel(SOURCE_FILE)
 
 # split data 33:33:33
 labels = {1: "train",
-          2: "validate",
+          2: "develop",
           3: "test"}
 
 n_iterations = manifest.shape[0]
@@ -35,22 +35,22 @@ manifest.to_excel(FOCUS_DATA_DIR / "coding_assignments_metadata.xlsx", index = F
 print(f"Updated file metadata.")
 
 training_files = manifest["file"][manifest["split"] == "train"]
-validation_files = manifest["file"][manifest["split"] == "validate"]
+development_files = manifest["file"][manifest["split"] == "develop"]
 testing_files = manifest["file"][manifest["split"] == "test"]
 
 training = df[df['filename'].isin(training_files)]
-validation = df[df['filename'].isin(validation_files)]
+development = df[df['filename'].isin(development_files)]
 testing = df[df['filename'].isin(testing_files)]
 
 # FOR TESTING
 each_df = training
-for each_df in [training, validation, testing]:
+for each_df in [training, development, testing]:
     files = len(set(each_df["filename"]))
     utterances = each_df.shape[0]
     prompts = each_df[each_df["code_human"] == 1].shape[0]
     print(f"{each_df} df has:\nfiles = {files},\nutterance = {utterances},\ndialogic prompts = {prompts}")
 
 training.to_excel(TRAIN_FILE)
-validation.to_excel(VAL_FILE)
+development.to_excel(DEV_FILE)
 testing.to_excel(TEST_FILE)
     
