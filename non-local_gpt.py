@@ -5,6 +5,8 @@ from pathlib import Path
 import pandas as pd
 from dotenv import load_dotenv
 from openai import OpenAI
+from pydantic import BaseModel
+from enum import Enum
 
 load_dotenv()
 
@@ -18,6 +20,15 @@ DATA_SOURCE = "train" # train, validate, test
 # ---- get prompt codebook ----
 path_to_prompts = AIMECON_DIR / "data_management" / "prompt_codebook.xlsx"
 prompts = pd.read_excel(path_to_prompts)
+
+# format output
+class Answer(str, Enum):
+    yes = "yes"
+    no = "no"
+
+class Classification(BaseModel):
+    explanation: str  # comes first, so reasoning happens before the label
+    label: Answer
 
 # ---- get data ----
 data_filename = f"cgi_{DATA_SOURCE}"
@@ -41,7 +52,7 @@ key = "OPENAI_API_KEY"
 print(os.environ.get(key, f"ERROR: Variable {key} Not Found"))
 
 # initialize model
-openai = OpenAI()
+client = OpenAI()
 
 # initialize output objects
 tokens_in_column = []
@@ -51,6 +62,7 @@ total_input_cost = None
 total_output_cost = None
 
 code_gpt = []
+explanation_gpt = []
 
 tp = 0
 tn = 0
@@ -68,7 +80,7 @@ for row in df.index:
     PROMPT = (prompts.loc[prompts.id == "Coding", "prompt"].item() + 
               prompts.loc[prompts.id == "Construct", "prompt"].item() +
               prompts.loc[prompts.id == "Prompt1", "prompt"].item() +
-              f"\"{CASE}\"" + 
+              f"\"\"\"{CASE}\"\"\"" + 
               prompts.loc[prompts.id == "Format", "prompt"].item()
               )
 
@@ -80,47 +92,55 @@ for row in df.index:
 
     # model settings
     # https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create
-    prompt_gpt = openai.chat.completions.create(
-        model = GPT_MODEL, 
-        messages = prompt
+    try:
+        prompt_gpt = client.chat.completions.parse(
+            model = GPT_MODEL,
+            messages = prompt,
+            response_format = Classification
         )
+        parsed = prompt_gpt.choices[0].message.parsed
+    except Exception as e:
+        print(f"Row {row} failed: {e}")
+        parsed = None
+        prompt_gpt = None
 
-    in_rate = IN_RATE
-    out_rate = OUT_RATE
-
-    tokens_input = prompt_gpt.usage.prompt_tokens
-    tokens_output = prompt_gpt.usage.completion_tokens
+    if parsed is None:
+        label = None
+        tokens_input = 0
+        tokens_output = 0
+    else:
+        label = parsed.label
+        tokens_input = prompt_gpt.usage.prompt_tokens
+        tokens_output = prompt_gpt.usage.completion_tokens
 
     tokens_in_column.append(tokens_input)
     tokens_out_column.append(tokens_output)
 
     if total_input_cost is None:
-        total_input_cost = tokens_input / 1_000_000 * in_rate
-        total_output_cost = tokens_output / 1_000_000 * out_rate
+        total_input_cost = tokens_input / 1_000_000 * IN_RATE
+        total_output_cost = tokens_output / 1_000_000 * OUT_RATE
     else:
-        total_input_cost = total_input_cost + (tokens_input / 1_000_000 * in_rate)
-        total_output_cost = total_output_cost + (tokens_output / 1_000_000 * out_rate)
+        total_input_cost = total_input_cost + (tokens_input / 1_000_000 * IN_RATE)
+        total_output_cost = total_output_cost + (tokens_output / 1_000_000 * OUT_RATE)
 
-    response = prompt_gpt.choices[0].message.content
-
-    cleaned = response.strip()
-    if cleaned == "1":
-        response_strip = 1
-    elif cleaned == "0":
-        response_strip = 0
+    if label == "yes":
+        response_code = 1
+    elif label == "no":
+        response_code = 0
     else:
-        response_strip = None
-    print(f"Unexpected response at row {row}: {response!r}")
+        response_code = None
+        print(f"Unexpected response at row {row}: {label!r}")
 
-    code_gpt.append(response)
+    code_gpt.append(response_code)
+    explanation_gpt.append(parsed.explanation if parsed else None)
 
-    if df.loc[row, "code_human"] == 1 and response_strip == 1:
+    if df.loc[row, "code_human"] == 1 and response_code == 1:
         tp = tp + 1
-    elif df.loc[row, "code_human"] == 0 and response_strip == 0:
+    elif df.loc[row, "code_human"] == 0 and response_code == 0:
         tn = tn + 1
-    elif df.loc[row, "code_human"] == 0 and response_strip == 1:
+    elif df.loc[row, "code_human"] == 0 and response_code == 1:
         fp = fp + 1
-    elif df.loc[row, "code_human"] == 1 and response_strip == 0:
+    elif df.loc[row, "code_human"] == 1 and response_code == 0:
         fn = fn + 1
 
 
@@ -128,6 +148,7 @@ for row in df.index:
 end = time.perf_counter()
 
 df[f"code_{GPT_MODEL}"] = code_gpt
+df[f"explanation_{GPT_MODEL}"] = explanation_gpt
 
 # ---- save the results ----
 # classifications
@@ -156,4 +177,3 @@ results = pd.concat([results, pd.DataFrame([new_row])], ignore_index = True)
 with pd.ExcelWriter(
     path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
     results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
-
