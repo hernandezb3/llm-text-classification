@@ -37,7 +37,7 @@ df = pd.read_excel(path_to_data)
 df = df.sample(n = 5, ignore_index = True)
 
 # ---- set model params ----
-GPT_MODEL = "gpt-5.6-terra" # https://developers.openai.com/api/docs/models/all
+MODEL = "gpt-5.6-terra" # https://developers.openai.com/api/docs/models/all
 
 IN_RATE = 2.00
 OUT_RATE = 12.00
@@ -94,7 +94,7 @@ for row in df.index:
     # https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create
     try:
         prompt_gpt = client.chat.completions.parse(
-            model = GPT_MODEL,
+            model = MODEL,
             messages = prompt,
             response_format = Classification
         )
@@ -147,12 +147,12 @@ for row in df.index:
 # end runtime counter
 end = time.perf_counter()
 
-df[f"code_{GPT_MODEL}"] = code_gpt
-df[f"explanation_{GPT_MODEL}"] = explanation_gpt
+df[f"code_{MODEL}"] = code_gpt
+df[f"explanation_{MODEL}"] = explanation_gpt
 
 # ---- save the results ----
 # classifications
-results_data_file = f"{data_filename}_{GPT_MODEL}.xlsx"
+results_data_file = f"{data_filename}_{MODEL}.xlsx"
 path_to_data_results = RESULTS_DIR / "nonlocal" / results_data_file
 
 df.to_excel(path_to_data_results, index = False)
@@ -162,7 +162,7 @@ df.to_excel(path_to_data_results, index = False)
 path_to_model_results = RESULTS_DIR / "classification.xlsx"
 results = pd.read_excel(path_to_model_results, sheet_name = f"{DATA_SOURCE}")
 
-new_row = {"model": GPT_MODEL,
+new_row = {"model": MODEL,
            "utterances": df.shape[0],
            "tp": tp,
            "tn": tn,

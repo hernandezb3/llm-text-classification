@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import anthropic
 from pydantic import BaseModel
 from enum import Enum
+from tqdm import tqdm
 
 load_dotenv()
 
@@ -34,13 +35,13 @@ class Classification(BaseModel):
 data_filename = f"cgi_{DATA_SOURCE}"
 path_to_data = AIMECON_DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
-df = df.sample(n = 5, ignore_index = True)
+#df = df.sample(n = 5, ignore_index = True)
 
 # ---- set model params ----
-CLAUDE_MODEL = "claude-3-5-sonnet-20240620" # https://platform.claude.com/docs/en/about-claude/models/overview
+MODEL = "claude-sonnet-5" # https://platform.claude.com/docs/en/about-claude/models/overview
 TEMPERATURE = 0.1
 IN_RATE = 2.00
-OUT_RATE = 12.00
+OUT_RATE = 10.00
 
 # ---- prompt CLAUDE ----
 # get api key: https://platform.claude.com/dashboard
@@ -73,7 +74,7 @@ start = time.perf_counter() # start runtime counter
 
 # FOR TESTING
 row = 0
-for row in df.index:
+for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
     # construct prompt w case
@@ -94,10 +95,10 @@ for row in df.index:
     # https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create
     try:
         prompt_claude = client.messages.parse(
-            model = CLAUDE_MODEL,
-            temperature = TEMPERATURE, # range = 0-1
+            model = MODEL,
             messages = [{"role": "user", "content": PROMPT},],
-            output_format = Classification
+            output_format = Classification,
+            max_tokens = 100
             )
         parsed = prompt_claude.parsed_output
     except Exception as e:
@@ -111,8 +112,8 @@ for row in df.index:
         tokens_output = 0
     else:
         label = parsed.label
-        tokens_input = prompt_claude.usage.prompt_tokens
-        tokens_output = prompt_claude.usage.completion_tokens
+        tokens_input = prompt_claude.usage.input_tokens
+        tokens_output = prompt_claude.usage.output_tokens
 
     tokens_in_column.append(tokens_input)
     tokens_out_column.append(tokens_output)
@@ -148,12 +149,12 @@ for row in df.index:
 # end runtime counter
 end = time.perf_counter()
 
-df[f"code_{CLAUDE_MODEL}"] = code_claude
-df[f"explanation_{CLAUDE_MODEL}"] = explanation_claude
+df[f"code_{MODEL}"] = code_claude
+df[f"explanation_{MODEL}"] = explanation_claude
 
 # ---- save the results ----
 # classifications
-results_data_file = f"{data_filename}_{CLAUDE_MODEL}.xlsx"
+results_data_file = f"{data_filename}_{MODEL}.xlsx"
 path_to_data_results = RESULTS_DIR / "nonlocal" / results_data_file
 
 df.to_excel(path_to_data_results, index = False)
@@ -163,7 +164,7 @@ df.to_excel(path_to_data_results, index = False)
 path_to_model_results = RESULTS_DIR / "classification.xlsx"
 results = pd.read_excel(path_to_model_results, sheet_name = f"{DATA_SOURCE}")
 
-new_row = {"model": CLAUDE_MODEL,
+new_row = {"model": MODEL,
            "utterances": df.shape[0],
            "tp": tp,
            "tn": tn,
