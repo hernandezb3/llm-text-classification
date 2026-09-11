@@ -5,13 +5,15 @@ import time
 from dotenv import load_dotenv
 from pathlib import Path
 from huggingface_hub import login
-import transformers
 import torch
 import pandas as pd
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from pydantic import BaseModel
 from enum import Enum
+from tqdm import tqdm
+import outlines
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 load_dotenv()
@@ -22,6 +24,11 @@ FOCUS_DATA_DIR = FOCUS_DIR / "data/prompt_codes/cgi"
 AIMECON_DATA_DIR = AIMECON_DIR / "data"
 RESULTS_DIR = AIMECON_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+print(f"Using device: {DEVICE}")
+if DEVICE == "cuda":
+    print(torch.cuda.get_device_name(0))
 
 # ---- get prompt codebook ----
 path_to_prompts = AIMECON_DIR / "data_management" / "prompt_codebook.xlsx"
@@ -32,7 +39,7 @@ prompts = pd.read_excel(path_to_prompts)
 data_filename = f"cgi_{DATA_SOURCE}"
 path_to_data = AIMECON_DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
-df = df.sample(n = 30, ignore_index = True)
+df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
 # performance metrics are estimates > seguey to uncertainty
 
@@ -42,15 +49,33 @@ login(token = os.getenv("HF_TOKEN"))
 
 MODEL = "meta-llama/Llama-3.2-1B-Instruct"
 TASK = "text-generation"
-TOKENS = 100
+TOKENS = 200
 TEMPERATURE = 0.1
-QUANTIZATION = torch.bfloat16
+QUANTIZATION = torch.float32 # can use torch.bfloat16 if cuda is available (float for cpu, bfloat for gpu)
+
+# format output
+class Answer(str, Enum):
+    yes = "yes"
+    no = "no"
+
+class Classification(BaseModel):
+    explanation: str  # comes first, so reasoning happens before the label
+    label: Answer
 
 
 # make sure permissions are on 
-client = transformers.pipeline(TASK, model = MODEL, 
-                               model_kwargs = {"torch_dtype": QUANTIZATION} , 
-                               token = os.getenv("HF_TOKEN")) # initate pipeline
+#client = transformers.pipeline(TASK, model = MODEL, 
+#                               model_kwargs = {"dtype": QUANTIZATION}, 
+#                               token = os.getenv("HF_TOKEN")) # initate pipeline
+
+model = AutoModelForCausalLM.from_pretrained(MODEL, 
+                                              dtype = QUANTIZATION, 
+                                              token = os.getenv("HF_TOKEN"),
+                                              device_map = DEVICE) # initate pipeline
+
+hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"))
+
+client = outlines.from_transformers(model, hf_tokenizer)
 
 code_local = []
 explanation_local = []
@@ -68,34 +93,28 @@ start = time.perf_counter() # start runtime counter
 
 # FOR TESTING
 each_case = 0
-for row in df.index:
+for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
-    PROMPT = (prompts.loc[prompts.id == "Coding", "prompt"].item() + 
-                  prompts.loc[prompts.id == "Construct", "prompt"].item() +
-                  prompts.loc[prompts.id == "Prompt1", "prompt"].item() +
-                  f"\"\"\"{CASE}\"\"\"" + 
+    PROMPT = (prompts.loc[prompts.id == "Coding2", "prompt"].item() + " " +
+                  prompts.loc[prompts.id == "Construct", "prompt"].item() + " " +
+                  prompts.loc[prompts.id == "Prompt1", "prompt"].item() + " " +
+                  f"\n\"\"\"{CASE}\"\"\"\n" + " " +
                   prompts.loc[prompts.id == "Format2", "prompt"].item()
                   )
 
-    prompt = [{"role": "user", "content": PROMPT}]
+    if row == 0:
+        print(f"\n{PROMPT}\n")
 
-    prompt_local = client(
-        prompt,
-        temperature = TEMPERATURE,
-        do_sample = True,  # temperature has no effect unless do_sample=True
-        )
-    response = prompt_local[0]["generated_text"][-1]["content"]
+    prompt_local = client(PROMPT, Classification, max_new_tokens = TOKENS)
 
-    structured_response = re.search(pattern, response)
-    if structured_response:
-        response_code = label_map[structured_response.group(1)]
-    else:
-        print(f"no regex pattern detected in response: {response}")
-        response_code = None
+    parsed = Classification.model_validate_json(prompt_local)
+
+    response_code = label_map[parsed.label.value]
 
     code_local.append(response_code)
-    explanation_local.append(response)
+    explanation_local.append(parsed.explanation)
+
 
     if df.loc[row, "code_human"] == 1 and response_code == 1:
         tp = tp + 1
@@ -108,7 +127,41 @@ for row in df.index:
 
 end = time.perf_counter()
 
-df["code_llm"] = code_local
+df[f"code_{MODEL}"] = code_local
+df[f"explanation_{MODEL}"] = explanation_local
 
+
+# ---- save the results ----
+# classifications
+if "/" in MODEL:
+    model_stripped = re.split("/", MODEL)[1]
+else:
+    model_stripped = MODEL
+
+results_data_file = f"{data_filename}_{model_stripped}.xlsx"
+path_to_data_results = RESULTS_DIR / "local" / results_data_file
+
+df.to_excel(path_to_data_results, index = False)
+
+
+# model performance
+path_to_model_results = RESULTS_DIR / "classification.xlsx"
+results = pd.read_excel(path_to_model_results, sheet_name = f"{DATA_SOURCE}")
+
+new_row = {"model": MODEL,
+           "utterances": df.shape[0],
+           "tp": tp,
+           "tn": tn,
+           "fp": fp,
+           "fn": fn,
+           "cost": None,
+           "runtime": end - start
+           }
+
+results = pd.concat([results, pd.DataFrame([new_row])], ignore_index = True)
+
+with pd.ExcelWriter(
+    path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
+    results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
 
 

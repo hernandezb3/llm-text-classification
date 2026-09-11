@@ -20,6 +20,8 @@ google.genai
 ollama
 huggingface_hub
 
+outlines
+
 
 # ------- fine tuning ------- #
 torch
