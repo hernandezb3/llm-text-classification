@@ -46,7 +46,7 @@ IN_RATE = 2.00
 OUT_RATE = 12.00
 
 # ---- prompt GPT ----
-# get api key: https://platform.openai.com/api-keys
+# get api key: https://aistudio.google.com/
 
 # check that the api key got loaded in the .env
 # if loaded, prints the key
@@ -101,9 +101,12 @@ for row in tqdm(df.index):
     PROMPT = (prompts.loc[prompts.id == "Coding1", "prompt"].item() + 
               prompts.loc[prompts.id == "Construct", "prompt"].item() +
               prompts.loc[prompts.id == "Prompt1", "prompt"].item() +
-              f"\"\"\"{CASE}\"\"\"" + 
+              f"\n\"\"\"{CASE}\"\"\"\n" + 
               prompts.loc[prompts.id == "Format1", "prompt"].item()
               )
+
+    if row == 0:
+        print(f"\n{PROMPT}\n")
 
     # format prompt for gpt
     prompt = [
