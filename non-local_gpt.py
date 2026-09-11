@@ -78,9 +78,9 @@ for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
     # construct prompt w case
-    PROMPT = (prompts.loc[prompts.id == "Coding1", "prompt"].item() + 
-              prompts.loc[prompts.id == "Construct", "prompt"].item() +
-              prompts.loc[prompts.id == "Prompt1", "prompt"].item() +
+    PROMPT = (prompts.loc[prompts.id == "Coding1", "prompt"].item() + " " +
+              prompts.loc[prompts.id == "Construct", "prompt"].item() + " " +
+              prompts.loc[prompts.id == "Prompt1", "prompt"].item() + " " +
               f"\n\"\"\"{CASE}\"\"\"\n" + 
               prompts.loc[prompts.id == "Format1", "prompt"].item()
               )
