@@ -37,13 +37,13 @@ class Classification(BaseModel):
 data_filename = f"cgi_{DATA_SOURCE}"
 path_to_data = AIMECON_DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
-df = df.sample(n = 5, ignore_index = True)
+#df = df.sample(n = 5, ignore_index = True)
 
 # ---- set model params ----
 MODEL = "gemini-3.6-flash" # https://ai.google.dev/gemini-api/docs/models
 
-IN_RATE = 2.00
-OUT_RATE = 12.00
+IN_RATE = 0.75
+OUT_RATE = 1.50
 
 # ---- prompt GPT ----
 # get api key: https://aistudio.google.com/
@@ -98,9 +98,9 @@ for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
     # construct prompt w case
-    PROMPT = (prompts.loc[prompts.id == "Coding1", "prompt"].item() + 
-              prompts.loc[prompts.id == "Construct", "prompt"].item() +
-              prompts.loc[prompts.id == "Prompt1", "prompt"].item() +
+    PROMPT = (prompts.loc[prompts.id == "Coding1", "prompt"].item() + " " +
+              prompts.loc[prompts.id == "Construct", "prompt"].item() + " " +
+              prompts.loc[prompts.id == "Prompt1", "prompt"].item() + " " +
               f"\n\"\"\"{CASE}\"\"\"\n" + 
               prompts.loc[prompts.id == "Format1", "prompt"].item()
               )
