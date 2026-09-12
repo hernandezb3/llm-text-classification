@@ -12,20 +12,15 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=brittney.hernandez@uconn.edu
 
-
 # create logs dir if it doesn't exist
 mkdir -p logs
 
-# load modules (confirm exact names with `module avail`)
+# load modules
 module purge
 module load python/3.12.2
 
-pip3 install -r requirements.txt
-
-# sanity check: confirm GPU is visible before running
-nvidia-smi
+pip3 install -r requirements_hpc.txt
 
 # run the script
-cd llm-text-classification
 python local.py
 
