@@ -7,8 +7,6 @@ from pathlib import Path
 from huggingface_hub import login
 import torch
 import pandas as pd
-import numpy as np
-from sklearn.metrics import confusion_matrix
 from pydantic import BaseModel
 from enum import Enum
 from tqdm import tqdm
@@ -16,6 +14,7 @@ import outlines
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # FILE STRUCTURE
+# .env in cd
 # data to data/
 # prompt_codebook to data_management/
 # classifications.xlsx to results/

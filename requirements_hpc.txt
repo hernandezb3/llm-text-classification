@@ -1,0 +1,11 @@
+# secrets managment
+python-dotenv
+pathlib
+huggingface_hub
+torch
+pandas
+pydantic
+enum
+tqdm
+outlines
+transformers
