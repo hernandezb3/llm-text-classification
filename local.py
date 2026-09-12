@@ -15,14 +15,24 @@ from tqdm import tqdm
 import outlines
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+# FILE STRUCTURE
+# data to data/
+# prompt_codebook to data_management/
+# classifications.xlsx to results/
+# make sure results/local exists
 
 load_dotenv()
 
-FOCUS_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/focus/project focus/focus_main")
-AIMECON_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/AIME-con")
-FOCUS_DATA_DIR = FOCUS_DIR / "data/prompt_codes/cgi"
-AIMECON_DATA_DIR = AIMECON_DIR / "data"
-RESULTS_DIR = AIMECON_DIR / "results"
+USER = "brittney" 
+
+if USER == "brittney":
+    WORKING_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/AIME-con")
+    DATA_DIR = WORKING_DIR / "data"
+elif USER == "hpc":
+    WORKING_DIR = os.getcwd()
+    DATA_DIR =  Path(WORKING_DIR) / "data"
+
+RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -31,15 +41,15 @@ if DEVICE == "cuda":
     print(torch.cuda.get_device_name(0))
 
 # ---- get prompt codebook ----
-path_to_prompts = AIMECON_DIR / "data_management" / "prompt_codebook.xlsx"
+path_to_prompts = WORKING_DIR / "data_management" / "prompt_codebook.xlsx"
 prompts = pd.read_excel(path_to_prompts)
 
 
 # ---- get data ----
 data_filename = f"cgi_{DATA_SOURCE}"
-path_to_data = AIMECON_DATA_DIR / f"{data_filename}.xlsx"
+path_to_data = DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
-df = df.sample(n = 5, ignore_index = True)
+#df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
 # performance metrics are estimates > seguey to uncertainty
 
@@ -49,9 +59,9 @@ login(token = os.getenv("HF_TOKEN"))
 
 MODEL = "meta-llama/Llama-3.2-1B-Instruct"
 TASK = "text-generation"
-TOKENS = 200
+TOKENS = 500
 TEMPERATURE = 0.1
-QUANTIZATION = torch.float32 # can use torch.bfloat16 if cuda is available (float for cpu, bfloat for gpu)
+QUANTIZATION = torch.float16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
 # format output
 class Answer(str, Enum):
