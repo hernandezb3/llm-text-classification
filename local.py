@@ -169,6 +169,7 @@ new_row = {"model": MODEL,
            "tn": tn,
            "fp": fp,
            "fn": fn,
+           "format_errors": format_errors,
            "cost": None,
            "runtime": end - start
            }
