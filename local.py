@@ -48,7 +48,7 @@ prompts = pd.read_excel(path_to_prompts)
 data_filename = f"cgi_{DATA_SOURCE}"
 path_to_data = DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
-df = df.sample(n = 5, ignore_index = True)
+#df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
 # performance metrics are estimates > seguey to uncertainty
 
@@ -93,6 +93,7 @@ tp = 0
 tn = 0
 fp = 0
 fn = 0
+format_errors = 0
 
 # format response
 pattern = r"```(yes|no)```"
@@ -117,12 +118,17 @@ for row in tqdm(df.index):
 
     prompt_local = client(PROMPT, Classification, max_new_tokens = TOKENS)
 
-    parsed = Classification.model_validate_json(prompt_local)
-
-    response_code = label_map[parsed.label.value]
+    try:
+        parsed = Classification.model_validate_json(prompt_local)
+        response_code = label_map[parsed.label.value]
+        explanation_text = parsed.explanation
+    except Exception as e:
+        response_code = None
+        explanation_text = prompt_local
+        format_errors = format_errors + 1
 
     code_local.append(response_code)
-    explanation_local.append(parsed.explanation)
+    explanation_local.append(explanation_text)
 
 
     if df.loc[row, "code_human"] == 1 and response_code == 1:
