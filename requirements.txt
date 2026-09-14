@@ -17,9 +17,7 @@ google.genai
 
 
 # ------- local calls ------- #
-ollama
 huggingface_hub
-
 outlines
 
 
