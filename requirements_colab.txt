@@ -1,0 +1,37 @@
+pandas
+scikit-learn
+pydantic
+tenacity
+tqdm
+
+kagglehub
+datasets
+
+# ------- api calls ------- #
+# secrets managment
+python-dotenv
+# third party models
+openai
+anthropic 
+google.genai
+
+
+# ------- local calls ------- #
+huggingface_hub
+outlines
+
+
+# ------- fine tuning ------- #
+torch
+transformers
+accelerate
+peft
+trl
+datasets
+bitsandbytes>=0.46.1
+torchao>=0.16.0
+kagglehub
+
+
+openpyxl 
+pyarrow
