@@ -53,7 +53,7 @@ prompts = pd.read_excel(path_to_prompts)
 data_filename = f"cgi_{DATA_SOURCE}"
 path_to_data = DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
-#df = df.sample(n = 5, ignore_index = True)
+df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
 # performance metrics are estimates > seguey to uncertainty
 
@@ -61,7 +61,22 @@ df = pd.read_excel(path_to_data)
 # ---- set up model ----
 login(token = os.getenv("HF_TOKEN"))
 
-MODEL = "meta-llama/Llama-3.2-1B-Instruct"
+# ON HPC
+# meta-llama/Llama-3.2-1B-Instruct (baseline) X
+# meta-llama/Llama-3.3-70B-Instruct
+# meta-llama/Llama-4-Maverick-17B-128E-Instruct
+# Qwen/Qwen3-30B-A3B-Instruct-2507
+# deepseek-ai/DeepSeek-V3.2
+# google/gemma-4-31B-it
+
+# ON COLAB
+# meta-llama/Llama-3.2-1B-Instruct (baseline) X
+# meta-llama/Llama-3.1-8B-Instruct
+# microsoft/phi-4
+# Qwen/Qwen3-4B-Instruct-2507
+# google/gemma-3-12b-it
+
+MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
