@@ -8,3 +8,5 @@ pydantic
 tqdm
 outlines
 transformers
+openpyxl 
+accelerate
