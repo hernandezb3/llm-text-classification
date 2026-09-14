@@ -181,13 +181,16 @@ try:
         results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
 except:
     cwd = os.getcwd()
-    df.to_excel(cwd, index = False)
     
-    mode = "a" if os.path.exists(cwd) else "w"
+    path_to_data_results = Path(cwd) / results_data_file
+    df.to_excel(path_to_data_results, index = False)
+
+    path_to_model_results = Path(cwd) / "classification.xlsx"
+    mode = "a" if os.path.exists(path_to_model_results) else "w"
     if_sheet_exists = "replace" if mode == "a" else None
 
     with pd.ExcelWriter(
-        cwd,
+        path_to_model_results,
         engine = "openpyxl",
         mode = mode,
         if_sheet_exists = if_sheet_exists
