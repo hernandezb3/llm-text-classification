@@ -156,8 +156,6 @@ else:
 results_data_file = f"{data_filename}_{model_stripped}.xlsx"
 path_to_data_results = RESULTS_DIR / "local" / results_data_file
 
-df.to_excel(path_to_data_results, index = False)
-
 
 # model performance
 path_to_model_results = RESULTS_DIR / "classification.xlsx"
@@ -176,8 +174,24 @@ new_row = {"model": MODEL,
 
 results = pd.concat([results, pd.DataFrame([new_row])], ignore_index = True)
 
-with pd.ExcelWriter(
-    path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
-    results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
+try:
+    df.to_excel(path_to_data_results, index = False)
+    with pd.ExcelWriter(
+        path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
+        results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
+except:
+    cwd = os.getcwd()
+    df.to_excel(cwd, index = False)
+    
+    mode = "a" if os.path.exists(cwd) else "w"
+    if_sheet_exists = "replace" if mode == "a" else None
+
+    with pd.ExcelWriter(
+        cwd,
+        engine = "openpyxl",
+        mode = mode,
+        if_sheet_exists = if_sheet_exists
+        ) as writer:
+            results.to_excel(writer, sheet_name = f"{DATA_SOURCE}", index = False)
 
 
