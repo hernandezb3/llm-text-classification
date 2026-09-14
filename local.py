@@ -53,7 +53,7 @@ prompts = pd.read_excel(path_to_prompts)
 data_filename = f"cgi_{DATA_SOURCE}"
 path_to_data = DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
-df = df.sample(n = 5, ignore_index = True)
+#df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
 # performance metrics are estimates > seguey to uncertainty
 
