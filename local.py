@@ -80,7 +80,7 @@ MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
-QUANTIZATION = torch.float16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
+QUANTIZATION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
 # format output
 class Answer(str, Enum):
