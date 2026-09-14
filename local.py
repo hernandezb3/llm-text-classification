@@ -13,7 +13,7 @@ from tqdm import tqdm
 import outlines
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# FILE STRUCTURE
+# FILE STRUCTURE FOR HPC/COLAB
 # .env in cd
 # data to data/
 # prompt_codebook to data_management/
@@ -28,8 +28,13 @@ if USER == "brittney":
     WORKING_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/AIME-con")
     DATA_DIR = WORKING_DIR / "data"
 elif USER == "hpc":
-    WORKING_DIR = os.getcwd()
-    DATA_DIR =  Path(WORKING_DIR) / "data"
+    WORKING_DIR = Path.cwd()
+    DATA_DIR =  WORKING_DIR / "data"
+elif USER =="colab":
+    from google.colab import drive
+    drive.mount('/content/drive/')
+    WORKING_DIR = Path.cwd()
+    DATA_DIR = WORKING_DIR / "data"
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
@@ -180,12 +185,10 @@ try:
         path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
         results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
 except:
-    cwd = os.getcwd()
-    
-    path_to_data_results = Path(cwd) / results_data_file
+    path_to_data_results = Path.cwd() / results_data_file
     df.to_excel(path_to_data_results, index = False)
 
-    path_to_model_results = Path(cwd) / "classification.xlsx"
+    path_to_model_results = Path.cwd() / "classification.xlsx"
     mode = "a" if os.path.exists(path_to_model_results) else "w"
     if_sheet_exists = "replace" if mode == "a" else None
 
