@@ -100,7 +100,7 @@ class Classification(BaseModel):
 model = AutoModelForCausalLM.from_pretrained(MODEL, 
                                               dtype = QUANTIZATION, 
                                               token = os.getenv("HF_TOKEN"),
-                                              device_map = DEVICE) # initate pipeline
+                                              device_map = "auto") # initate pipeline
 
 hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"))
 
