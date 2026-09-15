@@ -40,7 +40,7 @@ RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-print(f"Using device: {DEVICE}")
+print(f"\nUsing device: {DEVICE}")
 if DEVICE == "cuda":
     print(torch.cuda.get_device_name(0))
 
@@ -79,13 +79,15 @@ login(token = os.getenv("HF_TOKEN"))
 
 
 # ON COLAB
-# meta-llama/Llama-3.2-1B-Instruct (baseline) X
+# meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
 MODEL = "microsoft/phi-4"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
 QUANTIZATION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
+
+print(f"Model: {MODEL}\n Sample Size: {df.shape[0]}\n")
 
 # format output
 class Answer(str, Enum):
