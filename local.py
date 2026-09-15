@@ -82,7 +82,7 @@ login(token = os.getenv("HF_TOKEN"))
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
-MODEL = "meta-llama/Llama-3.2-3B-Instruct"
+MODEL = "ibm-granite/granite-4.2-8b "
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
