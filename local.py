@@ -11,7 +11,7 @@ from pydantic import BaseModel
 from enum import Enum
 from tqdm import tqdm
 import outlines
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 # FILE STRUCTURE FOR HPC/COLAB
 # .env in cd
@@ -82,6 +82,13 @@ TOKENS = 500
 TEMPERATURE = 0.1
 QUANTIZATION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit = True,
+    bnb_4bit_quant_type = "nf4",
+    bnb_4bit_compute_dtype = torch.bfloat16,
+    bnb_4bit_use_double_quant = True,
+    )
+
 # format output
 class Answer(str, Enum):
     yes = "yes"
@@ -98,9 +105,9 @@ class Classification(BaseModel):
 #                               token = os.getenv("HF_TOKEN")) # initate pipeline
 
 model = AutoModelForCausalLM.from_pretrained(MODEL, 
-                                              dtype = QUANTIZATION, 
+                                              quantization_config = bnb_config,
                                               token = os.getenv("HF_TOKEN"),
-                                              device_map = "auto") # initate pipeline
+                                              device_map = DEVICE) # initate pipeline
 
 hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"))
 
