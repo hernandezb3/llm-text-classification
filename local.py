@@ -76,18 +76,11 @@ login(token = os.getenv("HF_TOKEN"))
 # Qwen/Qwen3-4B-Instruct-2507
 # google/gemma-3-12b-it
 
-MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+MODEL = "Qwen/Qwen2.5-7B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
 QUANTIZATION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
-
-bnb_config = BitsAndBytesConfig(
-    load_in_4bit = True,
-    bnb_4bit_quant_type = "nf4",
-    bnb_4bit_compute_dtype = torch.bfloat16,
-    bnb_4bit_use_double_quant = True,
-    )
 
 # format output
 class Answer(str, Enum):
@@ -105,7 +98,7 @@ class Classification(BaseModel):
 #                               token = os.getenv("HF_TOKEN")) # initate pipeline
 
 model = AutoModelForCausalLM.from_pretrained(MODEL, 
-                                              quantization_config = bnb_config,
+                                              dtype = QUANTIZATION,
                                               token = os.getenv("HF_TOKEN"),
                                               device_map = DEVICE) # initate pipeline
 
