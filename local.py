@@ -62,21 +62,26 @@ df = pd.read_excel(path_to_data)
 login(token = os.getenv("HF_TOKEN"))
 
 # ON HPC
-# meta-llama/Llama-3.2-1B-Instruct (baseline) X
-# meta-llama/Llama-3.3-70B-Instruct
+# single gpu < 30B
+# meta-llama/Llama-3.2-1B-Instruct (baseline) x
+# meta-llama/Llama-3.1-8B-Instruct
 # meta-llama/Llama-4-Maverick-17B-128E-Instruct
+# Qwen/Qwen2.5-7B-Instruct x
+# google/gemma-4-12B-it
+# ibm-granite/granite-4.2-8b
+# microsoft/phi-4 (15B)
+
+# multi-gpus > 30B
+# meta-llama/Llama-3.3-70B-Instruct
 # Qwen/Qwen3-30B-A3B-Instruct-2507
 # deepseek-ai/DeepSeek-V3.2
 # google/gemma-4-31B-it
 
+
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) X
-# meta-llama/Llama-3.1-8B-Instruct
-# microsoft/phi-4
-# Qwen/Qwen3-4B-Instruct-2507
-# google/gemma-3-12b-it
 
-MODEL = "Qwen/Qwen2.5-7B-Instruct"
+MODEL = "microsoft/phi-4"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
