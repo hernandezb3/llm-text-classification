@@ -86,7 +86,7 @@ MODEL = "meta-llama/Llama-3.2-3B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
-QUANTIZATION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
+PRECISION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
 print(f"Model: {MODEL}\nSample Size: {df.shape[0]}\n")
 
@@ -102,11 +102,11 @@ class Classification(BaseModel):
 
 # make sure permissions are on 
 #client = transformers.pipeline(TASK, model = MODEL, 
-#                               model_kwargs = {"dtype": QUANTIZATION}, 
+#                               model_kwargs = {"dtype": PRECISION}, 
 #                               token = os.getenv("HF_TOKEN")) # initate pipeline
 
 model = AutoModelForCausalLM.from_pretrained(MODEL, 
-                                              dtype = QUANTIZATION,
+                                              dtype = PRECISION,
                                               token = os.getenv("HF_TOKEN"),
                                               device_map = DEVICE) # initate pipeline
 
