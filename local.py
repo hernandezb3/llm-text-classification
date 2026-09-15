@@ -69,7 +69,7 @@ login(token = os.getenv("HF_TOKEN"))
 # Qwen/Qwen2.5-7B-Instruct x
 # google/gemma-4-12B-it
 # ibm-granite/granite-4.2-8b
-# microsoft/phi-4 (15B)
+# microsoft/phi-4 (15B) x
 
 # multi-gpus > 30B
 # meta-llama/Llama-3.3-70B-Instruct
@@ -81,7 +81,7 @@ login(token = os.getenv("HF_TOKEN"))
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
-MODEL = "microsoft/phi-4"
+MODEL = "google/gemma-4-12B-it"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
