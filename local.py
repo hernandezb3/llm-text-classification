@@ -44,11 +44,6 @@ print(f"\nUsing device: {DEVICE}")
 if DEVICE == "cuda":
     print(torch.cuda.get_device_name(0))
 
-# ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "prompt_codebook.xlsx"
-prompts = pd.read_excel(path_to_prompts)
-
-
 # ---- get data ----
 data_filename = f"cgi_{DATA_SOURCE}"
 path_to_data = DATA_DIR / f"{data_filename}.xlsx"
@@ -58,17 +53,23 @@ df = pd.read_excel(path_to_data)
 # performance metrics are estimates > seguey to uncertainty
 
 
+# ---- get prompt codebook ----
+path_to_prompts = WORKING_DIR / "data_management" / "prompt_codebook.xlsx"
+prompts = pd.read_excel(path_to_prompts)
+
+
 # ---- set up model ----
 login(token = os.getenv("HF_TOKEN"))
 
 # ON HPC
 # single gpu < 30B
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
+# meta-llama/Llama-3.2-3B-Instruct
 # meta-llama/Llama-3.1-8B-Instruct
 # meta-llama/Llama-4-Maverick-17B-128E-Instruct
 # Qwen/Qwen2.5-7B-Instruct x
-# google/gemma-4-12B-it
-# ibm-granite/granite-4.2-8b
+# google/gemma-4-12B-it x
+# ibm-granite/granite-4.2-8b 
 # microsoft/phi-4 (15B) x
 
 # multi-gpus > 30B
@@ -81,13 +82,13 @@ login(token = os.getenv("HF_TOKEN"))
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
-MODEL = "google/gemma-4-12B-it"
+MODEL = "meta-llama/Llama-3.2-3B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
 QUANTIZATION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
-print(f"Model: {MODEL}\n Sample Size: {df.shape[0]}\n")
+print(f"Model: {MODEL}\nSample Size: {df.shape[0]}\n")
 
 # format output
 class Answer(str, Enum):
