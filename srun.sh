@@ -1,7 +1,6 @@
 
 # shell into uconn hpc
 ssh -Y netid@hpc2.storrs.hpc.uconn.edu
-ssh -Y bah17005@hpc2.storrs.hpc.uconn.edu
 
 # srun (interactive) request
 # use debug partition to test -- 30 min max
