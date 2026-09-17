@@ -3,3 +3,5 @@
 # Except this file + local folder
 !.gitignore
 !local/
+!non-local/
+!classifications.xlsx

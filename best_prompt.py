@@ -12,60 +12,53 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn import svm
 
+
+# FILE STRUCTURE FOR HPC/COLAB
+# .env in cd
+# data to data/
+# prompt_codebook to data_management/
+# classifications.xlsx to results/
+# make sure results/local exists
+
 load_dotenv()
 
-USER_PATH = os.getenv("USER_PATH")
-GITHUB_PATH = USER_PATH + "Documents/github"
-ONEDRIVE_PATH = USER_PATH + "Library/CloudStorage/OneDrive-UniversityofConnecticut/"
-AIMECON_PATH = ONEDRIVE_PATH + "AIME-con/"
-FOCUS_PATH = ONEDRIVE_PATH + "focus/project focus/focus_main/"
+USER = "hpc" 
+
+if USER == "brittney":
+    WORKING_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/AIME-con")
+    DATA_DIR = WORKING_DIR / "data"
+elif USER == "hpc":
+    WORKING_DIR = Path.cwd()
+    DATA_DIR =  WORKING_DIR / "data"
+elif USER =="colab":
+    from google.colab import drive
+    drive.mount('/content/drive/')
+    WORKING_DIR = Path.cwd()
+    DATA_DIR = WORKING_DIR / "data"
+
+RESULTS_DIR = WORKING_DIR / "results"
+DATA_SOURCE = "train" # train, validate, test
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+print(f"\nUsing device: {DEVICE}")
+if DEVICE == "cuda":
+    print(torch.cuda.get_device_name(0))
 
 # ---- get data ----
-path_to_cgi_data = FOCUS_PATH + "data/prompt_codes/cgi/clean/"
-cgi_df = pd.read_excel(path_to_cgi_data + "cgi_full_data.xlsx")
-
-path_to_focus_data = FOCUS_PATH + "data/clean/phase1-1/combined_transcripts/"
-focus_df = ""
-
-
-# combine + format data
-df = cgi_df 
-
-df.columns = map(str.lower, df.columns) # columns to lowercase
-df = df[df["text"].isna() == False] # drop rows where the text is empty (load error?)
-df = df.reset_index(drop = True) # reset the index 
-
-DATA = df.loc[0, "text"]
-
-# split data train:val:test  
-# Zhang et al., 2024 70:20:10 
-# Hu et al., 2024 60:15:25 
-# Anglin et al., 2026 33:33:33
-# Fine-tuning for AIME-Con: 70:15:15
-# cross validate Eertink, et al, 2022 similar performance, more certainty with cv
-X = df[["transcript", "speaker", "timestamp", "text"]]
-y = df[["code_human"]]
-
-X_train, X_temp, y_train, y_temp = train_test_split(
-    X, y, test_size = 0.30, random_state = 42, stratify = y
-    )
-
-X_val, X_test, y_val, y_test = train_test_split(
-    X_temp, y_temp, test_size = 0.50, random_state = 42, stratify = y_temp
-    )
-
-print(f"Train : {len(X_train):,}  ({len(X_train)/df.shape[0]*100:.1f}%)")
-print(f"Val   : {len(X_val):,}   ({len(X_val)/len(df.shape[0])*100:.1f}%)")
-print(f"Test  : {len(X_test):,}   ({len(X_test)/len(df.shape[0])*100:.1f}%)")
-print("\nClass distribution (stratification check):")
-
+data_filename = f"cgi_{DATA_SOURCE}"
+path_to_data = DATA_DIR / f"{data_filename}.xlsx"
+df = pd.read_excel(path_to_data)
+#df = df.sample(n = 5, ignore_index = True)
+# call out in the room, what performance did you estimate
+# performance metrics are estimates > seguey to uncertainty
 
 
 
 
 # ---- get prompt codebook ----
-path_to_prompts = AIMECON_PATH + "data_management/"
-
+path_to_prompts = WORKING_DIR / "data_management" / "prompt_codebook.xlsx"
+prompts = pd.read_excel(path_to_prompts)
+N_VARIANTS = 50
 
 #"construct_definition_p1": 1,
 #"construct_definition_verb": 5,
@@ -78,18 +71,17 @@ construct_variants = {"construct_name": 1,
                       "context_description": 1,
                       "task_description": 1,
                       "construct_definition": 1,
-                      "criteria": 20,
-                      "each_transcript": 1}
+                      "criteria": 20}
 
-full_path = path_to_prompts + "prompt_codebook.xlsx"
-n_prompts = 50
+
+
 
 # FOR TESTING:
 each_variant = list((construct_variants.keys()))[0]
 
 def create_prompt_variants(construct_variants, path, n_prompts):
     all_prompts = {}
-    for each in range(0, n_prompts):
+    for each in range(0, N_VARIANTS):
         prompt_combo = {}
         # baseline
         for each_variant in list((construct_variants.keys())):
@@ -139,23 +131,148 @@ PROMPT = prompts.loc[prompts.id == "Code", "prompt"].item() + prompts.loc[prompt
 
 
 
-
-
 # ---- set up model ----
 login(token = os.getenv("HF_TOKEN"))
 
-MODEL = "meta-llama/Llama-3.2-1B-Instruct"
+MODEL = "ibm-granite/granite-4.2-8b"
 TASK = "text-generation"
-TOKENS = 100
-TEMPERATURE = 0.2
-QUANTIZATION = torch.bfloat16
+TOKENS = 500
+TEMPERATURE = 0.1
+QUANTIZATION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
-weights = {"torch_dtype": QUANTIZATION} 
+print(f"Model: {MODEL}\nSample Size: {df.shape[0]}\n")
+
+# format output
+class Answer(str, Enum):
+    yes = "yes"
+    no = "no"
+
+class Classification(BaseModel):
+    explanation: str  # comes first, so reasoning happens before the label
+    label: Answer
+
 
 # make sure permissions are on 
-pipeline = transformers.pipeline(TASK, model = MODEL, model_kwargs = weights, token = os.getenv("HF_TOKEN")) # initate pipeline
+#client = transformers.pipeline(TASK, model = MODEL, 
+#                               model_kwargs = {"dtype": QUANTIZATION}, 
+#                               token = os.getenv("HF_TOKEN")) # initate pipeline
 
-prompt_case = PROMPT + " " + DATA
-input = [{"role": "user", "content": prompt_case}]
-output = pipeline(input, max_new_tokens = TOKENS)
-response = output[0]["generated_text"][-1]["content"]
+model = AutoModelForCausalLM.from_pretrained(MODEL, 
+                                              dtype = QUANTIZATION,
+                                              token = os.getenv("HF_TOKEN"),
+                                              device_map = DEVICE) # initate pipeline
+
+hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"))
+
+client = outlines.from_transformers(model, hf_tokenizer)
+
+code_local = []
+explanation_local = []
+
+tp = 0
+tn = 0
+fp = 0
+fn = 0
+format_errors = 0
+
+# format response
+pattern = r"```(yes|no)```"
+label_map = {"yes": 1, "no": 0}
+
+start = time.perf_counter() # start runtime counter
+
+# FOR TESTING
+each_case = 0
+for row in tqdm(df.index):
+    CASE = df.loc[row, "text"]
+
+    PROMPT = (prompts.loc[prompts.id == "Coding2", "prompt"].item() + " " +
+                  prompts.loc[prompts.id == "Construct", "prompt"].item() + " " +
+                  prompts.loc[prompts.id == "Prompt1", "prompt"].item() + " " +
+                  f"\n\"\"\"{CASE}\"\"\"\n" + " " +
+                  prompts.loc[prompts.id == "Format2", "prompt"].item()
+                  )
+
+    if row == 0:
+        print(f"\n{PROMPT}\n")
+
+    prompt_local = client(PROMPT, Classification, max_new_tokens = TOKENS)
+
+    try:
+        parsed = Classification.model_validate_json(prompt_local)
+        response_code = label_map[parsed.label.value]
+        explanation_text = parsed.explanation
+    except Exception as e:
+        response_code = None
+        explanation_text = prompt_local
+        format_errors = format_errors + 1
+
+    code_local.append(response_code)
+    explanation_local.append(explanation_text)
+
+
+    if df.loc[row, "code_human"] == 1 and response_code == 1:
+        tp = tp + 1
+    elif df.loc[row, "code_human"] == 0 and response_code == 0:
+        tn = tn + 1
+    elif df.loc[row, "code_human"] == 0 and response_code == 1:
+        fp = fp + 1
+    elif df.loc[row, "code_human"] == 1 and response_code == 0:
+        fn = fn + 1
+
+end = time.perf_counter()
+
+df[f"code_{MODEL}"] = code_local
+df[f"explanation_{MODEL}"] = explanation_local
+
+
+# ---- save the results ----
+# classifications
+if "/" in MODEL:
+    model_stripped = re.split("/", MODEL)[1]
+else:
+    model_stripped = MODEL
+
+results_data_file = f"{data_filename}_{model_stripped}.xlsx"
+path_to_data_results = RESULTS_DIR / "local" / results_data_file
+
+
+# model performance
+path_to_model_results = RESULTS_DIR / "classification.xlsx"
+results = pd.read_excel(path_to_model_results, sheet_name = f"{DATA_SOURCE}")
+
+new_row = {"model": MODEL,
+           "utterances": df.shape[0],
+           "tp": tp,
+           "tn": tn,
+           "fp": fp,
+           "fn": fn,
+           "format_errors": format_errors,
+           "cost": None,
+           "runtime": end - start
+           }
+
+results = pd.concat([results, pd.DataFrame([new_row])], ignore_index = True)
+
+try:
+    df.to_excel(path_to_data_results, index = False)
+    with pd.ExcelWriter(
+        path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
+        results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
+except:
+    path_to_data_results = Path.cwd() / results_data_file
+    df.to_excel(path_to_data_results, index = False)
+
+    path_to_model_results = Path.cwd() / "classification.xlsx"
+    mode = "a" if os.path.exists(path_to_model_results) else "w"
+    if_sheet_exists = "replace" if mode == "a" else None
+
+    with pd.ExcelWriter(
+        path_to_model_results,
+        engine = "openpyxl",
+        mode = mode,
+        if_sheet_exists = if_sheet_exists
+        ) as writer:
+            results.to_excel(writer, sheet_name = f"{DATA_SOURCE}", index = False)
+
+

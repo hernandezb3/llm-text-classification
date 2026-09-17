@@ -2,3 +2,5 @@
 *
 # Except this file
 !.gitignore
+!human_prompt_codebook.docx
+!llm_prompt_codebook.xlsx

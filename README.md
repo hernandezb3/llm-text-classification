@@ -17,14 +17,50 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 
 
 # Prerequisite Software & Packages
+- HuggingFace Account
+- HuggingFace Key
+- One of Option A or B
+
+Colab Option A)
+- Google account
+- Google Colab account
+
+
+Local Option B)
 - VS Code
 - Python 3.12.3
-- HuggingFace Account
-- Ollama?
 
-*optional:*
-- Google Colab account
-- API Key to model
+
+# Folder Set-Up
+Save the following files. 
+
+Colab Option A)
+Save these files to your Google Drive in `My Drive/`. Below is a link to a folder that's already set up in Google Drive.
+
+- [aime-con](https://drive.google.com/drive/folders/1Zd4YEUcThwXW2uRGDFmhKjDPL7zd_JVC?usp=share_link)/
+
+
+Local Option B)
+If you're working locally, clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer and download the data files from Google Drive and save them to the `data/` folder in your cloned repo:
+
+- aime-con/[data](https://drive.google.com/drive/folders/1JIynOkgSf21fB5U1FEwm-YLqWHVMnhoH?usp=share_link)/
+
+- aime-con
+    - data
+        - train.xlsx
+        - dev.xlsx
+        - test.xlsx
+    - data_management
+    - results
+        - local
+        - non-local
+        - classifications.txt
+    - 00_secrets.txt
+    - 00_start.ipynb
+    - 01_non-local.ipynb
+    - 02_local.ipynb
+    - requirements.txt
+    - .env*
 
 
 # Environment
@@ -63,18 +99,8 @@ pip install -r requirements.txt
 ```
 
 ## API Keys
-These calls are made via application programming interface (API), which allow the provider to verify who is making the request (aka who to bill for it). That's where API keys come in; they're the credential that authenticates each request. 
 
-*Secrets management* is the process of controlling IT credentials, such as API keys, passwords, and configuration files. One approach for storing secrets is as environment variables. 
 
-### STEP B: Save credentials
+### Save credentials
 
-To do this: 
-- Create a file called `.env` in your working directory 
-- Ensure that `.env` is in your `.gitignore` file
-- Add your keys to `.env`:
-   ```
-   OPENAI_API_KEY=sk-...
-   ANTHROPIC_API_KEY=sk-ant-...
-   GOOGLE_API_KEY=AQ...
-   ```
+
