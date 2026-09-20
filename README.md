@@ -1,5 +1,5 @@
 # Text Classification with Large Language Models
-[AIME-Con](https://www.xcdsystem.com/ncme/program/47bbPZ3/index.cfm){:target="_blank"} tutorial, *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
+[AIME-Con](https://www.xcdsystem.com/ncme/program/47bbPZ3/index.cfm) tutorial, *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
 By Brittney Hernandez, Claudia Ventura, Kylie Anglin
 
 # Prerequisite Knowledge & Skills
