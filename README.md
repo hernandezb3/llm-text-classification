@@ -22,17 +22,17 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 - One of Option A or B:
 
 Colab Option A)
-- Google account
+- Google Drive account
 - Google Colab account
-
 
 Local Option B)
 - VS Code
 - Python 3.12.3
 
 # Folder Structure
-```
+The `aime-con` is set up as follows:
 
+```
 |── aime-con/
 │   ├── data/
 │   │   ├── dev.xlsx
@@ -48,55 +48,29 @@ Local Option B)
 │   │   ├── fine-tuning/
 │   │   └── classifications.txt
 │   ├── README.md
-│   │── set-paths.py
+│   │── paths.py
 │   │── requirements.txt
-│   │── 00_secrets-template.txt
+│   │── secrets-template.txt
+│   │── 00_colab-setup.ipynb
+│   │── 00_local-setup.ipynb
 │   │── 01_non-local.ipynb
 │   │── 02_local.ipynb
 │   │── 03_prompt-engineering.ipynb
-└── └── 04_fine-tuning.ipynb
+│   └── 04_fine-tuning.ipynb
 ```
-- aime-con
-    - 
+
 
 # Option A: Google Colab
 
+Save the `aime-con` folder and all of it's contents to `My Drive/`. Below is a link to a folder that's already set up in Google Drive.
 
-## Folder Set-Up
-```
-from google.colab import drive
-
-drive.mount('/content/drive/')
-```
-Save the following files. 
-
-Colab Option A)
-Save these files to your Google Drive in `My Drive/`. Below is a link to a folder that's already set up in Google Drive.
-
-- [aime-con](https://drive.google.com/drive/folders/1Zd4YEUcThwXW2uRGDFmhKjDPL7zd_JVC?usp=share_link)/
+`|──`[aime-con](https://drive.google.com/drive/folders/1Zd4YEUcThwXW2uRGDFmhKjDPL7zd_JVC?usp=share_link)/
 
 
 Local Option B)
 If you're working locally, clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer and download the data files from Google Drive and save them to the `data/` folder in your cloned repo:
 
 - aime-con/[data](https://drive.google.com/drive/folders/1JIynOkgSf21fB5U1FEwm-YLqWHVMnhoH?usp=share_link)/
-
-- aime-con
-    - data
-        - train.xlsx
-        - dev.xlsx
-        - test.xlsx
-    - data_management
-    - results
-        - local
-        - non-local
-        - classifications.txt
-    - 00_secrets.txt
-    - 00_start.ipynb
-    - 01_non-local.ipynb
-    - 02_local.ipynb
-    - requirements.txt
-    - .env*
 
 
 # Environment
