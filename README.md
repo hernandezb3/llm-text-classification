@@ -65,12 +65,12 @@ The `aime-con` is set up as follows:
 Join Hugging Face
 
 <p align="center">
-<img src="readme_images/hf sign up.png" height="300">
+<img src="readme_images/hf sign up.png" height="500">
 </p>
 
 Click on your profile icon in the top right corner and select Access Tokens. 
 <p align="center">
-<img src="readme_images/nav to settings.png" height="300">
+<img src="readme_images/nav to tokenss.png" height="500">
 </p>
 
 Click Create a New Token
@@ -80,13 +80,13 @@ Click Create a New Token
 
 Select Read Only, assign a token name and select Create Token. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
 <p align="center">
-<img src="readme_images/create token.png" height="300">
+<img src="readme_images/create token.png" height="500">
 </p>
 
 Complete the Gated Access Agreement for [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) on Hugging Face:
 
 <p align="center">
-<img src="readme_images/gated access.png" height="300">
+<img src="readme_images/gated access.png" height="500">
 </p>
 
 
