@@ -106,8 +106,8 @@ Follow the instructions listed in the file, `00a_setup-colab.ipynb`.
 ---
 # Option B: Local
 
-Download (Visual Studio Code)[https://code.visualstudio.com] (VS Code)
-Download (Python 3.12.3)[https://www.python.org/downloads/release/python-3123/]
+Download [Visual Studio Code](https://code.visualstudio.com) (VS Code)
+Download [Python 3.12.3](https://www.python.org/downloads/release/python-3123/)
 
 Clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer.
 
