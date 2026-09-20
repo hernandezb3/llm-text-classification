@@ -70,7 +70,7 @@ Join Hugging Face
 
 Click on your profile icon in the top right corner and select Access Tokens. 
 <p align="center">
-<img src="readme_images/nav to tokenss.png" height="500">
+<img src="readme_images/nav to tokens.png" height="500">
 </p>
 
 Click Create a New Token
