@@ -74,7 +74,7 @@ Click on your profile icon in the top right corner and select Access Tokens.
 <img src="readme_images/nav to tokens.png" height="500">
 </p>
 
-Click Create a New Token
+Select Create new Access Token.
 <p align="center">
 <img src="readme_images/new token.png" height="300">
 </p>
@@ -84,7 +84,7 @@ Select Read Only, assign a token name and select Create Token. A pop-up window w
 <img src="readme_images/create token.png" height="500">
 </p>
 
-Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) on Hugging Face:
+Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) on Hugging Face.
 
 <p align="center">
 <img src="readme_images/gated access.png" height="500">
