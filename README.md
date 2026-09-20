@@ -22,11 +22,11 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 - Complete Community Access Agreement for Llama 3.2
 - One of Option A or B:
 
-Colab Option A)
+**Colab Option A)**
 - Google Drive account
 - Google Colab account
 
-Local Option B)
+**Local Option B)**
 - VS Code
 - Python 3.12.3
 
