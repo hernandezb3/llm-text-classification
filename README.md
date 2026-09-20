@@ -1,6 +1,7 @@
 # Text Classification with Large Language Models
 [AIME-Con](https://www.xcdsystem.com/ncme/program/47bbPZ3/index.cfm) tutorial, *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
-By Brittney Hernandez, Claudia Ventura, Kylie Anglin
+
+by Brittney Hernandez, Claudia Ventura, Kylie Anglin
 
 # Prerequisite Knowledge & Skills
 Text Classification: 
@@ -8,9 +9,6 @@ Conceptual understanding of text classification as a method of analysis, and/or 
 
 LLM Mechanics: 
 Understanding of LLMs as next-token prediction systems, including tokenization, and a broad sense of how training data shapes model behavior.
-
-Measurement Theory: 
-Knowledge of Shadish, Cook, & Campbell’s (2002) validity framework.
 
 Programming: 
 Proficiency in one or more programming language(s) such as Python or R. Conceptual understanding of file input/output, API calls, data manipulation, functions, and loops. 
