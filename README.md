@@ -29,7 +29,7 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 - Python 3.12.3
 
 # Folder Structure
-The `aime-con` is set up as follows:
+The `aime-con` folder is set up as follows:
 
 ```
 |── aime-con/
