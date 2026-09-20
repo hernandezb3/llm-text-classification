@@ -18,8 +18,8 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 
 # Prerequisite Software & Packages
 - HuggingFace Account
-- HuggingFace Key
-- Complete Gated Access Form for Llama 3.2 1B
+- HuggingFace Access Token
+- Complete Community Access Agreement for Llama 3.2
 - One of Option A or B:
 
 Colab Option A)
