@@ -6,7 +6,7 @@ tqdm
 
 kagglehub
 datasets
-textwrap
+#textwrap
 
 # ------- api calls ------- #
 # secrets managment

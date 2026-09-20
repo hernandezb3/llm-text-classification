@@ -3,9 +3,7 @@ from pathlib import Path
 USER = "local" # either local or colab
 
 if USER == "local":
-    from dotenv import load_dotenv
     WORKING_DIR = Path.cwd()
-    load_dotenv()
 elif USER == "colab":
     WORKING_DIR = Path('/content/drive/MyDrive/aime-con')
 

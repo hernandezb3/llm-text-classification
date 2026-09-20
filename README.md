@@ -88,86 +88,47 @@ Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co
 <img src="readme_images/gated access.png" height="500">
 </p>
 
-
+---
 # Option A: Google Colab
 
-Save the `aime-con` folder and all of it's contents to `My Drive/`. Below is a link to the aime-con folder. *Note.* Do not save it to a folder called Colab Notebooks.
+Save the `aime-con` folder and all of it's contents to `My Drive/`. Below is a link to the folder. *Note.* Do not save it to a folder called Colab Notebooks.
 
 - [aime-con](https://drive.google.com/drive/folders/1Zd4YEUcThwXW2uRGDFmhKjDPL7zd_JVC?usp=share_link)/
 
 Navigate to the file `aime-con/00a_setup-colab.ipynb`, right click on ... and select Open with > Google Colabratory. 
 
-[ADD SCREENSHOT]
+<p align="center">
+<img src="readme_images/colab.png" height="500">
+</p>
 
-Follow the instructions listed in the file, `00a_setup-colab.ipynb`
+Follow the instructions listed in the file, `00a_setup-colab.ipynb`.
 
-
+---
 # Option B: Local
 
-Download VS Code:
-Download Python 3.12.3
+Download (Visual Studio Code)[https://code.visualstudio.com] (VS Code)
+Download (Python 3.12.3)[https://www.python.org/downloads/release/python-3123/]
 
 Clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer.
 
-Navigate to where you want the repo saved on your computer.
+Open your OS's Command Line Interface (Terminal for Mac or Command Prompt for Windows). Change your directory to the location where you want to save the repo.
 ```
 cd path/to/folder/
 ```
 
-Clone the repo
+Clone the repo.
 ```
 git clone https://github.com/hernandezb3/llm-text-classification.git
 ```
 
-Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from Google Drive and save them to the `data/` folder in your cloned repo. *Note* There is a .gitignore file in the data file that keeps any data from being pushed to GitHub.
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from Google Drive and save them to the `data/` folder of your cloned repo. *Note* There is a .gitignore file in the data file that keeps any data from being pushed to GitHub.
 
 - aime-con/[data](https://drive.google.com/drive/folders/1JIynOkgSf21fB5U1FEwm-YLqWHVMnhoH?usp=share_link)/
 
+Open VS Code. Click Open, navigate to the llm-text-classification folder of the repo you just cloned, and click Open.
 
+<p align="center">
+<img src="readme_images/vs code.png" height="500">
+</p>
 
-
-
-
-
-
-# Environment
-
-## Kernel: Colab vs Local
-
-
-## Virtual Environment
-We'll use virtual environments to standardize our package repository. 
-
-*Virtual environements* are 
-
-
-### STEP A: Start a Virtual Environment
-
-To do this:
-- Press `CMD + SHIFT + P`
-- Select `Python: Create Environment`
-
-
-
-check package dependencies
-```
-pip check
-```
-
-check what pip would resolve without actually installing packages
-```
-pip install --dry-run -r requirements.txt
-```
-
-install packages from requirements.txt
-assumes the requirements.txt file is in your working directory
-```
-pip install -r requirements.txt
-```
-
-## API Keys
-
-
-### Save credentials
-
-
+Follow the instructions listed in the file, `00b_setup-local.ipynb`.
