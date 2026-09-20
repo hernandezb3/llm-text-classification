@@ -61,8 +61,9 @@ The `aime-con` is set up as follows:
 ```
 
 # Hugging Face
+In HuggingFace you will need to sign up for an account, create a read-only acess token, and complete the Community Access Agreement for Llama 3.2. 
 
-Join Hugging Face
+Navigate to https://huggingface.co and click Sign Up. 
 
 <p align="center">
 <img src="readme_images/hf sign up.png" height="500">
@@ -83,7 +84,7 @@ Select Read Only, assign a token name and select Create Token. A pop-up window w
 <img src="readme_images/create token.png" height="500">
 </p>
 
-Complete the Gated Access Agreement for [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) on Hugging Face:
+Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) on Hugging Face:
 
 <p align="center">
 <img src="readme_images/gated access.png" height="500">
