@@ -19,6 +19,7 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 # Prerequisite Software & Packages
 - HuggingFace Account
 - HuggingFace Key
+- Complete Gated Access Form for Llama 3.2 1B
 - One of Option A or B:
 
 Colab Option A)
@@ -59,18 +60,75 @@ The `aime-con` is set up as follows:
 │   └── 04_fine-tuning.ipynb
 ```
 
+# Hugging Face
+
+Join Hugging Face
+
+<p align="center">
+<img src="readme_images/hf sign up.png" height="300">
+</p>
+
+Click on your profile icon in the top right corner and select Access Tokens. 
+<p align="center">
+<img src="readme_images/nav to settings.png" height="300">
+</p>
+
+Click Create a New Token
+<p align="center">
+<img src="readme_images/new token.png" height="300">
+</p>
+
+Select Read Only, assign a token name and select Create Token. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
+<p align="center">
+<img src="readme_images/create token.png" height="300">
+</p>
+
+Complete the Gated Access Agreement for [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) on Hugging Face:
+
+<p align="center">
+<img src="readme_images/gated access.png" height="300">
+</p>
+
 
 # Option A: Google Colab
 
-Save the `aime-con` folder and all of it's contents to `My Drive/`. Below is a link to a folder that's already set up in Google Drive.
+Save the `aime-con` folder and all of it's contents to `My Drive/`. Below is a link to the aime-con folder. *Note.* Do not save it to a folder called Colab Notebooks.
 
-`|──`[aime-con](https://drive.google.com/drive/folders/1Zd4YEUcThwXW2uRGDFmhKjDPL7zd_JVC?usp=share_link)/
+- [aime-con](https://drive.google.com/drive/folders/1Zd4YEUcThwXW2uRGDFmhKjDPL7zd_JVC?usp=share_link)/
+
+Navigate to the file `aime-con/00a_setup-colab.ipynb`, right click on ... and select Open with > Google Colabratory. 
+
+[ADD SCREENSHOT]
+
+Follow the instructions listed in the file, `00a_setup-colab.ipynb`
 
 
-Local Option B)
-If you're working locally, clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer and download the data files from Google Drive and save them to the `data/` folder in your cloned repo:
+# Option B: Local
+
+Download VS Code:
+Download Python 3.12.3
+
+Clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer.
+
+Navigate to where you want the repo saved on your computer.
+```
+cd path/to/folder/
+```
+
+Clone the repo
+```
+git clone https://github.com/hernandezb3/llm-text-classification.git
+```
+
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from Google Drive and save them to the `data/` folder in your cloned repo. *Note* There is a .gitignore file in the data file that keeps any data from being pushed to GitHub.
 
 - aime-con/[data](https://drive.google.com/drive/folders/1JIynOkgSf21fB5U1FEwm-YLqWHVMnhoH?usp=share_link)/
+
+
+
+
+
+
 
 
 # Environment
