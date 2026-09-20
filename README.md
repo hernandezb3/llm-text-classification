@@ -19,7 +19,7 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 # Prerequisite Software & Packages
 - HuggingFace Account
 - HuggingFace Key
-- One of Option A or B
+- One of Option A or B:
 
 Colab Option A)
 - Google account
@@ -30,8 +30,44 @@ Local Option B)
 - VS Code
 - Python 3.12.3
 
+# Folder Structure
+```
 
-# Folder Set-Up
+|── aime-con/
+│   ├── data/
+│   │   ├── dev.xlsx
+│   │   ├──test.xlsx
+│   │   └── train.xlsx
+│   ├── data_management/
+│   │   ├──human_prompt_codebook.docx
+│   │   └── llm_prompt_codebook.xlsx
+│   ├── results/
+│   │   ├──local/
+│   │   ├── non-local/
+│   │   ├──prompt-engineering/
+│   │   ├── fine-tuning/
+│   │   └── classifications.txt
+│   ├── README.md
+│   │── set-paths.py
+│   │── requirements.txt
+│   │── 00_secrets-template.txt
+│   │── 01_non-local.ipynb
+│   │── 02_local.ipynb
+│   │── 03_prompt-engineering.ipynb
+└── └── 04_fine-tuning.ipynb
+```
+- aime-con
+    - 
+
+# Option A: Google Colab
+
+
+## Folder Set-Up
+```
+from google.colab import drive
+
+drive.mount('/content/drive/')
+```
 Save the following files. 
 
 Colab Option A)
