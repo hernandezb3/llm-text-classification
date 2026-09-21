@@ -47,7 +47,7 @@ Guidance for setting up prerequisite software and packages is included in this R
 The directory structure for the interactive tutorial is set up as follows:
 
 ```
-|── aime-con/
+├── aime-con/
 │   ├── data/
 │   │   ├── dev.xlsx
 │   │   ├──test.xlsx
@@ -62,14 +62,14 @@ The directory structure for the interactive tutorial is set up as follows:
 │   │   ├── fine-tuning/
 │   │   └── classifications.txt
 │   ├── README.md
-│   │── paths.py
-│   │── requirements.txt
-│   │── secrets-template.txt
-│   │── 00_colab-setup.ipynb
-│   │── 00_local-setup.ipynb
-│   │── 01_non-local.ipynb
-│   │── 02_local.ipynb
-│   │── 03_prompt-engineering.ipynb
+│   ├── paths.py
+│   ├── requirements.txt
+│   ├── secrets-template.txt
+│   ├── 00_colab-setup.ipynb
+│   ├── 00_local-setup.ipynb
+│   ├── 01_non-local.ipynb
+│   ├── 02_local.ipynb
+│   ├── 03_prompt-engineering.ipynb
 │   └── 04_fine-tuning.ipynb
 ```
 
