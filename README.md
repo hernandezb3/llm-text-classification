@@ -7,7 +7,7 @@ Description: This interactive workshop covers methods of binary text classificat
 
 <p align="center">
   <img src="readme_images/uconn-wordmark-stacked-blue.png" height="80">
-  <img src="readme_images/focus logo.jpg" height="200">
+  <img src="readme_images/focus logo.jpg" height="80">
 </p>
 
 # Prerequisite Knowledge & Skills
