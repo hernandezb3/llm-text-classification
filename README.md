@@ -65,8 +65,8 @@ The directory structure for the interactive tutorial is set up as follows:
 │   ├── paths.py
 │   ├── requirements.txt
 │   ├── secrets-template.txt
-│   ├── 00_colab-setup.ipynb
-│   ├── 00_local-setup.ipynb
+│   ├── 00a_colab-setup.ipynb
+│   ├── 00b_local-setup.ipynb
 │   ├── 01_non-local.ipynb
 │   ├── 02_local.ipynb
 │   ├── 03_prompt-engineering.ipynb
