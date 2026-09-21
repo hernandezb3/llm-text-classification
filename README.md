@@ -6,11 +6,8 @@ by Brittney Hernandez, Claudia Ventura, Kylie Anglin
 Description: This interactive workshop covers methods of binary text classification using large language models: API calls to non-locally hosted models, local models, and finetuned models. Participants will build text-classification pipelines with an emphasis on practicalities and measurement validity. Tradeoffs in approaches (cost, performance, privacy, etc.) will be discussed throughout.
 
 <p align="center">
-<img src="readme_images/focus logo.jpg" height="200">
-</p>
-
-<p align="center">
-<img src="readme_images/uconn-wordmark-stacked-blue.png" height="80">
+  <img src="readme_images/uconn-wordmark-stacked-blue.png" height="80">
+  <img src="readme_images/focus logo.jpg" height="200">
 </p>
 
 # Prerequisite Knowledge & Skills
