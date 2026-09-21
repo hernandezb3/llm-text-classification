@@ -107,12 +107,11 @@ Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co
 ---
 # Option A) Colab
 
-Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. To download, click Code, and then Download ZIP. After it downloads, find the folder in you downloads and double-click on it to unzip.
+Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. To download, click Code, and then Download ZIP. After it downloads, find the folder in you downloads and double-click on it to unzip. Edit the file name, removing `-main` from the end. The filename should just be llm-text-classification.
 
 <p align="center">
 <img src="readme_images/github.png" height="500">
 </p>
-
 
 Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` and save them to the `data/` folder of your cloned repo.
 
