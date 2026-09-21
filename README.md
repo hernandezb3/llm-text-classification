@@ -37,7 +37,6 @@ Guidance for setting up prerequisite software and packages is included in this R
 
 **Option A) Colab**
 - Google Drive account
-- Google Colab account
 
 **Option B) Local**
 - VS Code
