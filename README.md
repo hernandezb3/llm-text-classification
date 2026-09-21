@@ -14,13 +14,16 @@ This interactive workshop covers methods of binary text classification using lar
 </p>
 
 # Prerequisite Knowledge & Skills
-Text Classification: 
+**Text Classification**
+
 Conceptual understanding of text classification as a method of analysis, and/or familiarity with traditional classification methods (e.g., bag-of-words, supervised classifiers)
 
-LLM Mechanics: 
+**LLM Mechanics**
+
 Understanding of LLMs as next-token prediction systems, including tokenization, and a broad sense of how training data shapes model behavior.
 
-Programming: 
+**Programming**
+
 Proficiency in one or more programming language(s) such as Python or R. Conceptual understanding of file input/output, API calls, data manipulation, functions, and loops. 
 
 
