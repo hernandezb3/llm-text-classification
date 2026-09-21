@@ -10,7 +10,7 @@ Description: This interactive workshop covers methods of binary text classificat
 </p>
 
 <p align="center">
-<img src="readme_images/uconn-wordmark-stacked-blue.png" height="200">
+<img src="readme_images/uconn-wordmark-stacked-blue.png" height="50">
 </p>
 
 # Prerequisite Knowledge & Skills
