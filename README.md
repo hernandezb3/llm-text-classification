@@ -28,7 +28,7 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 
 
 # Prerequisite Software & Packages
-Instructions for setting up prerequisite software and packages are included in this README.md. 
+Guidance for setting up prerequisite software and packages is included in this README.md. 
 
 - HuggingFace Account
 - HuggingFace Access Token
