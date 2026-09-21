@@ -1,6 +1,8 @@
+from dotenv import load_dotenv
 from pathlib import Path
 
-USER = "local" # either local or colab
+# USER is either colab or local
+USER = "local"
 
 if USER == "local":
     WORKING_DIR = Path.cwd()

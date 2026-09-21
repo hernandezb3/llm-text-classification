@@ -20,7 +20,7 @@ Conceptual understanding of text classification as a method of analysis, and/or 
 
 **LLM Mechanics**
 
-Understanding of LLMs as next-token prediction systems, including tokenization, and a broad sense of how training data shapes model behavior.
+Understanding of LLMs as next-token prediction systems, including tokenization, and a broad sense of how pre-training data shapes model behavior.
 
 **Programming**
 
@@ -30,10 +30,10 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 # Prerequisite Software & Packages
 Guidance for setting up prerequisite software and packages is included in this README.md. If you have any issues with software and package set-up, please post it in [Discussions](https://github.com/hernandezb3/llm-text-classification/discussions) or email brittney.hernandez@uconn.edu.
 
-- HuggingFace Account
-- HuggingFace Access Token
+- Hugging Face Account
+- Hugging Face Access Token
 - Complete Community Access Agreement for Llama 3.2
-- One of Option A or B:
+- One of **Option A** or **B**:
 
 **Colab Option A)**
 - Google Drive account
@@ -47,18 +47,18 @@ Guidance for setting up prerequisite software and packages is included in this R
 The directory structure for the interactive tutorial is set up as follows:
 
 ```
-├── aime-con/
+├── llm-text-classification/
 │   ├── data/
 │   │   ├── dev.xlsx
-│   │   ├──test.xlsx
+│   │   ├── test.xlsx
 │   │   └── train.xlsx
 │   ├── data_management/
-│   │   ├──human_prompt_codebook.docx
+│   │   ├── human_prompt_codebook.docx
 │   │   └── llm_prompt_codebook.xlsx
 │   ├── results/
 │   │   ├──local/
 │   │   ├── non-local/
-│   │   ├──prompt-engineering/
+│   │   ├── prompt-engineering/
 │   │   ├── fine-tuning/
 │   │   └── classifications.txt
 │   ├── README.md
@@ -106,11 +106,30 @@ Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co
 ---
 # Option A: Google Colab
 
-Save the `aime-con` folder and all of it's contents to `My Drive/`. Below is a link to the folder. *Note.* Do not save it to a folder called Colab Notebooks.
+Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. 
 
-- [aime-con](https://drive.google.com/drive/folders/1Zd4YEUcThwXW2uRGDFmhKjDPL7zd_JVC?usp=share_link)/
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` and save them to the `data/` folder of your cloned repo.
 
-Navigate to the file `aime-con/00a_setup-colab.ipynb`, right click on ... and select Open with > Google Colabratory. 
+- [data-shared](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)/
+
+Confirm the path to the data looks like this:
+
+```
+├── llm-text-classification/
+│   ├── data/
+│   │   ├── dev.xlsx
+│   │   ├── test.xlsx
+│   │   └── train.xlsx
+```
+
+Upload the `llm-text-classification` folder and all it's contents (including the data you just added) to Google Drive, in My Drive. *Note.* Do not save it to a folder called Colab Notebooks.
+
+<p align="center">
+<img src="readme_images/google drive.png" height="500">
+</p>
+
+
+In Google Drive, navigate to the file `aime-con/00a_setup-colab.ipynb`, right click on ... and select Open with > Google Colabratory. 
 
 <p align="center">
 <img src="readme_images/colab.png" height="500">
@@ -138,7 +157,7 @@ git clone https://github.com/hernandezb3/llm-text-classification.git
 
 Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from Google Drive and save them to the `data/` folder of your cloned repo. *Note* There is a .gitignore file in the data file that keeps any data from being pushed to GitHub.
 
-- aime-con/[data](https://drive.google.com/drive/folders/1JIynOkgSf21fB5U1FEwm-YLqWHVMnhoH?usp=share_link)/
+- [data-shared](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)/
 
 Open VS Code. Click Open, navigate to the llm-text-classification folder of the repo you just cloned, and click Open.
 
