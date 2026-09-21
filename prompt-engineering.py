@@ -54,8 +54,8 @@ df = pd.read_excel(path_to_data)
 
 
 # ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.pkl"
-prompts = pd.read_pickle(path_to_prompts)
+path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.csv"
+prompts = pd.read_csv(path_to_prompts)
 prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
          
 # create a function to add a case to the prompt
