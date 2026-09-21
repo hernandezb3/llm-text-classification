@@ -22,7 +22,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 load_dotenv()
 
-USER = "hpc" 
+USER = "brittney" 
 
 if USER == "brittney":
     WORKING_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/AIME-con")
@@ -82,7 +82,7 @@ login(token = os.getenv("HF_TOKEN"))
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
-MODEL = "meta-llama/Llama-3.1-8B-Instruct"
+MODEL = "meta-llama/Llama-3.2-1B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
