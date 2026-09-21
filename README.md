@@ -43,7 +43,7 @@ Guidance for setting up prerequisite software and packages is included in this R
 - Python 3.12.3
 
 # Directory Structure
-The directory structure for the interactive tutorial is set up as follows:
+The directory structure is set up as follows:
 
 ```
 ├── llm-text-classification/
@@ -91,13 +91,13 @@ Click on Create new Access Token and on the next page click + Create new token.
 <img src="readme_images/new token.png" height="300">
 </p>
 
-Select Read Only, give the token name and select Create Token. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
+Select Read Only, give the token a name and click Create Token. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
 
 <p align="center">
 <img src="readme_images/create token.png" height="500">
 </p>
 
-Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) on Hugging Face.
+Navigate to the [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) Model Card on Hugging Face and complete the Community Access Agreement.
 
 <p align="center">
 <img src="readme_images/gated access.png" height="500">
@@ -106,13 +106,13 @@ Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co
 ---
 # Option A) Colab
 
-Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. To download, click Code, and then Download ZIP. After it downloads, find the folder in you downloads and double-click on it to unzip. Edit the file name, removing `-main` from the end. The filename should just be llm-text-classification.
+Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. To download, click Code, and then Download ZIP. After it downloads, find the folder in you downloads and double-click to unzip it. Edit the file name, removing `-main` from the end. The filename should read llm-text-classification.
 
 <p align="center">
 <img src="readme_images/github.png" height="500">
 </p>
 
-Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` and save them to the `data/` folder of your cloned repo.
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` below and save them to the `llm-text-classification/data/` folder.
 
 - [data-shared](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)/
 
@@ -159,10 +159,19 @@ Clone the repo.
 git clone https://github.com/hernandezb3/llm-text-classification.git
 ```
 
-Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from Google Drive and save them to the `data/` folder of your cloned repo. *Note* There is a .gitignore file in the data file that keeps any data from being pushed to GitHub.
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` below and save them to the `data/` folder in your cloned repo. *Note* There is a .gitignore file in the data file that keeps any data from being pushed to GitHub.
 
 - [data-shared](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)/
 
+Confirm the path to the data looks like this:
+
+```
+├── llm-text-classification/
+│   ├── data/
+│   │   ├── dev.xlsx
+│   │   ├── test.xlsx
+│   │   └── train.xlsx
+```
 Open VS Code. Click Open, navigate to the llm-text-classification folder of the repo you just cloned, and click Open.
 
 <p align="center">
