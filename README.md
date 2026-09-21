@@ -87,7 +87,7 @@ Click on your profile icon in the top right corner and select Access Tokens.
 <img src="readme_images/nav to tokens.png" height="500">
 </p>
 
-Select Create new Access Token.
+Click on Create new Access Token and on the next page click + Create new token.
 <p align="center">
 <img src="readme_images/new token.png" height="300">
 </p>
