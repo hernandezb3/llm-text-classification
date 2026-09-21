@@ -140,7 +140,7 @@ prompt_id = "prompt0_c1t4d4g0"
 for prompt_id in tqdm(list(prompt_dictionary.keys())):
     prompt_dictionary_i = prompt_dictionary[prompt_id]
 
-    print(f"\nStarting {prompt_id}\n")
+    print(f"\n\n\nStarting {prompt_id}\n")
 
     code_local = []
     explanation_local = []
