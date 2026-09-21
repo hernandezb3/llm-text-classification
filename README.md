@@ -28,7 +28,7 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 
 
 # Prerequisite Software & Packages
-Guidance for setting up prerequisite software and packages is included in this README.md. 
+Guidance for setting up prerequisite software and packages is included in this README.md. If you have any issues with software and package set-up, please post it in [Discussions](https://github.com/hernandezb3/llm-text-classification/discussions) or email brittney.hernandez@uconn.edu.
 
 - HuggingFace Account
 - HuggingFace Access Token
@@ -43,8 +43,8 @@ Guidance for setting up prerequisite software and packages is included in this R
 - VS Code
 - Python 3.12.3
 
-# Folder Structure
-The `aime-con` folder is set up as follows:
+# Directory Structure
+The directory structure for the interactive tutorial is set up as follows:
 
 ```
 |── aime-con/
@@ -74,7 +74,7 @@ The `aime-con` folder is set up as follows:
 ```
 
 # Hugging Face
-In HuggingFace you will need to sign up for an account, create a read-only acess token, and complete the Community Access Agreement for Llama 3.2. 
+You will need to sign up for an account, create a read-only acess token, and complete the Community Access Agreement for Llama 3.2. 
 
 Navigate to https://huggingface.co and click Sign Up. 
 
