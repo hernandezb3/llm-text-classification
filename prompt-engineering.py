@@ -54,9 +54,10 @@ df = pd.read_excel(path_to_data)
 
 
 # ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "prompt_codebook.xlsx"
-prompts = pd.read_excel(path_to_prompts)
-
+path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.pkl"
+prompts = pd.read_pickle(path_to_prompts)
+prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
+         
 # create a function to add a case to the prompt
 def prompt_case(case, p):
     parts = [
@@ -71,7 +72,7 @@ def prompt_case(case, p):
         parts.append(p["guidance"].strip())
 
     parts.append(p["format_case"])
-    parts.append(case)                 # <- the case goes here
+    parts.append(f"\n\"\"\"{case}\"\"\"\n")                 # <- the case goes here
     parts.append(p["format_local"])    # e.g. output format instructions
 
     return "\n\n".join(part for part in parts if part)
@@ -96,11 +97,10 @@ login(token = os.getenv("HF_TOKEN"))
 # deepseek-ai/DeepSeek-V3.2
 # google/gemma-4-31B-it
 
-
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
-MODEL = "ibm-granite/granite-4.2-8b"
+MODEL = "meta-llama/Llama-3.2-1B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
@@ -132,112 +132,115 @@ hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"
 
 client = outlines.from_transformers(model, hf_tokenizer)
 
-code_local = []
-explanation_local = []
-
-tp = 0
-tn = 0
-fp = 0
-fn = 0
-format_errors = 0
-
-# format response
-pattern = r"```(yes|no)```"
-label_map = {"yes": 1, "no": 0}
-
-start = time.perf_counter() # start runtime counter
 
 # FOR TESTING
 each_case = 0
-for row in tqdm(df.index):
-    CASE = df.loc[row, "text"]
+prompt_id = "prompt0_c1t4d4g0"
 
-    PROMPT = (prompts.loc[prompts.id == "Coding2", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "Construct", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "Prompt1", "prompt"].item() + " " +
-                  f"\n\"\"\"{CASE}\"\"\"\n" + " " +
-                  prompts.loc[prompts.id == "Format2", "prompt"].item()
-                  )
+for prompt_id in tqdm(list(prompt_dictionary.keys())):
+    prompt_dictionary_i = prompt_dictionary[prompt_id]
 
-    if row == 0:
-        print(f"\n{PROMPT}\n")
+    print(f"\nStarting {prompt_id}\n")
 
-    prompt_local = client(PROMPT, Classification, max_new_tokens = TOKENS)
+    code_local = []
+    explanation_local = []
+
+    tp = 0
+    tn = 0
+    fp = 0
+    fn = 0
+    format_errors = 0
+
+    # format response
+    pattern = r"```(yes|no)```"
+    label_map = {"yes": 1, "no": 0}
+
+    start = time.perf_counter() # start runtime counter
+
+    for row in tqdm(df.index):
+        CASE = df.loc[row, "text"]
+
+        PROMPT = prompt_case(CASE, prompt_dictionary_i)
+
+
+        prompt_local = client(PROMPT, Classification, max_new_tokens = TOKENS)
+
+        try:
+            parsed = Classification.model_validate_json(prompt_local)
+            response_code = label_map[parsed.label.value]
+            explanation_text = parsed.explanation
+        except Exception as e:
+            response_code = None
+            explanation_text = prompt_local
+            format_errors = format_errors + 1
+
+        code_local.append(response_code)
+        explanation_local.append(explanation_text)
+
+
+        if df.loc[row, "code_human"] == 1 and response_code == 1:
+            tp = tp + 1
+        elif df.loc[row, "code_human"] == 0 and response_code == 0:
+            tn = tn + 1
+        elif df.loc[row, "code_human"] == 0 and response_code == 1:
+            fp = fp + 1
+        elif df.loc[row, "code_human"] == 1 and response_code == 0:
+            fn = fn + 1
+
+    end = time.perf_counter()
+
+    df[f"code_{MODEL}"] = code_local
+    df[f"explanation_{MODEL}"] = explanation_local
+
+
+    # ---- save the results ----
+    # classifications
+    if "/" in MODEL:
+        model_stripped = re.split("/", MODEL)[1]
+    else:
+        model_stripped = MODEL
+
+    results_data_file = f"{data_filename}_{model_stripped}_{prompt_id}.xlsx"
+    path_to_data_results = RESULTS_DIR / "empirical_prompt_engineering" / results_data_file
+
+
+    # model performance
+    path_to_model_results = RESULTS_DIR / "classification.xlsx"
+    results = pd.read_excel(path_to_model_results, sheet_name = f"{DATA_SOURCE}")
+
+    new_row = {"model": MODEL,
+            "prompt": prompt_id,
+            "utterances": df.shape[0],
+            "tp": tp,
+            "tn": tn,
+            "fp": fp,
+            "fn": fn,
+            "format_errors": format_errors,
+            "cost": None,
+            "runtime": end - start
+            }
+
+    results = pd.concat([results, pd.DataFrame([new_row])], ignore_index = True)
 
     try:
-        parsed = Classification.model_validate_json(prompt_local)
-        response_code = label_map[parsed.label.value]
-        explanation_text = parsed.explanation
+        df.to_excel(path_to_data_results, index = False)
+        with pd.ExcelWriter(
+            path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
+            results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
     except Exception as e:
-        response_code = None
-        explanation_text = prompt_local
-        format_errors = format_errors + 1
+        print(f"Save to results dir failed: {e}")
+        
+        path_to_data_results = Path.cwd() / results_data_file
+        df.to_excel(path_to_data_results, index = False)
 
-    code_local.append(response_code)
-    explanation_local.append(explanation_text)
+        path_to_model_results = Path.cwd() / "classification.xlsx"
+        mode = "a" if os.path.exists(path_to_model_results) else "w"
+        if_sheet_exists = "replace" if mode == "a" else None
 
-
-    if df.loc[row, "code_human"] == 1 and response_code == 1:
-        tp = tp + 1
-    elif df.loc[row, "code_human"] == 0 and response_code == 0:
-        tn = tn + 1
-    elif df.loc[row, "code_human"] == 0 and response_code == 1:
-        fp = fp + 1
-    elif df.loc[row, "code_human"] == 1 and response_code == 0:
-        fn = fn + 1
-
-end = time.perf_counter()
-
-df[f"code_{MODEL}"] = code_local
-df[f"explanation_{MODEL}"] = explanation_local
-
-
-# ---- save the results ----
-# classifications
-if "/" in MODEL:
-    model_stripped = re.split("/", MODEL)[1]
-else:
-    model_stripped = MODEL
-
-results_data_file = f"{data_filename}_{model_stripped}.xlsx"
-path_to_data_results = RESULTS_DIR / "local" / results_data_file
-
-
-# model performance
-path_to_model_results = RESULTS_DIR / "classification.xlsx"
-results = pd.read_excel(path_to_model_results, sheet_name = f"{DATA_SOURCE}")
-
-new_row = {"model": MODEL,
-           "utterances": df.shape[0],
-           "tp": tp,
-           "tn": tn,
-           "fp": fp,
-           "fn": fn,
-           "format_errors": format_errors,
-           "cost": None,
-           "runtime": end - start
-           }
-
-results = pd.concat([results, pd.DataFrame([new_row])], ignore_index = True)
-
-try:
-    df.to_excel(path_to_data_results, index = False)
-    with pd.ExcelWriter(
-        path_to_model_results, engine = "openpyxl", mode = "a", if_sheet_exists = "replace") as writer:
-        results.to_excel(writer, sheet_name=f"{DATA_SOURCE}", index = False)
-except:
-    path_to_data_results = Path.cwd() / results_data_file
-    df.to_excel(path_to_data_results, index = False)
-
-    path_to_model_results = Path.cwd() / "classification.xlsx"
-    mode = "a" if os.path.exists(path_to_model_results) else "w"
-    if_sheet_exists = "replace" if mode == "a" else None
-
-    with pd.ExcelWriter(
-        path_to_model_results,
-        engine = "openpyxl",
-        mode = mode,
-        if_sheet_exists = if_sheet_exists
-        ) as writer:
-            results.to_excel(writer, sheet_name = f"{DATA_SOURCE}", index = False)
-
+        with pd.ExcelWriter(
+            path_to_model_results,
+            engine = "openpyxl",
+            mode = mode,
+            if_sheet_exists = if_sheet_exists
+            ) as writer:
+                results.to_excel(writer, sheet_name = f"{DATA_SOURCE}", index = False)
