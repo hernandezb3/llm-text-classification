@@ -139,7 +139,7 @@ In Google Drive, navigate to the file `aime-con/00a_setup-colab.ipynb`, right cl
 <img src="readme_images/colab.png" height="500">
 </p>
 
-** Continue Colab set from `00a_setup-colab.ipynb` once it opens in Google Colab.
+** Continue Colab set from `00a_setup-colab.ipynb` once it opens in Google Colab. **
 
 ---
 # Option B) Local
@@ -178,7 +178,7 @@ Open VS Code. Click Open, navigate to the llm-text-classification folder of the 
 <img src="readme_images/vs code.png" height="500">
 </p>
 
-** To continue local set up, open `00b_setup-local.ipynb` from the Explorer tab in VS Code.
+** To continue local set up, open `00b_setup-local.ipynb` from the Explorer tab in VS Code. **
 
 <p align="center">
 <img src="readme_images/vs code explorer.png" height="500">
