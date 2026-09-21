@@ -35,11 +35,11 @@ Guidance for setting up prerequisite software and packages is included in this R
 - Complete Community Access Agreement for Llama 3.2
 - One of **Option A** or **B**:
 
-**Colab Option A)**
+**Option A) Colab**
 - Google Drive account
 - Google Colab account
 
-**Local Option B)**
+**Option B) Local**
 - VS Code
 - Python 3.12.3
 
@@ -92,7 +92,8 @@ Click on Create new Access Token and on the next page click + Create new token.
 <img src="readme_images/new token.png" height="300">
 </p>
 
-Select Read Only, assign a token name and select Create Token. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
+Select Read Only, give the token name and select Create Token. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
+
 <p align="center">
 <img src="readme_images/create token.png" height="500">
 </p>
@@ -104,9 +105,14 @@ Complete the Community Acess Agreement for [Llama 3.2 1B](https://huggingface.co
 </p>
 
 ---
-# Option A: Google Colab
+# Option A) Colab
 
-Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. 
+Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. To download, click Code, and then Download ZIP. After it downloads, find the folder in you downloads and double-click on it to unzip.
+
+<p align="center">
+<img src="readme_images/github.png" height="500">
+</p>
+
 
 Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` and save them to the `data/` folder of your cloned repo.
 
@@ -138,7 +144,7 @@ In Google Drive, navigate to the file `aime-con/00a_setup-colab.ipynb`, right cl
 Follow the instructions listed in the file, `00a_setup-colab.ipynb`.
 
 ---
-# Option B: Local
+# Option B) Local
 
 - Download [Visual Studio Code](https://code.visualstudio.com) (VS Code)
 - Download [Python 3.12.3](https://www.python.org/downloads/release/python-3123/)
