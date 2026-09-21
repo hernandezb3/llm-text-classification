@@ -55,7 +55,7 @@ df = pd.read_excel(path_to_data)
 
 # ---- get prompt codebook ----
 path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.csv"
-prompts = pd.read_csv(path_to_prompts)
+prompts = pd.read_csv(path_to_prompts).fillna("")
 prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
          
 # create a function to add a case to the prompt
@@ -152,7 +152,6 @@ for prompt_id in tqdm(list(prompt_dictionary.keys())):
     format_errors = 0
 
     # format response
-    pattern = r"```(yes|no)```"
     label_map = {"yes": 1, "no": 0}
 
     start = time.perf_counter() # start runtime counter
