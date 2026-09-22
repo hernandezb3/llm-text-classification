@@ -25,9 +25,12 @@ outlines
 # ------- fine tuning ------- #
 torch
 transformers
+# transformers==5.17.0
 accelerate
 peft
+# peft==0.21.0
 trl
+# trl==1.13.0
 datasets
 bitsandbytes>=0.46.1
 torchao>=0.16.0

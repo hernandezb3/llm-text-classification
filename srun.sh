@@ -13,7 +13,7 @@ srun --partition=general-gpu \
      --cpus-per-task=8 \
      --gres=gpu:1 \
      --mem=32G \
-     --time=06:00:00 \
+     --time=5:00:00 \
      --pty bash
 
 # bigger models need multiple gpus
