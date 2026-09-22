@@ -49,8 +49,11 @@ if DEVICE == "cuda":
 # ---- get data ----
 path_to_train = DATA_DIR / "cgi_train.xlsx"
 train = pd.read_excel(path_to_train)
+word_counts = train["text"].str.split(" ").str.len()
 
-path_to_dev = DATA_DIR / "cgi_train.xlsx"
+max_utterance_len = word_counts.max()
+
+path_to_dev = DATA_DIR / "cgi_dev.xlsx"
 dev = pd.read_excel(path_to_dev)
 #df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
@@ -89,6 +92,8 @@ def prompt_case(case, p):
 
 prompt_template = prompt_case("CASE", prompt_dictionary)
 print(f"\n\nPROMPT TEMPLATE\n{prompt_template}\n\n")
+
+prompt_len = len(prompt_template.split(" "))
 
 
 # ---- set up model ----
@@ -156,14 +161,16 @@ print(f"Model: {MODEL} \nPrecision: {PRECISION} \nQuantization: {QUANTIZATION}")
 def make_prompt_completion(row, tokenizer):
     label_str = "Yes" if row["code_human"] == 1 else "No"
 
-    messages = [
-        {"role": "user",      "content": prompt_case(str(row["text"]), prompt_dictionary)},
-        {"role": "assistant", "content": label_str},
-        ]
+    return {
+        "prompt": [
+            {"role": "user", "content": prompt_case(str(row["text"]), prompt_dictionary)},
+            ],
 
-    return {"text": tokenizer.apply_chat_template(
-        messages, tokenize = False, add_generation_prompt = False
-        )}
+        "completion": [
+            {"role": "assistant", "content": label_str},
+            ],
+        }
+
 
 train_hf = Dataset.from_list([
      make_prompt_completion(row, hf_tokenizer) for _, row in train_balanced.iterrows()
@@ -191,6 +198,7 @@ model.print_trainable_parameters()
 path_to_output = RESULTS_DIR / "finetune"
 sft_config = SFTConfig(
     output_dir = path_to_output,
+    completion_only_loss = True,
     num_train_epochs = 3,
     per_device_train_batch_size = 16,
     per_device_eval_batch_size = 32,
@@ -209,7 +217,7 @@ sft_config = SFTConfig(
     load_best_model_at_end = True,
     metric_for_best_model = "eval_loss",
     report_to = "none",
-    max_length = 520,              #max_seq_length depending on the package update
+    max_length = int((max_utterance_len + prompt_len) * 1.5) + 150,
     optim = "paged_adamw_8bit", # "adamw_torch",
 )
 
@@ -223,5 +231,7 @@ trainer = SFTTrainer(
 )
 
 trainer.train()
-# trainer.save_model(f'{MODEL}_finetuned')
+
+path_to_finetuned_model = RESULTS_DIR / f'{MODEL}_dialogue_tuned'
+trainer.save_model(path_to_finetuned_model)
 # trainer.push_to_hub()
