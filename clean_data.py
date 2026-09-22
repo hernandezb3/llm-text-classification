@@ -11,19 +11,19 @@ AIMECON_DATA_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-
 
 CODING_MANIFEST = FOCUS_DATA_DIR / "coding_assignments_all.xlsx"
 
-SOURCE_FILE = AIMECON_DATA_DIR / "cgi_finetune_data.xlsx"
-TRAIN_FILE = AIMECON_DATA_DIR / "cgi_train.parquet"
-DEV_FILE = AIMECON_DATA_DIR / "cgi_dev.parquet"
-TEST_FILE = AIMECON_DATA_DIR / "cgi_test.parquet"
+SOURCE_FILE = AIMECON_DATA_DIR / "cgi_all.xlsx"
+TRAIN_FILE = AIMECON_DATA_DIR / "cgi_train.xlsx"
+DEV_FILE = AIMECON_DATA_DIR / "cgi_dev.xlsx"
+TEST_FILE = AIMECON_DATA_DIR / "cgi_test.xlsx"
 
-CODERS = ["hima", "kelsi", "brittney"]
+CODERS = ["coder1", "coder2", "coder3"]
 
 manifest = pd.read_excel(CODING_MANIFEST)
 
 # FOR TESTING
 row = 5
 item = 1
-each_pair = ('prompt_hima', 'prompt_kelsi')
+each_pair = ('prompt_coder1', 'prompt_coder2')
 
 all_merged_files = None
 for row in range(0, manifest.shape[0]):
@@ -105,23 +105,3 @@ for row in range(0, manifest.shape[0]):
 manifest.to_excel(FOCUS_DATA_DIR / "coding_assignments_metadata.xlsx", index = False)
 all_merged_files.to_excel(SOURCE_FILE, index = False)
 print(f"Saved cgi_finetune_data.xlsx to {AIMECON_DATA_DIR}")
-
-#manifest[row, "kappa_sample_size"] = merged.shape[0]
-    
-            
-
-        
-
-
-
-
-
-
-
-
-#print(f"Prepared data will be saved to {AIMECON_DATA_DIR}")
-
-#raw = pd.read_excel(SOURCE_FILE)
-
-#print(f"Loaded {len(raw):,} rows and {raw.shape[1]} columns")
-#print(raw.head(3))
