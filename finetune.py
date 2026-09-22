@@ -137,8 +137,8 @@ hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"
 hf_tokenizer.padding_side = "right" 
 model.config.pad_token_id = hf_tokenizer.eos_token_id
 
+# see how much space the model occupies in memory
 print(model.get_memory_footprint() / 1e9, "GB")
-
 
 if getattr(model.config, "quantization_config", None) is not None:
     QUANTIZATION = model.config.quantization_config
@@ -148,6 +148,8 @@ else:
 print("\n\nFINETUNING INFO")
 print(f"Model: {MODEL} \nPrecision: {PRECISION} \nQuantization: {QUANTIZATION}")
 
+# see the layers in the model
+# print(model)
 
 # prep data for finetuning
 # tokenize prompt
@@ -172,8 +174,8 @@ dev_hf = Dataset.from_list([
     ])
 
 lora_config = LoraConfig(
-    r = 16,
-    lora_alpha = 32,
+    r = 16, # rank of the adapter
+    lora_alpha = 32, # multiplier, usually 2*r
     lora_dropout = 0.05,
     bias = "none",
     task_type = TaskType.CAUSAL_LM,
@@ -194,7 +196,6 @@ sft_config = SFTConfig(
     per_device_eval_batch_size = 32,
     gradient_accumulation_steps = 1,
     warmup_steps = 10,
-
     learning_rate = 2e-4,
     max_grad_norm = 0.3,
     fp16 = False, 
@@ -218,7 +219,9 @@ trainer = SFTTrainer(
     train_dataset = train_hf,
     eval_dataset = dev_hf,
     processing_class = hf_tokenizer,
-    callbacks=[EarlyStoppingCallback(early_stopping_patience = 6)]
+    callbacks = [EarlyStoppingCallback(early_stopping_patience = 6)]
 )
 
 trainer.train()
+# trainer.save_model(f'{MODEL}_finetuned')
+# trainer.push_to_hub()
