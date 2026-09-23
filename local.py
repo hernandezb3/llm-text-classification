@@ -37,7 +37,7 @@ elif USER =="colab":
     DATA_DIR = WORKING_DIR / "data"
 
 RESULTS_DIR = WORKING_DIR / "results"
-DATA_SOURCE = "train" # train, validate, test
+DATA_SOURCE = "dev" # train, dev, test
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 print(f"\nUsing device: {DEVICE}")
@@ -54,7 +54,7 @@ df = pd.read_excel(path_to_data)
 
 
 # ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "prompt_codebook.xlsx"
+path_to_prompts = WORKING_DIR / "data_management" / "llm_codebook.xlsx"
 prompts = pd.read_excel(path_to_prompts)
 
 
@@ -81,8 +81,8 @@ login(token = os.getenv("HF_TOKEN"))
 
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
-
-MODEL = "meta-llama/Llama-3.2-1B-Instruct"
+path_to_finetuned_model = RESULTS_DIR / "finetune" / "Llama-3.2-1B-Instruct_dialogue_tuned"
+MODEL = path_to_finetuned_model
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
@@ -134,11 +134,11 @@ each_case = 0
 for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
-    PROMPT = (prompts.loc[prompts.id == "Coding2", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "Construct", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "Prompt1", "prompt"].item() + " " +
+    PROMPT = (prompts.loc[prompts.id == "task_1", "prompt"].item() + " " +
+                  prompts.loc[prompts.id == "definition_1", "prompt"].item() + " " +
+                  prompts.loc[prompts.id == "format_case", "prompt"].item() + " " +
                   f"\n\"\"\"{CASE}\"\"\"\n" + " " +
-                  prompts.loc[prompts.id == "Format2", "prompt"].item()
+                  prompts.loc[prompts.id == "format_local", "prompt"].item()
                   )
 
     if row == 0:
