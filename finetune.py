@@ -103,7 +103,7 @@ login(token = os.getenv("HF_TOKEN"))
 # meta-llama/Llama-3.2-1B-Instruct
 # meta-llama/Llama-3.2-3B-Instruct
 # ibm-granite/granite-4.2-3b 
-# Qwen/Qwen2.5-7B-Instruct x
+# Qwen/Qwen2.5-7B-Instruct
 # ibm-granite/granite-4.2-8b 
 
 
@@ -158,6 +158,9 @@ print(f"Model: {MODEL} \nPrecision: {PRECISION} \nQuantization: {QUANTIZATION}")
 
 # prep data for finetuning
 # tokenize prompt
+
+# claudia look here -- this function replaces the commented out function below
+# the completion is just the label and then i add completion_only_loss to the sft config
 def make_prompt_completion(row, tokenizer):
     label_str = "Yes" if row["code_human"] == 1 else "No"
 
@@ -171,6 +174,16 @@ def make_prompt_completion(row, tokenizer):
             ],
         }
 
+#def make_prompt_completion(row, tokenizer):
+#    label_str = "Yes" if row["code_human"] == 1 else "No"
+#    messages = [
+#        {"role": "system",    "content": "You are a helpful text classifier."},
+#        {"role": "user",      "content": build_user_prompt(str(row["text"]))},
+#        {"role": "assistant", "content": label_str},
+#    ]
+#    return {"text": tokenizer.apply_chat_template(
+#        messages, tokenize=False, add_generation_prompt=False
+#    )}
 
 train_hf = Dataset.from_list([
      make_prompt_completion(row, hf_tokenizer) for _, row in train_balanced.iterrows()
@@ -198,7 +211,7 @@ model.print_trainable_parameters()
 path_to_output = RESULTS_DIR / "finetune"
 sft_config = SFTConfig(
     output_dir = path_to_output,
-    completion_only_loss = True,
+    completion_only_loss = True, # claudia look here: this only checks accuracy on the completion aka the y/n label
     num_train_epochs = 3,
     per_device_train_batch_size = 16,
     per_device_eval_batch_size = 32,
@@ -217,7 +230,7 @@ sft_config = SFTConfig(
     load_best_model_at_end = True,
     metric_for_best_model = "eval_loss",
     report_to = "none",
-    max_length = int((max_utterance_len + prompt_len) * 1.5) + 150,
+    max_length = int((max_utterance_len + prompt_len) * 1.5) + 150, # claudia look here
     optim = "paged_adamw_8bit", # "adamw_torch",
 )
 
