@@ -182,7 +182,8 @@ if "/" in model_string:
 else:
     model_stripped = MODEL
 
-results_data_file = f"{data_filename}_{model_stripped}.xlsx"
+
+results_data_file = f"{DATA_SOURCE}_{model_stripped}.xlsx"
 path_to_data_results = RESULTS_DIR / "local" / results_data_file
 
 
