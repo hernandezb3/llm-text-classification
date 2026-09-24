@@ -45,7 +45,7 @@ if DEVICE == "cuda":
     print(torch.cuda.get_device_name(0))
 
 # ---- get data ----
-data_filename = f"cgi_{DATA_SOURCE}"
+data_filename = f"{DATA_SOURCE}"
 path_to_data = DATA_DIR / f"{data_filename}.xlsx"
 df = pd.read_excel(path_to_data)
 #df = df.sample(n = 5, ignore_index = True)
