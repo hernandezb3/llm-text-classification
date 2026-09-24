@@ -22,7 +22,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 load_dotenv()
 
-USER = "hpc" 
+USER = "brittney" 
 
 if USER == "brittney":
     WORKING_DIR = Path("/Users/brittneyhernandez/Library/CloudStorage/OneDrive-UniversityofConnecticut/AIME-con")
@@ -175,8 +175,10 @@ df[f"explanation_{MODEL}"] = explanation_local
 
 # ---- save the results ----
 # classifications
-if "/" in MODEL:
-    model_stripped = re.split("/", MODEL)[1]
+model_string = str(MODEL)
+if "/" in model_string:
+    last_split = len(re.split("/", model_string)) - 1
+    model_stripped = re.split("/", model_string)[last_split]
 else:
     model_stripped = MODEL
 
@@ -188,7 +190,7 @@ path_to_data_results = RESULTS_DIR / "local" / results_data_file
 path_to_model_results = RESULTS_DIR / "classification.xlsx"
 results = pd.read_excel(path_to_model_results, sheet_name = f"{DATA_SOURCE}")
 
-new_row = {"model": MODEL,
+new_row = {"model": model_stripped,
            "utterances": df.shape[0],
            "tp": tp,
            "tn": tn,
