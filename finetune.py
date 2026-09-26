@@ -44,7 +44,16 @@ RANDOM_STATE = 42
 
 print(f"\nUsing device: {DEVICE}")
 if DEVICE == "cuda":
+    if torch.cuda.is_bf16_supported():
+        PRECISION = torch.bfloat16
+    else:
+        PRECISION = torch.float16
     print(torch.cuda.get_device_name(0))
+
+# float32 = full precision for CPU
+# can use bfloat16 if cuda is available (float for cpu, bfloat for gpu)
+
+
 
 # ---- get data ----
 path_to_train = DATA_DIR / "cgi_train.xlsx"
@@ -114,7 +123,6 @@ MODEL = "meta-llama/Llama-3.2-1B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
-PRECISION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
 bnb_config = BitsAndBytesConfig(
     load_in_4bit = True,
@@ -131,9 +139,11 @@ bnb_config = BitsAndBytesConfig(
 
 model = AutoModelForCausalLM.from_pretrained(MODEL, 
                                              quantization_config = bnb_config,
+                                             torch_dtype = PRECISION,
                                              token = os.getenv("HF_TOKEN"),
-                                             device_map = DEVICE) # initate pipeline
+                                             device_map = "auto") # initate pipeline
 
+# true saves the hidden state once it's been computed
 model.config.use_cache = False
 
 hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"))
@@ -186,7 +196,7 @@ def make_prompt_completion(row, tokenizer):
 #    )}
 
 train_hf = Dataset.from_list([
-     make_prompt_completion(row, hf_tokenizer) for _, row in train_balanced.iterrows()
+     make_prompt_completion(row, hf_tokenizer) for _, row in train.iterrows()
      ])
 
 dev_hf = Dataset.from_list([
