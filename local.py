@@ -68,6 +68,7 @@ login(token = os.getenv("HF_TOKEN"))
 # meta-llama/Llama-4-Maverick-17B-128E-Instruct
 # Qwen/Qwen2.5-7B-Instruct x
 # google/gemma-4-12B-it x
+# ibm-granite/granite-4.2-3b
 # ibm-granite/granite-4.2-8b 
 # microsoft/phi-4 (15B) x
 
@@ -77,11 +78,13 @@ login(token = os.getenv("HF_TOKEN"))
 # deepseek-ai/DeepSeek-V3.2
 # google/gemma-4-31B-it
 
+# finetuned models supply path
+path_to_finetuned_model = RESULTS_DIR / "finetune" / "Llama-3.2-1B-Instruct_dialogue_tuned"
+
 
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
-path_to_finetuned_model = RESULTS_DIR / "finetune" / "Llama-3.2-1B-Instruct_dialogue_tuned"
-MODEL = path_to_finetuned_model
+MODEL = "ibm-granite/granite-4.2-3b"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
