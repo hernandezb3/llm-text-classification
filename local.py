@@ -79,7 +79,7 @@ login(token = os.getenv("HF_TOKEN"))
 # google/gemma-4-31B-it
 
 # finetuned models supply path
-path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT_all_train"
+path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT_learn5e-5"
 
 
 # ON COLAB
