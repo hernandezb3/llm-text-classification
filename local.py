@@ -84,7 +84,7 @@ path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT
 
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
-MODEL = "ibm-granite/granite-4.2-3b"
+MODEL = path_to_finetuned_model
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
