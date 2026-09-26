@@ -39,8 +39,11 @@ elif USER =="colab":
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
+DESCRIPTION = "all_train"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 RANDOM_STATE = 42
+
+
 
 print(f"\nUsing device: {DEVICE}")
 if DEVICE == "cuda":
@@ -54,8 +57,6 @@ else:
 
 # float32 = full precision for CPU
 # can use bfloat16 if cuda is available (float for cpu, bfloat for gpu)
-
-DESCRIPTION = "all_train"
 
 # ---- get data ----
 path_to_train = DATA_DIR / "train.xlsx"
@@ -229,7 +230,7 @@ sft_config = SFTConfig(
     per_device_eval_batch_size = 32,
     gradient_accumulation_steps = 1,
     warmup_steps = 10,
-    learning_rate = 2e-4, # TRY: slow down learning rate 1e-4 or 5e-5
+    learning_rate = 5e-5, # TRY: slow down learning rate 1e-4 or 5e-5
     max_grad_norm = 0.3,
     fp16 = PRECISION == torch.float16,
     bf16 = PRECISION == torch.bfloat16,
