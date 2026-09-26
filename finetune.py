@@ -49,11 +49,13 @@ if DEVICE == "cuda":
     else:
         PRECISION = torch.float16
     print(torch.cuda.get_device_name(0))
+else:
+    raise RuntimeError("No GPU found: 4-bit QLoRA training requires CUDA.")
 
 # float32 = full precision for CPU
 # can use bfloat16 if cuda is available (float for cpu, bfloat for gpu)
 
-
+DESCRIPTION = "all_train"
 
 # ---- get data ----
 path_to_train = DATA_DIR / "cgi_train.xlsx"
@@ -139,11 +141,11 @@ bnb_config = BitsAndBytesConfig(
 
 model = AutoModelForCausalLM.from_pretrained(MODEL, 
                                              quantization_config = bnb_config,
-                                             torch_dtype = PRECISION,
+                                             dtype = PRECISION,
                                              token = os.getenv("HF_TOKEN"),
                                              device_map = "auto") # initate pipeline
 
-# true saves the hidden state once it's been computed
+# caches attention key/values. faster generation but conflic w gradient checkpoint
 model.config.use_cache = False
 
 hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"))
@@ -204,9 +206,9 @@ dev_hf = Dataset.from_list([
     ])
 
 lora_config = LoraConfig(
-    r = 16, # rank of the adapter
+    r = 16, # rank of the adapter TRY: 8 
     lora_alpha = 32, # multiplier, usually 2*r
-    lora_dropout = 0.05,
+    lora_dropout = 0.05, # TRY: more regularization .10
     bias = "none",
     task_type = TaskType.CAUSAL_LM,
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
@@ -227,10 +229,10 @@ sft_config = SFTConfig(
     per_device_eval_batch_size = 32,
     gradient_accumulation_steps = 1,
     warmup_steps = 10,
-    learning_rate = 2e-4,
+    learning_rate = 2e-4, # TRY: slow down learning rate 1e-4 or 5e-5
     max_grad_norm = 0.3,
-    fp16 = False, 
-    bf16 = True,
+    fp16 = PRECISION == torch.float16,
+    bf16 = PRECISION == torch.bfloat16,
     logging_steps = 10,
     eval_strategy = "steps", 
     eval_steps = 20,
@@ -238,7 +240,8 @@ sft_config = SFTConfig(
     save_steps = 20,
     save_total_limit = 3,
     load_best_model_at_end = True,
-    metric_for_best_model = "eval_loss",
+    metric_for_best_model = "eval_loss", # TRY? f1 or kappa
+    # greater_is_better = True, # need this if using f1 or kappa
     report_to = "none",
     max_length = int((max_utterance_len + prompt_len) * 1.5) + 150, # claudia look here
     optim = "paged_adamw_8bit", # "adamw_torch",
@@ -255,6 +258,6 @@ trainer = SFTTrainer(
 
 trainer.train()
 
-path_to_finetuned_model = RESULTS_DIR / f'{MODEL}_dialogue_tuned'
+path_to_finetuned_model = RESULTS_DIR / f'{MODEL}_FT_{DESCRIPTION}'
 trainer.save_model(path_to_finetuned_model)
 # trainer.push_to_hub()
