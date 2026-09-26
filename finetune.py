@@ -58,13 +58,13 @@ else:
 DESCRIPTION = "all_train"
 
 # ---- get data ----
-path_to_train = DATA_DIR / "cgi_train.xlsx"
+path_to_train = DATA_DIR / "train.xlsx"
 train = pd.read_excel(path_to_train)
 word_counts = train["text"].str.split(" ").str.len()
 
 max_utterance_len = word_counts.max()
 
-path_to_dev = DATA_DIR / "cgi_dev.xlsx"
+path_to_dev = DATA_DIR / "dev.xlsx"
 dev = pd.read_excel(path_to_dev)
 #df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
