@@ -37,7 +37,7 @@ elif USER =="colab":
     DATA_DIR = WORKING_DIR / "data"
 
 RESULTS_DIR = WORKING_DIR / "results"
-DATA_SOURCE = "dev" # train, dev, test
+DATA_SOURCE = "train" # train, dev, test
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 print(f"\nUsing device: {DEVICE}")
