@@ -39,7 +39,7 @@ elif USER =="colab":
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
-DESCRIPTION = "best-prompt"
+DESCRIPTION = "task-type"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 RANDOM_STATE = 42
 
