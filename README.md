@@ -30,6 +30,7 @@ Proficiency in one or more programming language(s) such as Python or R. Conceptu
 # Prerequisite Software & Packages
 Guidance for setting up prerequisite software and packages is included in this README.md. If you have any issues with software and package set-up, please post it in [Discussions](https://github.com/hernandezb3/llm-text-classification/discussions) or email brittney.hernandez@uconn.edu.
 
+- GitHub Account
 - Hugging Face Account
 - Hugging Face Access Token
 - Complete Community Access Agreement for Llama 3.2
