@@ -53,8 +53,29 @@ df = pd.read_excel(path_to_data)
 
 
 # ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "llm_codebook.xlsx"
+path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.csv"
 prompts = pd.read_excel(path_to_prompts)
+prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
+
+
+def prompt_case(case, p):
+    parts = [
+        p["context"],
+        p["task"],
+        p["definition"],
+    ]
+
+    # only include the guidance header if any guidance was drawn
+    if len(p["guidance"]) > 0:
+        parts.append(p["format_guidance"])
+        parts.append(p["guidance"].strip())
+
+    parts.append(p["format_case"])
+    parts.append(f"\n\"\"\"{case}\"\"\"\n")                 # <- the case goes here
+    parts.append(p["format_local"])    # e.g. output format instructions
+
+    return "\n\n".join(part for part in parts if part)
+
 
 
 # ---- set up model ----
