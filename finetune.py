@@ -39,7 +39,7 @@ elif USER =="colab":
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
-DESCRIPTION = "learn5e-5"
+DESCRIPTION = "best-prompt"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 RANDOM_STATE = 42
 
@@ -86,23 +86,50 @@ print(f"n train balanced: {len(train_balanced):,}\n{train_balanced['code_human']
 print(f"n dev: {len(dev):,}\n{dev['code_human'].value_counts()}\n")
 
 # ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "llm_codebook.xlsx"
-prompts = pd.read_excel(path_to_prompts)
-prompt_dictionary = prompts.set_index("id")["prompt"].to_dict()
+# path_to_prompts = WORKING_DIR / "data_management" / "llm_codebook.xlsx"
+# prompts = pd.read_excel(path_to_prompts)
+# prompt_dictionary = prompts.set_index("id")["prompt"].to_dict()
+
+# def prompt_case(case, p):
+#     parts = [
+#         p["task_1"],
+#         p["definition_1"],
+#         p["format_case"],
+#         ]
+    
+#     parts.append(f"\n\"\"\"{case}\"\"\"\n")
+#     parts.append(p["format_local"])
+
+#     return "\n\n".join(part for part in parts if part)
+
+
+# empirical prompt:
+path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.csv"
+prompts = pd.read_csv(path_to_prompts).fillna("")
+prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
 
 def prompt_case(case, p):
     parts = [
-        p["task_1"],
-        p["definition_1"],
-        p["format_case"],
-        ]
-    
-    parts.append(f"\n\"\"\"{case}\"\"\"\n")
-    parts.append(p["format_local"])
+        p["context"],
+        p["task"],
+        p["definition"],
+    ]
+
+    # only include the guidance header if any guidance was drawn
+    if len(p["guidance"]) > 0:
+        parts.append(p["format_guidance"])
+        parts.append(p["guidance"].strip())
+
+    parts.append(p["format_case"])
+    parts.append(f"\n\"\"\"{case}\"\"\"\n")                 # <- the case goes here
+    parts.append(p["format_local"])    # e.g. output format instructions
 
     return "\n\n".join(part for part in parts if part)
 
-prompt_template = prompt_case("CASE", prompt_dictionary)
+# choose which prompt to use
+prompt_id = "prompt3_c5t1d4g6"
+
+prompt_template = prompt_case("CASE", prompt_dictionary[prompt_id])
 print(f"\n\nPROMPT TEMPLATE\n{prompt_template}\n\n")
 
 prompt_len = len(prompt_template.split(" "))
@@ -179,7 +206,7 @@ def make_prompt_completion(row, tokenizer):
 
     return {
         "prompt": [
-            {"role": "user", "content": prompt_case(str(row["text"]), prompt_dictionary)},
+            {"role": "user", "content": prompt_case(str(row["text"]), prompt_dictionary[prompt_id])},
             ],
 
         "completion": [
