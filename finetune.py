@@ -238,7 +238,7 @@ lora_config = LoraConfig(
     lora_alpha = 32, # multiplier, usually 2*r
     lora_dropout = 0.05, # TRY: more regularization .10
     bias = "none",
-    task_type = TaskType.CAUSAL_LM,
+    task_type = TaskType.SEQ_CLS,
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
                       "gate_proj", "up_proj", "down_proj"],
 )
