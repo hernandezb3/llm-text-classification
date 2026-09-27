@@ -127,7 +127,7 @@ def prompt_case(case, p):
     return "\n\n".join(part for part in parts if part)
 
 # choose which prompt to use
-prompt_id = "prompt3_c5t1d4g6"
+prompt_id = "baseline_c0t1d1g0"
 
 prompt_template = prompt_case("CASE", prompt_dictionary[prompt_id])
 print(f"\n\nPROMPT TEMPLATE\n{prompt_template}\n\n")
