@@ -226,7 +226,7 @@ def make_prompt_completion(row, tokenizer):
 #    )}
 
 train_hf = Dataset.from_list([
-     make_prompt_completion(row, hf_tokenizer) for _, row in train.iterrows()
+     make_prompt_completion(row, hf_tokenizer) for _, row in train_balanced.iterrows()
      ])
 
 dev_hf = Dataset.from_list([
@@ -257,7 +257,7 @@ sft_config = SFTConfig(
     per_device_eval_batch_size = 32,
     gradient_accumulation_steps = 1,
     warmup_steps = 10,
-    learning_rate = 5e-5, # TRY: slow down learning rate 1e-4 or 5e-5
+    learning_rate = 2e-4, # TRY: slow down learning rate 1e-4 or 5e-5
     max_grad_norm = 0.3,
     fp16 = PRECISION == torch.float16,
     bf16 = PRECISION == torch.bfloat16,
