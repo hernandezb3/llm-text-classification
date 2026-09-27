@@ -61,9 +61,12 @@ else:
 # ---- get data ----
 path_to_train = DATA_DIR / "train.xlsx"
 train = pd.read_excel(path_to_train)
-word_counts = train["text"].str.split(" ").str.len()
+train["word_counts"] = train["text"].str.split(" ").str.len()
 
-max_utterance_len = word_counts.max()
+# remove long utterances - crashing 3B FT
+# train["word_counts"].describe(percentiles=[.5, .9, .99, .999])
+train = train[train["word_counts"] <= 700]
+max_utterance_len = train["word_counts"].max()
 
 path_to_dev = DATA_DIR / "dev.xlsx"
 dev = pd.read_excel(path_to_dev)
