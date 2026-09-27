@@ -39,7 +39,7 @@ elif USER =="colab":
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
-DESCRIPTION = "task-type"
+DESCRIPTION = "base"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 RANDOM_STATE = 42
 
@@ -149,7 +149,7 @@ login(token = os.getenv("HF_TOKEN"))
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
-MODEL = "meta-llama/Llama-3.2-1B-Instruct"
+MODEL = "meta-llama/Llama-3.2-3B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
@@ -238,7 +238,7 @@ lora_config = LoraConfig(
     lora_alpha = 32, # multiplier, usually 2*r
     lora_dropout = 0.05, # TRY: more regularization .10
     bias = "none",
-    task_type = TaskType.SEQ_CLS,
+    task_type = TaskType.CAUSAL_LM,
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
                       "gate_proj", "up_proj", "down_proj"],
 )
