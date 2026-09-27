@@ -57,7 +57,6 @@ path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.csv"
 prompts = pd.read_excel(path_to_prompts)
 prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
 
-
 def prompt_case(case, p):
     parts = [
         p["context"],
@@ -76,6 +75,8 @@ def prompt_case(case, p):
 
     return "\n\n".join(part for part in parts if part)
 
+# choose which prompt to use
+prompt_id = "baseline_c0t1d1g0"
 
 
 # ---- set up model ----
@@ -158,15 +159,10 @@ each_case = 0
 for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
-    PROMPT = (prompts.loc[prompts.id == "task_1", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "definition_1", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "format_case", "prompt"].item() + " " +
-                  f"\n\"\"\"{CASE}\"\"\"\n" + " " +
-                  prompts.loc[prompts.id == "format_local", "prompt"].item()
-                  )
+    PROMPT = prompt_case(str(row["text"]), prompt_dictionary[prompt_id])
 
     if row == 0:
-        print(f"\n{PROMPT}\n")
+        print(f"\nPROMPT {prompt_id}: {PROMPT}\n")
 
     prompt_local = client(PROMPT, Classification, max_new_tokens = TOKENS)
 
