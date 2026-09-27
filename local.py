@@ -85,9 +85,10 @@ path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 MODEL = path_to_finetuned_model
+PROMPT = "baseline_c0t1d1g0"
 TASK = "text-generation"
 TOKENS = 500
-TEMPERATURE = 0.1
+TEMPERATURE = 0
 PRECISION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
 print(f"Model: {MODEL}\nSample Size: {df.shape[0]}\n")
