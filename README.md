@@ -85,17 +85,17 @@ Navigate to https://huggingface.co and click Sign Up.
 <img src="readme_images/hf sign up.png" height="500">
 </p>
 
-Click on your profile icon in the top right corner and select Access Tokens. 
+Click on your profile icon in the top right corner and select **Access Tokens**. 
 <p align="center">
 <img src="readme_images/nav to tokens.png" height="500">
 </p>
 
-Click on Create new Access Token and on the next page click + Create new token.
+Click on **Create new Access Token** and on the next page click **+ Create new token**.
 <p align="center">
 <img src="readme_images/new token.png" height="300">
 </p>
 
-Select Read Only, give the token a name and click Create Token. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
+Select **Read Only**, give the token a name and click **Create Token**. A pop-up window will appear with your access token. Save this somewhere secure (e.g., a password manager). 
 
 <p align="center">
 <img src="readme_images/create token.png" height="500">
@@ -116,7 +116,7 @@ Navigate to https://colab.research.google.com and click **+ New Notebook**.
 <img src="readme_images/add-notebook.png" height="500">
 </p>
 
-To add a new chunk of code to your notebook click + Code. Run each chunk of code by clicking the ▶️ button. 
+To add a new chunk of code to your notebook click **+ Code**. Run each chunk of code by clicking the ▶️ button. 
 
 <p align="center">
 <img src="readme_images/code-chunk.png" height="200">
@@ -147,6 +147,10 @@ Clone the GitHub reposiitory to your Google Drive.
 
 ### Upload Data to Google Drive
 Navigate to Google Drive. You should now see a folder called `llm-text-classification` in My Drive.
+
+<p align="center">
+<img src="readme_images/google drive.png" height="500">
+</p>
 
 Navigate to `My Drive/llm-text-classification/data/`
 
