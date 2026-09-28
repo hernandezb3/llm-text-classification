@@ -39,21 +39,36 @@ elif USER =="colab":
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
+DESCRIPTION = "base"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 RANDOM_STATE = 42
 
+
+
 print(f"\nUsing device: {DEVICE}")
 if DEVICE == "cuda":
+    if torch.cuda.is_bf16_supported():
+        PRECISION = torch.bfloat16
+    else:
+        PRECISION = torch.float16
     print(torch.cuda.get_device_name(0))
+else:
+    raise RuntimeError("No GPU found: 4-bit QLoRA training requires CUDA.")
+
+# float32 = full precision for CPU
+# can use bfloat16 if cuda is available (float for cpu, bfloat for gpu)
 
 # ---- get data ----
-path_to_train = DATA_DIR / "cgi_train.xlsx"
+path_to_train = DATA_DIR / "train.xlsx"
 train = pd.read_excel(path_to_train)
-word_counts = train["text"].str.split(" ").str.len()
+train["word_counts"] = train["text"].str.split(" ").str.len()
 
-max_utterance_len = word_counts.max()
+# remove long utterances - crashing 3B FT
+# train["word_counts"].describe(percentiles=[.5, .9, .99, .999])
+train = train[train["word_counts"] <= 700]
+max_utterance_len = train["word_counts"].max()
 
-path_to_dev = DATA_DIR / "cgi_dev.xlsx"
+path_to_dev = DATA_DIR / "dev.xlsx"
 dev = pd.read_excel(path_to_dev)
 #df = df.sample(n = 5, ignore_index = True)
 # call out in the room, what performance did you estimate
@@ -74,24 +89,51 @@ print(f"n train balanced: {len(train_balanced):,}\n{train_balanced['code_human']
 print(f"n dev: {len(dev):,}\n{dev['code_human'].value_counts()}\n")
 
 # ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "llm_codebook.xlsx"
-prompts = pd.read_excel(path_to_prompts)
-prompt_dictionary = prompts.set_index("id")["prompt"].to_dict()
+# path_to_prompts = WORKING_DIR / "data_management" / "llm_codebook.xlsx"
+# prompts = pd.read_excel(path_to_prompts)
+# prompt_dictionary = prompts.set_index("id")["prompt"].to_dict()
+
+# def prompt_case(case, p):
+#     parts = [
+#         p["task_1"],
+#         p["definition_1"],
+#         p["format_case"],
+#         ]
+    
+#     parts.append(f"\n\"\"\"{case}\"\"\"\n")
+#     parts.append(p["format_local"])
+
+#     return "\n\n".join(part for part in parts if part)
+
+
+# empirical prompt:
+path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.csv"
+prompts = pd.read_csv(path_to_prompts).fillna("")
+prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
 
 def prompt_case(case, p):
     parts = [
-        p["task_1"],
-        p["definition_1"],
-        p["format_case"],
-        ]
-    
-    parts.append(f"\n\"\"\"{case}\"\"\"\n")
-    parts.append(p["format_local"])
+        p["context"],
+        p["task"],
+        p["definition"],
+    ]
+
+    # only include the guidance header if any guidance was drawn
+    if len(p["guidance"]) > 0:
+        parts.append(p["format_guidance"])
+        parts.append(p["guidance"].strip())
+
+    parts.append(p["format_case"])
+    parts.append(f"\n\"\"\"{case}\"\"\"\n")                 # <- the case goes here
+    parts.append(p["format_local"])    # e.g. output format instructions
 
     return "\n\n".join(part for part in parts if part)
 
-prompt_template = prompt_case("CASE", prompt_dictionary)
-print(f"\n\nPROMPT TEMPLATE\n{prompt_template}\n\n")
+# choose which prompt to use
+prompt_id = "baseline_c0t1d1g0"
+
+prompt_template = prompt_case("CASE", prompt_dictionary[prompt_id])
+print(f"\n\nPROMPT TEMPLATE: {prompt_id}\n{prompt_template}\n\n")
 
 prompt_len = len(prompt_template.split(" "))
 
@@ -110,11 +152,10 @@ login(token = os.getenv("HF_TOKEN"))
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 
-MODEL = "meta-llama/Llama-3.2-1B-Instruct"
+MODEL = "meta-llama/Llama-3.2-3B-Instruct"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0.1
-PRECISION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
 bnb_config = BitsAndBytesConfig(
     load_in_4bit = True,
@@ -131,9 +172,11 @@ bnb_config = BitsAndBytesConfig(
 
 model = AutoModelForCausalLM.from_pretrained(MODEL, 
                                              quantization_config = bnb_config,
+                                             dtype = PRECISION,
                                              token = os.getenv("HF_TOKEN"),
-                                             device_map = DEVICE) # initate pipeline
+                                             device_map = "auto") # initate pipeline
 
+# caches attention key/values. faster generation but conflic w gradient checkpoint
 model.config.use_cache = False
 
 hf_tokenizer = AutoTokenizer.from_pretrained(MODEL, token = os.getenv("HF_TOKEN"))
@@ -166,7 +209,7 @@ def make_prompt_completion(row, tokenizer):
 
     return {
         "prompt": [
-            {"role": "user", "content": prompt_case(str(row["text"]), prompt_dictionary)},
+            {"role": "user", "content": prompt_case(str(row["text"]), prompt_dictionary[prompt_id])},
             ],
 
         "completion": [
@@ -194,9 +237,9 @@ dev_hf = Dataset.from_list([
     ])
 
 lora_config = LoraConfig(
-    r = 16, # rank of the adapter
+    r = 16, # rank of the adapter TRY: 8 
     lora_alpha = 32, # multiplier, usually 2*r
-    lora_dropout = 0.05,
+    lora_dropout = 0.05, # TRY: more regularization .10
     bias = "none",
     task_type = TaskType.CAUSAL_LM,
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
@@ -217,10 +260,10 @@ sft_config = SFTConfig(
     per_device_eval_batch_size = 32,
     gradient_accumulation_steps = 1,
     warmup_steps = 10,
-    learning_rate = 2e-4,
+    learning_rate = 2e-4, # TRY: slow down learning rate 1e-4 or 5e-5
     max_grad_norm = 0.3,
-    fp16 = False, 
-    bf16 = True,
+    fp16 = PRECISION == torch.float16,
+    bf16 = PRECISION == torch.bfloat16,
     logging_steps = 10,
     eval_strategy = "steps", 
     eval_steps = 20,
@@ -228,7 +271,8 @@ sft_config = SFTConfig(
     save_steps = 20,
     save_total_limit = 3,
     load_best_model_at_end = True,
-    metric_for_best_model = "eval_loss",
+    metric_for_best_model = "eval_loss", # TRY? f1 or kappa
+    # greater_is_better = True, # need this if using f1 or kappa
     report_to = "none",
     max_length = int((max_utterance_len + prompt_len) * 1.5) + 150, # claudia look here
     optim = "paged_adamw_8bit", # "adamw_torch",
@@ -245,6 +289,6 @@ trainer = SFTTrainer(
 
 trainer.train()
 
-path_to_finetuned_model = RESULTS_DIR / f'{MODEL}_dialogue_tuned'
+path_to_finetuned_model = RESULTS_DIR / f'{MODEL}_FT_{DESCRIPTION}'
 trainer.save_model(path_to_finetuned_model)
 # trainer.push_to_hub()

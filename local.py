@@ -53,8 +53,30 @@ df = pd.read_excel(path_to_data)
 
 
 # ---- get prompt codebook ----
-path_to_prompts = WORKING_DIR / "data_management" / "llm_codebook.xlsx"
-prompts = pd.read_excel(path_to_prompts)
+path_to_prompts = WORKING_DIR / "data_management" / "empirical_prompts_50.csv"
+prompts = pd.read_csv(path_to_prompts).fillna("")
+prompt_dictionary = prompts.set_index("prompt_id").to_dict(orient = "index")
+
+def prompt_case(case, p):
+    parts = [
+        p["context"],
+        p["task"],
+        p["definition"],
+    ]
+
+    # only include the guidance header if any guidance was drawn
+    if len(p["guidance"]) > 0:
+        parts.append(p["format_guidance"])
+        parts.append(p["guidance"].strip())
+
+    parts.append(p["format_case"])
+    parts.append(f"\n\"\"\"{case}\"\"\"\n")                 # <- the case goes here
+    parts.append(p["format_local"])    # e.g. output format instructions
+
+    return "\n\n".join(part for part in parts if part)
+
+# choose which prompt to use
+prompt_id = "baseline_c0t1d1g0"
 
 
 # ---- set up model ----
@@ -68,6 +90,7 @@ login(token = os.getenv("HF_TOKEN"))
 # meta-llama/Llama-4-Maverick-17B-128E-Instruct
 # Qwen/Qwen2.5-7B-Instruct x
 # google/gemma-4-12B-it x
+# ibm-granite/granite-4.2-3b
 # ibm-granite/granite-4.2-8b 
 # microsoft/phi-4 (15B) x
 
@@ -77,14 +100,17 @@ login(token = os.getenv("HF_TOKEN"))
 # deepseek-ai/DeepSeek-V3.2
 # google/gemma-4-31B-it
 
+# finetuned models supply path
+path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-3B-Instruct_FT_base"
+
 
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
-path_to_finetuned_model = RESULTS_DIR / "finetune" / "Llama-3.2-1B-Instruct_dialogue_tuned"
 MODEL = path_to_finetuned_model
+PROMPT = "baseline_c0t1d1g0"
 TASK = "text-generation"
 TOKENS = 500
-TEMPERATURE = 0.1
+TEMPERATURE = 0
 PRECISION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
 print(f"Model: {MODEL}\nSample Size: {df.shape[0]}\n")
@@ -133,15 +159,10 @@ each_case = 0
 for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
-    PROMPT = (prompts.loc[prompts.id == "task_1", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "definition_1", "prompt"].item() + " " +
-                  prompts.loc[prompts.id == "format_case", "prompt"].item() + " " +
-                  f"\n\"\"\"{CASE}\"\"\"\n" + " " +
-                  prompts.loc[prompts.id == "format_local", "prompt"].item()
-                  )
+    PROMPT = prompt_case(CASE, prompt_dictionary[prompt_id])
 
     if row == 0:
-        print(f"\n{PROMPT}\n")
+        print(f"\nPROMPT {prompt_id}: {PROMPT}\n")
 
     prompt_local = client(PROMPT, Classification, max_new_tokens = TOKENS)
 
