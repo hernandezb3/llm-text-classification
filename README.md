@@ -123,14 +123,14 @@ To add a new chunk of code to your notebook click **+ Code**. Run each chunk of 
 </p>
 
 ### Clone the GitHub repo
-Copy and paste the code below into a code chunk in your new Colab Notebook. It will import some packages.
+Copy, paste, and run the code below into a code chunk in your new Colab Notebook. It will import some packages.
 ```
 import os
 from google.colab import drive
 from google.colab import userdata
 ```
 
-Mount your Google Drive account to the Colab notebook. You will be prompted to sign in to Google Drive and agree to let the notebook access your account.
+Mount your Google Drive account to the Colab notebook. You will be prompted to sign in to Google Drive and grant the notebook access to your account.
 ```
 drive.mount('/content/drive/')
 ```
@@ -152,32 +152,35 @@ Navigate to Google Drive. You should now see a folder called `llm-text-classific
 <img src="readme_images/google drive.png" height="500">
 </p>
 
-Navigate to `My Drive/llm-text-classification/data/`
+Go into the `llm-text-classification/` folder and then into the the `data/` folder in 
 
-Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` below and upload them to the `llm-text-classification/data/` folder.
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from the `data-shared/` (linked below) and upload them to the `llm-text-classification/data/` folder.
 
-- [data-shared](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)/
+- [data-shared/](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)
 
-*Note.* This folder is password-protected. You will receive an email before the training session with a 1Password Item that includes a password to the data. 
+*Note.* The `data-shared/` folder is password-protected. You will receive an email before the training session with a 1Password Item that includes a password to the data. 
 
-Go back to your Google Colab notebook and run,
+Return to your Google Colab notebook and run,
 ```
 os.listdir("./llm-text-classification/data/")
 ```
-Your output should list dev.xlsx, test.xlsx, train.xlsx
+Your output should include train.xlsx, dev.xlsx, and test.xlsx.
 
 ### Save Secrets
 Navigate to the left panel and click on 🔑 **Secrets**. Use **+ Add new secret** to add two new secrets and `HF_TOKEN` and `OPENAI_API_KEY`. 
 
 <img src="https://storage.googleapis.com/generativeai-downloads/images/secrets.jpg" alt="You can find the Secrets tab on the left panel." width=50%>
 
-Add the Hugging Face token you created to the variable, HF_TOKEN. 
+Add your Hugging Face token to Secrets. Name it `HF_TOKEN` and add your token to the Value column. 
 
-In the 1Password Item shared via email you will find a section called OPENAI_API_KEY with a key. Copy and paste both the name and key into your Google Colab Secrets. 
+Add the Open AI key to Secrets. Name it `OPENAI_API_KEY` and add the key shared in the 1Password Item. 
 
-Toggle **Notebook access** on. 
+Toggle **Notebook access** on for both keys. 
+<p align="center">
+<img src="readme_images/output.png" height="200">
+</p>
 
-Check that your secrets loaded by running
+Check that your secrets loaded by running,
 ```
 os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
 ```
@@ -188,11 +191,19 @@ os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
 
 ### Run a Test
 
+Test your Hugging Face Token:
+```
+from huggingface_hub import login
+login(token = os.getenv("HF_TOKEN"))
+```
+
+Test the Open AI Key:
 ```
 from openai import OpenAI
 client = OpenAI()
 client.models.list()
 ```
+
 
 Your output should look like this:
 <p align="center">
