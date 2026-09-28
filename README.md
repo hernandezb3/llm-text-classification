@@ -110,10 +110,10 @@ Navigate to the [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-In
 ---
 # Option A) Colab
 
-Navigate to https://colab.research.google.com and click + New Notebook. 
+Navigate to https://colab.research.google.com and click **+ New Notebook**. 
 
 <p align="center">
-<img src="" height="500">
+<img src="readme_images/add-notebook.png" height="500">
 </p>
 
 Code sections should be copy and pasted into the Google Colab notebook you just created. 
@@ -121,7 +121,7 @@ Code sections should be copy and pasted into the Google Colab notebook you just 
 To add a chunk of code to your notebook click + Code. Run each chunk of code by clicking the ▶️ button. 
 
 <p align="center">
-<img src="" height="500">
+<img src="readme_images/code-chunk.png" height="200">
 </p>
 
 ### Clone the GitHub repo
@@ -193,6 +193,10 @@ client = OpenAI()
 client.models.list()
 ```
 
+Your output should look like this:
+<p align="center">
+<img src="readme_images/output.png" height="200">
+</p>
 
 ---
 # Option B) Local
