@@ -36,12 +36,15 @@ Guidance for setting up prerequisite software and packages is included in this R
 - Complete Community Access Agreement for Llama 3.2
 - One of **Option A** or **B**:
 
-**Option A) Colab**
+**Option A) Colab** *(Preferred)*
 - Google Drive account
 
 **Option B) Local**
 - VS Code
+- Git
 - Python 3.12.3
+
+*Note.* The session will be run in Google Colab, but Option B is included as a free option for those who might have used all of their compute on Colab or storage on Google Drive.
 
 # Directory Structure
 The directory structure is set up as follows:
@@ -146,6 +149,7 @@ In Google Drive, navigate to the file `aime-con/00a_setup-colab.ipynb`, right cl
 # Option B) Local
 
 - Download [Visual Studio Code](https://code.visualstudio.com) (VS Code)
+- Download [Git](https://github.com/git-guides/install-git)
 - Download [Python 3.12.3](https://www.python.org/downloads/release/python-3123/)
 
 Clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer.
