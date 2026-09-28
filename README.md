@@ -110,40 +110,89 @@ Navigate to the [Llama 3.2 1B](https://huggingface.co/meta-llama/Llama-3.2-1B-In
 ---
 # Option A) Colab
 
-Download the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer. To download, click Code, and then Download ZIP. After it downloads, find the folder in you downloads and double-click to unzip it. Edit the file name, removing `-main` from the end. The filename should read llm-text-classification.
+Navigate to https://colab.research.google.com and click + New Notebook. 
 
 <p align="center">
-<img src="readme_images/github.png" height="500">
+<img src="" height="500">
 </p>
 
-Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` below and save them to the `llm-text-classification/data/` folder.
+Code sections should be copy and pasted into the Google Colab notebook you just created. 
+
+To add a chunk of code to your notebook click + Code. Run each chunk of code by clicking the ▶️ button. 
+
+<p align="center">
+<img src="" height="500">
+</p>
+
+### Clone the GitHub repo
+Import packages.
+```
+import os
+from google.colab import drive
+from google.colab import userdata
+```
+
+Mount your Google Drive account to the Colab notebook. You will be prompted to sign in to Google Drive and give permission.
+```
+drive.mount('/content/drive/')
+```
+
+Change your directory to MyDrive. 
+```
+os.chdir("./drive/MyDrive/")
+```
+
+Clone the GitHub reposiitory to your Google Drive.
+```
+!git clone https://github.com/hernandezb3/llm-text-classification.git
+```
+
+
+### Upload Data to Google Drive
+Navigate to Google Drive. You should now see a folder called `llm-text-classification` in My Drive.
+
+Navigate to `My Drive/llm-text-classification/data/`
+
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` below and upload them to the `llm-text-classification/data/` folder.
 
 - [data-shared](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)/
 
-Confirm the path to the data looks like this:
+*Note.* This folder is password-protected. You will receive an email before the training session with a 1Password Item that includes a password to the data. 
+
+Go back to your Google Colab notebook and run,
+```
+os.listdir("./llm-text-classification/data/")
+```
+Your output should list dev.xlsx, test.xlsx, train.xlsx
+
+### Save Secrets
+Navigate to the left panel and click on 🔑 **Secrets**. Use **+ Add new secret** to add two new secrets and `HF_TOKEN` and `OPENAI_API_KEY`. 
+
+<img src="https://storage.googleapis.com/generativeai-downloads/images/secrets.jpg" alt="You can find the Secrets tab on the left panel." width=50%>
+
+Add the Hugging Face token you created to the variable, HF_TOKEN. 
+
+In the 1Password Item shared via email you will find a section called OPENAI_API_KEY with a key. Copy and paste both the name and key into your Google Colab Secrets. 
+
+Toggle **Notebook access** on. 
+
+Check that your secrets loaded by running
+```
+os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
+```
+and
+```
+os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+```
+
+### Run a Test
 
 ```
-├── llm-text-classification/
-│   ├── data/
-│   │   ├── dev.xlsx
-│   │   ├── test.xlsx
-│   │   └── train.xlsx
+from openai import OpenAI
+client = OpenAI()
+client.models.list()
 ```
 
-Upload the `llm-text-classification` folder and all it's contents (including the data you just added) to Google Drive, in My Drive. *Note.* Do not save it to a folder called Colab Notebooks.
-
-<p align="center">
-<img src="readme_images/google drive.png" height="500">
-</p>
-
-
-In Google Drive, navigate to the file `aime-con/00a_setup-colab.ipynb`, right click on ... and select Open with > Google Colabratory. 
-
-<p align="center">
-<img src="readme_images/colab.png" height="500">
-</p>
-
-** Continue Colab set from `00a_setup-colab.ipynb` once it opens in Google Colab. **
 
 ---
 # Option B) Local
