@@ -116,23 +116,21 @@ Navigate to https://colab.research.google.com and click **+ New Notebook**.
 <img src="readme_images/add-notebook.png" height="500">
 </p>
 
-Code sections should be copy and pasted into the Google Colab notebook you just created. 
-
-To add a chunk of code to your notebook click + Code. Run each chunk of code by clicking the ▶️ button. 
+To add a new chunk of code to your notebook click + Code. Run each chunk of code by clicking the ▶️ button. 
 
 <p align="center">
 <img src="readme_images/code-chunk.png" height="200">
 </p>
 
 ### Clone the GitHub repo
-Import packages.
+Copy and paste the code below into a code chunk in your new Colab Notebook. It will import some packages.
 ```
 import os
 from google.colab import drive
 from google.colab import userdata
 ```
 
-Mount your Google Drive account to the Colab notebook. You will be prompted to sign in to Google Drive and give permission.
+Mount your Google Drive account to the Colab notebook. You will be prompted to sign in to Google Drive and agree to let the notebook access your account.
 ```
 drive.mount('/content/drive/')
 ```
@@ -146,7 +144,6 @@ Clone the GitHub reposiitory to your Google Drive.
 ```
 !git clone https://github.com/hernandezb3/llm-text-classification.git
 ```
-
 
 ### Upload Data to Google Drive
 Navigate to Google Drive. You should now see a folder called `llm-text-classification` in My Drive.
