@@ -159,7 +159,7 @@ each_case = 0
 for row in tqdm(df.index):
     CASE = df.loc[row, "text"]
 
-    PROMPT = prompt_case(str(row["text"]), prompt_dictionary[prompt_id])
+    PROMPT = prompt_case(CASE, prompt_dictionary[prompt_id])
 
     if row == 0:
         print(f"\nPROMPT {prompt_id}: {PROMPT}\n")
