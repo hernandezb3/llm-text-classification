@@ -68,11 +68,12 @@ The directory structure is set up as follows:
 │   │   └── classification.txt
 │   ├── README.md
 │   ├── requirements.txt
-│   ├── dot_envtxt
+│   ├── dot_env.txt
 │   ├── 01_non-local.ipynb
 │   ├── 02_local.ipynb
 │   ├── 03_prompt-engineering.ipynb
-│   └── 04_fine-tuning.ipynb
+│   ├── 04_fine-tuning.ipynb
+│   └── test-local.py
 ```
 
 # Hugging Face
