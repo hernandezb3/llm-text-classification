@@ -314,3 +314,16 @@ python3 test-local.py
 ```
 
 If it works you'll see ✅ Setup Complete.
+
+### Run 
+```
+import os
+from google.colab import drive
+from google.colab import userdata
+drive.mount('/content/drive/')
+os.chdir("./drive/MyDrive/llm-text-classification/")
+!git fetch origin
+!git reset --hard origin/main
+os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
+os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+```
