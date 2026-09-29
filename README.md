@@ -280,7 +280,6 @@ Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a P
 - Check the box next to requirements.txt & click OK
 - Select .venv as the kernel
 
-Click the Explorer tab. 
 <p align="center">
 <img src="readme_images/create_env.png" height="500">
 </p>
