@@ -281,11 +281,11 @@ Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a P
 - Select .venv as the kernel
 
 <p align="center">
-<img src="readme_images/create_env.png" height="200">
+<img src="readme_images/create_env.png" height="500">
 </p>
 
 <p align="center">
-<img src="readme_images/venv.png" height="200">
+<img src="readme_images/venv.png" height="250">
 </p>
 
 <p align="center">
