@@ -211,7 +211,7 @@ If it works, it will print information about different Open AI models.
 
 Your output should look like this:
 <p align="center">
-<img src="readme_images/output.png" height="200">
+<img src="readme_images/output.png" height="600">
 </p>
 
 ---
@@ -268,16 +268,7 @@ Add your Hugging Face to `HF_TOKEN = "hf_..."` token in quotes.
 
 Add the Open AI key to `OPENAI_API_KEY = sk-...`. The key is in the 1Password Item shared via email. 
 
-Check that your secrets loaded by running,
-```
-os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
-```
-and
-```
-os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
-```
-
-Save the file, close out of it, and then rename the file to `.env`
+Save the file, close out of it, and rename the file to `.env`
 
 ### Create a Virtual Environment
 Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a PC) and select the following:
@@ -314,7 +305,7 @@ Click the Explorer tab.
 <img src="readme_images/requirements.png" height="500">
 </p>
 
-In VS Code, navigate to Terminal > New Terminal. You should see (.venv) in the terminal window. 
+In VS Code, navigate to Terminal > New Terminal. You should see (.venv) in the terminal window. This means your virtual environment was activated.
 
 ### Run a Test
 In VS Code Terminal, test your secrets loaded correctly. Copy and paste the command below and press enter to run it.
@@ -323,4 +314,4 @@ In VS Code Terminal, test your secrets loaded correctly. Copy and paste the comm
 python3 test-local.py
 ```
 
-If it works you'll see ✅ Setup Complete 
+If it works you'll see ✅ Setup Complete.
