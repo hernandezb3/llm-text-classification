@@ -285,7 +285,7 @@ Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a P
 </p>
 
 <p align="center">
-<img src="readme_images/venv.png" height="200">
+<img src="readme_images/venv.png" height="225">
 </p>
 
 <p align="center">
@@ -297,11 +297,11 @@ Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a P
 </p>
 
 <p align="center">
-<img src="readme_images/dependencies.png" height="150">
+<img src="readme_images/dependencies.png" height="175">
 </p>
 
 <p align="center">
-<img src="readme_images/requirements.png" height="200">
+<img src="readme_images/requirements.png" height="210">
 </p>
 
 In VS Code, navigate to Terminal > New Terminal. You should see (.venv) in the terminal window. This means your virtual environment was activated.
