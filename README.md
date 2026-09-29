@@ -260,7 +260,7 @@ Open VS Code. Click Open, navigate to the `llm-text-classification` folder of th
 
 Click the Explorer tab. 
 <p align="center">
-<img src="readme_images/explorer.png" height="500">
+<img src="readme_images/explorer.png" height="600">
 </p>
 
 Open the file called `dot-env.txt`. 
