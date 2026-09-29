@@ -211,7 +211,7 @@ If it works, it will print information about different Open AI models.
 
 Your output should look like this:
 <p align="center">
-<img src="readme_images/output.png" height="600">
+<img src="readme_images/output.png" height="750">
 </p>
 
 ---
