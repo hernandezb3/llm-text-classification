@@ -1,7 +1,7 @@
 # Text Classification with Large Language Models
 [AIME-Con](https://www.xcdsystem.com/ncme/program/47bbPZ3/index.cfm) 4-hour training session, *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
 
-by Brittney Hernandez, PhD; Claudia Ventura; Kylie Anglin, PhD
+by Brittney Hernandez, Ph.D.; Claudia Ventura; Kylie Anglin, Ph.D.
 
 **Description** 
 
@@ -33,7 +33,7 @@ Guidance for setting up prerequisite software and packages is included in this R
 - GitHub Account
 - Hugging Face Account
 - Hugging Face Access Token
-- Complete Community Access Agreement for Llama 3.2
+- Complete the Community Access Agreement for Llama 3.2 on Hugging Face
 - One of **Option A** or **B**:
 
 **Option A) Colab** *(Preferred)*
@@ -44,7 +44,7 @@ Guidance for setting up prerequisite software and packages is included in this R
 - Git
 - Python 3.12.3
 
-*Note.* The session will be run in Google Colab, but Option B is included as a free option for those who might have used all of their compute on Colab or storage on Google Drive.
+*Note.* The session will be run in Google Colab, but Option B is included as a free alternative for those who might have used all of their compute on Colab or storage on Google Drive.
 
 # Directory Structure
 The directory structure is set up as follows:
@@ -140,7 +140,7 @@ Change your directory to MyDrive.
 os.chdir("./drive/MyDrive/")
 ```
 
-Clone the GitHub reposiitory to your Google Drive.
+Clone the GitHub repository to your Google Drive.
 ```
 !git clone https://github.com/hernandezb3/llm-text-classification.git
 ```
@@ -152,13 +152,11 @@ Navigate to Google Drive. You should now see a folder called `llm-text-classific
 <img src="readme_images/google drive.png" height="500">
 </p>
 
-Go into the `llm-text-classification/` folder and then into the the `data/` folder in 
+Go into the `llm-text-classification/` folder and then into the the `data/` folder.
 
-Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from the `data-shared/` (linked below) and upload them to the `llm-text-classification/data/` folder.
+In a new tab, go to this OneDrive link, a folder called [data-shared/](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo). Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared/`. Upload them to the `llm-text-classification/data/` folder in Google Drive.
 
-- [data-shared/](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)
-
-*Note.* The `data-shared/` folder is password-protected. You will receive an email before the training session with a 1Password Item that includes a password to the data. 
+*Note.* The `data-shared/` folder is password-protected. You will receive an email before the training session that includes a 1Password Item with a password to `data-shared/`. 
 
 Return to your Google Colab notebook and run,
 ```
@@ -190,12 +188,14 @@ os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
 ```
 
 ### Run a Test
-
 Test your Hugging Face Token:
 ```
-from huggingface_hub import login
+from huggingface_hub import login, HfApi
 login(token = os.getenv("HF_TOKEN"))
+client = HfApi()
+client.model_info("meta-llama/Llama-3.2-1B")
 ```
+If it works, it will print the Community Access Agreement.
 
 Test the Open AI Key:
 ```
@@ -203,6 +203,7 @@ from openai import OpenAI
 client = OpenAI()
 client.models.list()
 ```
+If it works, it will print information about different Open AI models. 
 
 
 Your output should look like this:
@@ -217,9 +218,12 @@ Your output should look like this:
 - Download [Git](https://github.com/git-guides/install-git)
 - Download [Python 3.12.3](https://www.python.org/downloads/release/python-3123/)
 
+### Clone the GitHub repo
 Clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer.
 
-Open your OS's Command Line Interface (Terminal for Mac or Command Prompt for Windows). Change your directory to the location where you want to save the repo.
+To do this, open your OS's Command Line Interface (CLI; Terminal for Mac or Command Prompt for Windows). Copy, paste, and run commands in the CLI. 
+
+Change directory to wherever you want to save the repo.
 ```
 cd path/to/folder/
 ```
@@ -229,27 +233,32 @@ Clone the repo.
 git clone https://github.com/hernandezb3/llm-text-classification.git
 ```
 
-Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared` below and save them to the `data/` folder in your cloned repo. *Note* There is a .gitignore file in the data file that keeps any data from being pushed to GitHub.
+### Upload Data
+Go to this OneDrive link, a folder called [data-shared/](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo). 
 
-- [data-shared](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo)/
+*Note.* The `data-shared/` folder is password-protected. You will receive an email before the training session that includes a 1Password Item with a password to `data-shared/`. 
 
-Confirm the path to the data looks like this:
+Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared/`. Move them to the `data/` folder of your cloned repo. 
 
+*Note* There is a .gitignore file in the folder that keeps any data from being pushed to GitHub.
+
+Return to the CLI and run,
 ```
-├── llm-text-classification/
-│   ├── data/
-│   │   ├── dev.xlsx
-│   │   ├── test.xlsx
-│   │   └── train.xlsx
+os.listdir("./llm-text-classification/data/")
 ```
+Your output should include train.xlsx, dev.xlsx, and test.xlsx.
+
+
+
+### Save Secrets
 Open VS Code. Click Open, navigate to the llm-text-classification folder of the repo you just cloned, and click Open.
 
 <p align="center">
 <img src="readme_images/vs code.png" height="500">
 </p>
 
-** To continue local set up, open `00b_setup-local.ipynb` from the Explorer tab in VS Code. **
+Click the Explorer tab. Open the file called `secrets-template.txt` 
 
-<p align="center">
-<img src="readme_images/vs code explorer.png" height="500">
-</p>
+
+
+### Run a Test
