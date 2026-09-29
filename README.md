@@ -167,7 +167,10 @@ Your output should include train.xlsx, dev.xlsx, and test.xlsx.
 ### Save Secrets
 Navigate to the left panel and click on 🔑 **Secrets**. Use **+ Add new secret** to add two new secrets and `HF_TOKEN` and `OPENAI_API_KEY`. 
 
-<img src="https://storage.googleapis.com/generativeai-downloads/images/secrets.jpg" alt="You can find the Secrets tab on the left panel." width=50%>
+
+<p align="center">
+<img src="readme_images/secrets.png" height="500">
+</p>
 
 Add your Hugging Face token to Secrets. Name it `HF_TOKEN` and add your token to the Value column. 
 
