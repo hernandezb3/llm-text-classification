@@ -39,7 +39,7 @@ elif USER =="colab":
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
-DESCRIPTION = "base"
+DESCRIPTION = "base-SEQ"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 RANDOM_STATE = 42
 
@@ -241,7 +241,7 @@ lora_config = LoraConfig(
     lora_alpha = 32, # multiplier, usually 2*r
     lora_dropout = 0.05, # TRY: more regularization .10
     bias = "none",
-    task_type = TaskType.CAUSAL_LM,
+    task_type = TaskType.SEQ_CLS,
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
                       "gate_proj", "up_proj", "down_proj"],
 )
