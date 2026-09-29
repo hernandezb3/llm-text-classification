@@ -289,7 +289,7 @@ Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a P
 </p>
 
 <p align="center">
-<img src="readme_images/version.png" height="200">
+<img src="readme_images/version.png" height="180">
 </p>
 
 <p align="center">
