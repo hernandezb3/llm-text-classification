@@ -1,0 +1,816 @@
+﻿prompt_id,guidance_ids,context,task,definition,format_guidance,guidance,format_case,format_local
+baseline_c0t1d1g0,[],,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",,,Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt0_c1t4d4g0,[],You are going to see some text.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,,Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt1_c1t1d4g28,"['GG1', 'GG2', 'GG3', 'GG4', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC13', 'SC14']",You are going to see some text.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt2_c5t4d4g10,"['BI3.1', 'BI5', 'SC1.2', 'SC1.3', 'SC3', 'SC6', 'SC7', 'SC10', 'SC13', 'SC14']",You are going to see text from a classroom lesson.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt3_c5t1d4g6,"['GG2', 'BI4', 'BI5', 'SC1.2', 'SC11', 'SC13']",You are going to see text from a classroom lesson.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the speaker assignments in the transcript.
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+The call made in a call and response is a prompt 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt4_c4t5d2g6,"['GG1', 'GG4', 'BI1', 'BI2', 'SC3', 'SC13']",You are going to see text from an elementary classroom transcript.,Your task is to determine if the following utterance is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Utterances that are off task can be prompts. 
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt5_c6t5d3g24,"['GG1', 'GG2', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC1.1', 'SC1.2', 'SC1.3', 'SC3', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom conversation.,Your task is to determine if the following utterance is a dialogic prompt.,"A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt6_c4t5d2g9,"['GG3', 'BI3.1', 'SC 1', 'SC1.2', 'SC2', 'SC3', 'SC5', 'SC9', 'SC10']",You are going to see text from an elementary classroom transcript.,Your task is to determine if the following utterance is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt7_c2t2d4g1,['SC1.2'],You are going to see some text from a transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt8_c1t3d1g4,"['BI1', 'BI3', 'BI5', 'SC1.2']",You are going to see some text.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt9_c1t3d1g11,"['GG1', 'BI1', 'BI2', 'BI3', 'SC 1', 'SC1.3', 'SC5', 'SC6', 'SC8', 'SC12', 'SC14']",You are going to see some text.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt10_c2t2d1g10,"['BI1', 'BI2', 'BI3.1', 'SC1.1', 'SC1.3', 'SC3', 'SC6', 'SC8', 'SC9', 'SC11']",You are going to see some text from a transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+The call made in a call and response is a prompt 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt11_c3t2d1g22,"['GG1', 'GG2', 'GG3', 'GG5', 'GG6', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC9', 'SC10', 'SC12', 'SC14']",You are going to see text from a classroom transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt12_c6t4d2g21,"['GG1', 'GG4', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI4', 'SC 1', 'SC1.2', 'SC1.3', 'SC2', 'SC4', 'SC6', 'SC7', 'SC8', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom conversation.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.",A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt13_c4t4d4g26,"['GG1', 'GG2', 'GG3', 'GG4', 'GG5', 'GG6', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC5', 'SC6', 'SC7', 'SC8', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from an elementary classroom transcript.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt14_c6t4d3g24,"['GG3', 'GG4', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI5', 'SC 1', 'SC1.1', 'SC1.3', 'SC2', 'SC3', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom conversation.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt15_c3t5d1g17,"['GG3', 'GG4', 'BI2', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC13']",You are going to see text from a classroom transcript.,Your task is to determine if the following utterance is a dialogic prompt.,"A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt16_c3t2d2g29,"['GG1', 'GG2', 'GG3', 'GG4', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt17_c2t5d2g3,"['BI4', 'SC1.1', 'SC6']",You are going to see some text from a transcript.,Your task is to determine if the following utterance is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt18_c2t2d2g7,"['GG6', 'BI1', 'BI4', 'SC2', 'SC4', 'SC6', 'SC12']",You are going to see some text from a transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt19_c6t3d2g20,"['GG3', 'GG4', 'GG5', 'GG6', 'BI1', 'BI3', 'BI3.1', 'BI5', 'SC 1', 'SC1.2', 'SC2', 'SC3', 'SC5', 'SC7', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom conversation.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.",A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt20_c2t1d2g1,['SC12'],You are going to see some text from a transcript.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt21_c2t5d3g4,"['GG3', 'BI2', 'SC1.2', 'SC9']",You are going to see some text from a transcript.,Your task is to determine if the following utterance is a dialogic prompt.,"A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt22_c4t1d3g22,"['GG1', 'GG2', 'GG3', 'GG5', 'GG6', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC7', 'SC8', 'SC9', 'SC11', 'SC12', 'SC13']",You are going to see text from an elementary classroom transcript.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt23_c1t3d1g21,"['GG1', 'GG3', 'GG4', 'GG5', 'GG6', 'BI2', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC8', 'SC9', 'SC13', 'SC14']",You are going to see some text.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt24_c6t4d4g10,"['GG1', 'GG4', 'BI4', 'BI5', 'SC 1', 'SC1.3', 'SC9', 'SC11', 'SC12', 'SC14']",You are going to see text from a classroom conversation.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Utterances that are off task can be prompts. 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt25_c3t3d2g0,[],You are going to see text from a classroom transcript.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.",A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,,Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt26_c1t1d1g3,"['GG1', 'SC1.1', 'SC1.3']",You are going to see some text.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt27_c4t4d1g12,"['GG2', 'GG3', 'GG5', 'BI2', 'BI3', 'BI5', 'SC1.1', 'SC1.2', 'SC5', 'SC12', 'SC13', 'SC14']",You are going to see text from an elementary classroom transcript.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt28_c4t2d4g19,"['GG5', 'GG6', 'BI2', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC1.3', 'SC2', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13']",You are going to see text from an elementary classroom transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt29_c5t3d3g28,"['GG1', 'GG2', 'GG3', 'GG4', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom lesson.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt30_c1t2d3g14,"['GG3', 'GG4', 'GG5', 'GG6', 'BI4', 'SC1.1', 'SC1.2', 'SC1.3', 'SC3', 'SC8', 'SC10', 'SC11', 'SC12', 'SC14']",You are going to see some text.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt31_c6t5d4g15,"['GG3', 'GG6', 'BI1', 'BI4', 'BI5', 'SC 1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC6', 'SC7', 'SC13', 'SC14']",You are going to see text from a classroom conversation.,Your task is to determine if the following utterance is a dialogic prompt.,"A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt32_c2t2d2g2,"['SC 1', 'SC7']",You are going to see some text from a transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt33_c3t3d1g7,"['GG6', 'BI2', 'BI3', 'BI3.1', 'BI5', 'SC 1', 'SC13']",You are going to see text from a classroom transcript.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Most statements will not be prompts, but some will e.g., calling someone by name.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt34_c4t4d2g4,"['BI2', 'SC2', 'SC4', 'SC11']",You are going to see text from an elementary classroom transcript.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.",A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+The call made in a call and response is a prompt 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt35_c4t1d3g18,"['GG1', 'GG4', 'GG6', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.3', 'SC3', 'SC6', 'SC7', 'SC8', 'SC10', 'SC11', 'SC13']",You are going to see text from an elementary classroom transcript.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Utterances that are off task can be prompts. 
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt36_c3t3d1g1,['SC1.2'],You are going to see text from a classroom transcript.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt37_c6t3d1g3,"['GG1', 'SC 1', 'SC9']",You are going to see text from a classroom conversation.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt38_c3t2d3g29,"['GG1', 'GG2', 'GG3', 'GG4', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom transcript.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt39_c1t1d1g7,"['GG3', 'GG6', 'BI3.1', 'SC1.1', 'SC3', 'SC5', 'SC13']",You are going to see some text.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Do not trust or use the timestamps for classifying prompts. 
+Most statements will not be prompts, but some will e.g., calling someone by name.
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt40_c3t1d2g28,"['GG1', 'GG2', 'GG3', 'GG4', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC1.3', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom transcript.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt41_c5t4d1g4,"['GG1', 'GG5', 'SC1.1', 'SC7']",You are going to see text from a classroom lesson.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt42_c5t3d2g27,"['GG1', 'GG2', 'GG3', 'GG4', 'GG5', 'GG6', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom lesson.,"Determine if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.",A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt43_c2t4d1g2,"['GG1', 'SC3']",You are going to see some text from a transcript.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is defined as an utterance that implies, encourages, requests, or expects a new speaker (or multiple new speakers) to make a verbal contribution.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt44_c3t1d4g16,"['GG1', 'GG5', 'GG6', 'BI3.1', 'BI5', 'SC1.1', 'SC3', 'SC4', 'SC5', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13']",You are going to see text from a classroom transcript.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt45_c2t4d3g27,"['GG1', 'GG2', 'GG3', 'GG4', 'GG5', 'GG6', 'BI2', 'BI3', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.1', 'SC1.2', 'SC2', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12', 'SC13', 'SC14']",You are going to see some text from a transcript.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Most statements will not be prompts, but some will e.g., calling someone by name.
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt46_c2t4d2g9,"['BI3', 'BI3.1', 'BI4', 'BI5', 'SC2', 'SC4', 'SC9', 'SC12', 'SC14']",You are going to see some text from a transcript.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.",A dialogic prompt invites others to talk.,Here is some guidance to help determine if the utterance is a dialogic prompt:,"Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt47_c5t4d3g18,"['GG1', 'GG3', 'GG4', 'GG5', 'BI1', 'BI2', 'BI3.1', 'SC1.1', 'SC1.2', 'SC2', 'SC3', 'SC4', 'SC5', 'SC9', 'SC10', 'SC12', 'SC13', 'SC14']",You are going to see text from a classroom lesson.,"Label if the following utterance is yes, a dialogic prompt or no, not a dialogic prompt.","A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Most questions will be prompts, but not all e.g., rhetorical questions or questions requesting a behavioral or written response.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+One example of a rhetorical question is, “what?” when used as an exclamation. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+“I don’t understand” is a prompt because it implies a request for clarification. 
+If a sentence appears to be a prompt but it is cut off and never finished (the prompt is never restated), it is classified as a prompt if someone responds to it. If no one responds but it is obviously a prompt, it is classified as a prompt, even if it is never finished. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt48_c6t1d3g12,"['GG2', 'BI1', 'BI2', 'BI3', 'BI3.1', 'BI5', 'SC 1', 'SC1.2', 'SC2', 'SC3', 'SC6', 'SC8']",You are going to see text from a classroom conversation.,Classify the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is an open-ended question or statement designed to encourage conversation, reflection, and multiple perspectives rather than a single correct answer.",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the speaker assignments in the transcript.
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+Behavioral instructions can have similar word patterns as dialogic prompts. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+Questions that appear at the beginning of an utterance but are answered within the same utterance are considered rhetorical, and therefore not a prompt. 
+Utterances that end in “right?” or “okay?” or similar affirmative (or negative) questions are classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
+prompt49_c5t2d4g21,"['GG1', 'GG2', 'GG3', 'GG4', 'BI1', 'BI2', 'BI3.1', 'BI4', 'BI5', 'SC 1', 'SC1.3', 'SC3', 'SC4', 'SC5', 'SC6', 'SC7', 'SC8', 'SC9', 'SC10', 'SC11', 'SC12']",You are going to see text from a classroom lesson.,Categorize the following utterance as yes or no based on whether it is a dialogic prompt.,"A dialogic prompt is a statement or question that requires a response from the, typically in a conversational or interactive format. ",Here is some guidance to help determine if the utterance is a dialogic prompt:,"Trust the punctuation in the text.
+Trust the speaker assignments in the transcript.
+Do not trust or use the timestamps for classifying prompts. 
+Utterances that are off task can be prompts. 
+Behavioral instructions are questions or statements that request a non-verbal action be performed. Behavioral instructions are not classified as prompts. 
+Examples of behavioral instructions include, “write down your answer,” “raise your hand,” or “thumbs up” and do not include any verbal component. 
+“Tell them” or “talk to your classmates” is a prompt when used to imply a person should begin talking or articulate their thinking. It is not a prompt if it is clearly used only to redirect to whom someone is speaking to, i.e., when used to imply “you should say that to someone else.” 
+A request to repeat something is a prompt because it often fosters discussion beyond a sole behavioral instruction 
+A request to “try again” is a prompt when the thing they are trying again is a verbal response 
+Rhetorical questions are questions asked, “only to produce an effect or make a statement, rather than to elicit an answer or information” (Oxford English Dictionary). Rhetorical questions are not classified as prompts. 
+If it is unclear whether a question is rhetorical, use other features of the utterance and the context (e.g., whether it was responded to) to determine if it should be classified as a prompt. 
+If “right?” or “okay?” appears in the middle of an utterance, then it is not automatically classified as a prompt, and other features of the utterance should be used to determine if it is a prompt (e.g., whether the question was answered within the utterance). 
+Prompts can appear as a statement or question that has been unfinished or cut-off where the speaker is implying that other speakers contribute by finishing it. 
+If a sentence seems like a prompt but is cutoff and never finished, it is not a prompt. 
+If a sentence is a prompt and is cutoff, code the utterance where the sentence was finished as a prompt. 
+A sentence that implies a person is soliciting feedback, e.g., confirmation their answer is correct, is a prompt. For example, when an answer is supplied as a question, a rise in pitch was detected in their voice, which it implies they are looking for feedback about their response.  
+A request for someone else to read aloud is a prompt. E.g., a teacher requesting a student read a math problem or a sample of text in an ELA lesson. 
+A person reading  text aloud is only a prompt if the quoted text directly initiates discussion. If a new speaker follows up to initiate discussion it is not a prompt. 
+A video can be a prompt if it directly initiates discussion (i.e., if someone responds to it). If a new speaker follows up to direct the discussion it is not a prompt 
+The call made in a call and response is a prompt 
+Every repetition of a prompt is classified as a prompt e.g., a probe when no one answers or an indication to try again. 
+",Here is the utterance:,"Output format:
+- First, give a brief explanation (1 short sentence, under 20 words) justifying your answer.
+- Then give your final answer as a yes or no surrounded by three backticks. For example, ```yes``` or ```no```"
