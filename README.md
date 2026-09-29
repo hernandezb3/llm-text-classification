@@ -56,20 +56,19 @@ The directory structure is set up as follows:
 │   │   ├── test.xlsx
 │   │   └── train.xlsx
 │   ├── data_management/
+│   │   ├── empirical_prompts_50.xlsx
 │   │   ├── human_prompt_codebook.docx
-│   │   └── llm_prompt_codebook.xlsx
+│   │   ├── llm_prompt_codebook.xlsx
+│   │   └── llm_prompt_variants.docx
 │   ├── results/
-│   │   ├──local/
+│   │   ├── local/
 │   │   ├── non-local/
 │   │   ├── prompt-engineering/
 │   │   ├── fine-tuning/
-│   │   └── classifications.txt
+│   │   └── classification.txt
 │   ├── README.md
-│   ├── paths.py
 │   ├── requirements.txt
-│   ├── secrets-template.txt
-│   ├── 00a_colab-setup.ipynb
-│   ├── 00b_local-setup.ipynb
+│   ├── dot_envtxt
 │   ├── 01_non-local.ipynb
 │   ├── 02_local.ipynb
 │   ├── 03_prompt-engineering.ipynb
@@ -221,7 +220,7 @@ Your output should look like this:
 ### Clone the GitHub repo
 Clone the [llm-text-classification](https://github.com/hernandezb3/llm-text-classification) GitHub Repo to your computer.
 
-To do this, open your OS's Command Line Interface (CLI; Terminal for Mac or Command Prompt for Windows). Copy, paste, and run commands in the CLI. 
+To do this, open your OS's Command Line Interface (CLI; Terminal for Mac or Command Prompt for Windows). Copy, paste, and run the commands below in your CLI. 
 
 Change directory to wherever you want to save the repo.
 ```
@@ -234,31 +233,90 @@ git clone https://github.com/hernandezb3/llm-text-classification.git
 ```
 
 ### Upload Data
-Go to this OneDrive link, a folder called [data-shared/](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo). 
+Go to the, [data-shared/](https://uconn-my.sharepoint.com/:f:/g/personal/brittney_hernandez_uconn_edu/IgBK64FIE_1zS7aIGgZqEw0VAVnvvbCgYIYqzkKFFeRBaG4?e=e482Jo) OneDrive link. 
 
 *Note.* The `data-shared/` folder is password-protected. You will receive an email before the training session that includes a 1Password Item with a password to `data-shared/`. 
 
 Download the `train.xlsx`, `dev.xlsx`, and `test.xlsx` files from `data-shared/`. Move them to the `data/` folder of your cloned repo. 
 
-*Note* There is a .gitignore file in the folder that keeps any data from being pushed to GitHub.
+*Note.* There is a .gitignore file in the folder that keeps any data from being pushed to GitHub.
 
 Return to the CLI and run,
 ```
 os.listdir("./llm-text-classification/data/")
 ```
-Your output should include train.xlsx, dev.xlsx, and test.xlsx.
-
-
+Your output should include `train.xlsx`, `dev.xlsx`, and `test.xlsx`. Close out of your CLI.
 
 ### Save Secrets
-Open VS Code. Click Open, navigate to the llm-text-classification folder of the repo you just cloned, and click Open.
+Open VS Code. Click Open, navigate to the `llm-text-classification` folder of the repo you just cloned, and click Open.
 
 <p align="center">
 <img src="readme_images/vs code.png" height="500">
 </p>
 
-Click the Explorer tab. Open the file called `secrets-template.txt` 
+Click the Explorer tab. 
+<p align="center">
+<img src="readme_images/explorer.png" height="500">
+</p>
 
+Open the file called `dot-env.txt`. 
+Add your Hugging Face to `HF_TOKEN = "hf_..."` token in quotes. 
 
+Add the Open AI key to `OPENAI_API_KEY = sk-...`. The key is in the 1Password Item shared via email. 
+
+Check that your secrets loaded by running,
+```
+os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
+```
+and
+```
+os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+```
+
+Save the file, close out of it, and then rename the file to `.env`
+
+### Create a Virtual Environment
+Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a PC) and select the following:
+- Python: Create Environment 
+- venv
+- Python 3.12.3
+- Name it `.venv` & press ENTER
+- Select install project dependencies
+- Check the box next to requirements.txt & click OK
+- Select .venv as the kernel
+
+Click the Explorer tab. 
+<p align="center">
+<img src="readme_images/create_env.png" height="500">
+</p>
+
+<p align="center">
+<img src="readme_images/venv.png" height="500">
+</p>
+
+<p align="center">
+<img src="readme_images/version.png" height="500">
+</p>
+
+<p align="center">
+<img src="readme_images/name_env.png" height="500">
+</p>
+
+<p align="center">
+<img src="readme_images/dependencies.png" height="500">
+</p>
+
+<p align="center">
+<img src="readme_images/requirements.png" height="500">
+</p>
+
+In VS Code, navigate to Terminal > New Terminal. You should see (.venv) in the terminal window. 
 
 ### Run a Test
+In VS Code Terminal, test your secrets loaded correctly. Copy and paste the command below and press enter to run it.
+
+```
+python3 test-local.py
+```
+
+If it works you'll see ✅ Setup Complete 
