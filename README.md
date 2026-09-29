@@ -293,7 +293,7 @@ Use the VS Code shortcut: CMD + SHIFT + P (on a Mac) or CTRL + SHIFT + P (on a P
 </p>
 
 <p align="center">
-<img src="readme_images/name_env.png" height="100">
+<img src="readme_images/name_env.png" height="125">
 </p>
 
 <p align="center">
