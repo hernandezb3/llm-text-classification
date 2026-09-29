@@ -178,7 +178,7 @@ Add the Open AI key to Secrets. Name it `OPENAI_API_KEY` and add the key shared 
 
 Toggle **Notebook access** on for both keys. 
 <p align="center">
-<img src="readme_images/output.png" height="200">
+<img src="readme_images/toggle.png" height="200">
 </p>
 
 Check that your secrets loaded by running,
