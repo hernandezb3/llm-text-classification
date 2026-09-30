@@ -12,14 +12,17 @@ from peft import LoraConfig, get_peft_model, TaskType, prepare_model_for_kbit_tr
 from trl import SFTTrainer, SFTConfig
 from transformers import EarlyStoppingCallback
 
+# downloads the model in 4-bit but does not quantize the lora adapters
+
+
 # FILE STRUCTURE FOR HPC/COLAB
 # .env in cd
 # data to data/
 # prompt_codebook to data_management/
 # classifications.xlsx to results/
 # make sure results/local exists
-
-print(f"finetuning started: {datetime.now()}\n")
+start_time = datetime.now()
+print(f"finetuning started: {start_time}\n")
 
 load_dotenv()
 
@@ -39,11 +42,17 @@ elif USER =="colab":
 
 RESULTS_DIR = WORKING_DIR / "results"
 DATA_SOURCE = "train" # train, validate, test
-DESCRIPTION = "base-SEQ"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+MODEL = "meta-llama/Llama-3.2-1B-Instruct"
+PROMPT_ID = "baseline_c0t1d1g0"
 RANDOM_STATE = 42
-
-
+TASK_TYPE = "CAUSAL_LM"
+LEARN_RATE = 2e-4
+TRAIN_SAMPLE_NAME = "train_balanced"
+DROP_LONG_CASES = True
+# based on variables ^^ add a description/id to the ft model
+DESCRIPTION = "bestPrompt_baseConfig"
 
 print(f"\nUsing device: {DEVICE}")
 if DEVICE == "cuda":
@@ -65,7 +74,9 @@ train["word_counts"] = train["text"].str.split(" ").str.len()
 
 # remove long utterances - crashing 3B FT
 # train["word_counts"].describe(percentiles=[.5, .9, .99, .999])
-train = train[train["word_counts"] <= 700]
+if DROP_LONG_CASES:
+    train = train[train["word_counts"] <= 700]
+
 max_utterance_len = train["word_counts"].max()
 
 path_to_dev = DATA_DIR / "dev.xlsx"
@@ -130,7 +141,7 @@ def prompt_case(case, p):
     return "\n\n".join(part for part in parts if part)
 
 # choose which prompt to use
-prompt_id = "baseline_c0t1d1g0"
+prompt_id = PROMPT_ID
 
 prompt_template = prompt_case("CASE", prompt_dictionary[prompt_id])
 print(f"\n\nPROMPT TEMPLATE: {prompt_id}\n{prompt_template}\n\n")
@@ -151,11 +162,6 @@ login(token = os.getenv("HF_TOKEN"))
 
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
-
-MODEL = "meta-llama/Llama-3.2-3B-Instruct"
-TASK = "text-generation"
-TOKENS = 500
-TEMPERATURE = 0.1
 
 bnb_config = BitsAndBytesConfig(
     load_in_4bit = True,
@@ -228,8 +234,13 @@ def make_prompt_completion(row, tokenizer):
 #        messages, tokenize=False, add_generation_prompt=False
 #    )}
 
+
+samples = {"train": train, "train_balanced": train_balanced}
+
+TRAIN_SAMPLE = samples[TRAIN_SAMPLE_NAME]
+
 train_hf = Dataset.from_list([
-     make_prompt_completion(row, hf_tokenizer) for _, row in train_balanced.iterrows()
+     make_prompt_completion(row, hf_tokenizer) for _, row in TRAIN_SAMPLE.iterrows()
      ])
 
 dev_hf = Dataset.from_list([
@@ -241,7 +252,7 @@ lora_config = LoraConfig(
     lora_alpha = 32, # multiplier, usually 2*r
     lora_dropout = 0.05, # TRY: more regularization .10
     bias = "none",
-    task_type = TaskType.SEQ_CLS,
+    task_type = TASK_TYPE,
     target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
                       "gate_proj", "up_proj", "down_proj"],
 )
@@ -254,13 +265,13 @@ model.print_trainable_parameters()
 path_to_output = RESULTS_DIR / "finetune"
 sft_config = SFTConfig(
     output_dir = path_to_output,
-    completion_only_loss = True, # claudia look here: this only checks accuracy on the completion aka the y/n label
+    completion_only_loss = True, # claudia look here: this restricts the loss to the completion tokens aka the y/n label
     num_train_epochs = 3,
     per_device_train_batch_size = 16,
     per_device_eval_batch_size = 32,
     gradient_accumulation_steps = 1,
     warmup_steps = 10,
-    learning_rate = 2e-4, # TRY: slow down learning rate 1e-4 or 5e-5
+    learning_rate = LEARN_RATE, # TRY: slow down learning rate 1e-4 or 5e-5
     max_grad_norm = 0.3,
     fp16 = PRECISION == torch.float16,
     bf16 = PRECISION == torch.bfloat16,
@@ -287,8 +298,34 @@ trainer = SFTTrainer(
     callbacks = [EarlyStoppingCallback(early_stopping_patience = 6)]
 )
 
+# print config before finetuning
+run_info = f"""Finetuning run info\n\n
+- Description: {DESCRIPTION}
+- Started: {start_time}
+- Prompt: {PROMPT_ID}
+- Sample: {TRAIN_SAMPLE_NAME} 
+- Dropped long cases: {DROP_LONG_CASES}
+- n = {len(TRAIN_SAMPLE):,}
+- Model: {MODEL}
+- Precision: {PRECISION}
+- Task Type: {TASK_TYPE}
+- Learning Rate: {LEARN_RATE}
+- LoRA: r = {lora_config.r}, alpha = {lora_config.lora_alpha}, dropout = {lora_config.lora_dropout}
+- Max length: {sft_config.max_length}"""
+
+print("\n\n" + run_info)
+
 trainer.train()
+
+results = f"""\n\nTraining Results:\n\n
+- Best checkpoint: {trainer.state.best_metric}
+- Best loss: {trainer.state.best_metric}
+"""
 
 path_to_finetuned_model = RESULTS_DIR / f'{MODEL}_FT_{DESCRIPTION}'
 trainer.save_model(path_to_finetuned_model)
+
+with open(path_to_finetuned_model / "README.md", "a") as f:
+    f.write("\n" + run_info + "\n" + results)
+
 # trainer.push_to_hub()
