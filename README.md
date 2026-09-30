@@ -350,8 +350,8 @@ and pull any updates to the repo,
 git pull origin main
 ```
 
-If you're met with an error "fatal: not a git repository (or any of the parent directories): .git" it means your working directory is not a GitHub repo. To check run,
+If you're met with an error `fatal: not a git repository (or any of the parent directories): .git` it means your working directory is not a GitHub repo. To check run,
 ```
 ls -all
 ```
-This should show a hidden file called `.git` inside your working directory.
+This should show a hidden file called `.git` inside your working directory. Change your directory to the llm-text-classification with the `.git` folder. 
