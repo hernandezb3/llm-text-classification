@@ -1,7 +1,7 @@
 # Text Classification with Large Language Models
 [AIME-Con](https://www.xcdsystem.com/ncme/program/47bbPZ3/index.cfm) 4-hour training session, *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
 
-by Brittney Hernandez, Ph.D.; Claudia Ventura; Kylie Anglin, Ph.D.
+by Brittney Hernandez, Ph.D.; Claudia Ventura, M.A.; Kylie Anglin, Ph.D.
 
 **Description** 
 
