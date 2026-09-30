@@ -55,8 +55,15 @@ conda activate aimecon
 cd llm-text-classification
 # make sure requirements.txt is in this folder
 python3 -m pip install -r requirements_hpc.txt # only need to do once per virtual environment
-# update changes
+
+# update changes 
 git pull
+# from a specific branch
+git pull https://github.com/hernandezb3/llm-text-classification.git prep
+
+# check branch
+git branch --show-current
+
 
 # run the script
 python3 local.py
