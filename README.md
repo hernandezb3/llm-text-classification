@@ -214,6 +214,23 @@ Your output should look like this:
 <img src="readme_images/output.png" height="750">
 </p>
 
+### Update the GitHub Repo in Google Drive
+In a new Colab Notebook, run:
+```
+import os
+from google.colab import drive
+from google.colab import userdata
+
+drive.mount('/content/drive/')
+os.chdir("./drive/MyDrive/llm-text-classification/")
+
+!git fetch origin
+!git reset --hard origin/main
+
+os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
+os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+```
+
 ---
 # Option B) Local
 
@@ -315,15 +332,19 @@ python3 test-local.py
 
 If it works you'll see ✅ Setup Complete.
 
-### Run 
+### Update the GitHub Repo Locally
+Set your working directory to the llm-text-classification folder
 ```
-import os
-from google.colab import drive
-from google.colab import userdata
-drive.mount('/content/drive/')
-os.chdir("./drive/MyDrive/llm-text-classification/")
-!git fetch origin
-!git reset --hard origin/main
-os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
-os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+cd path/to/llm-text-classification
 ```
+and pull any updates to the repo,
+
+```
+git pull origin main
+```
+
+If you're met with an error "fatal: not a git repository (or any of the parent directories): .git" it means your working directory is not a GitHub repo. To check run,
+```
+ls -all
+```
+This should show a hidden file called `.git` inside your working directory.
