@@ -214,8 +214,9 @@ Your output should look like this:
 <img src="readme_images/output.png" height="750">
 </p>
 
+### FOR THE DAY OF THE WORKSHOP:
 ### Update the GitHub Repo in Google Drive
-In a new Colab Notebook, run:
+In a new Colab Notebook, run,
 ```
 import os
 from google.colab import drive
@@ -332,6 +333,7 @@ python3 test-local.py
 
 If it works you'll see ✅ Setup Complete.
 
+### FOR THE DAY OF THE WORKSHOP:
 ### Update the GitHub Repo Locally
 Set your working directory to the llm-text-classification folder
 ```
