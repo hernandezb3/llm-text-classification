@@ -76,7 +76,7 @@ def prompt_case(case, p):
     return "\n\n".join(part for part in parts if part)
 
 # choose which prompt to use
-prompt_id = "baseline_c0t1d1g0"
+prompt_id = "prompt3_c5t1d4g6"
 
 
 # ---- set up model ----
