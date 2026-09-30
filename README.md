@@ -1,17 +1,22 @@
 # Text Classification with Large Language Models
 [AIME-Con](https://www.xcdsystem.com/ncme/program/47bbPZ3/index.cfm) 4-hour training session, *Text Classification with Large Language Models: Pipelines, Fine-tuning, and Measurement Validity*
 
-by Brittney Hernandez, Ph.D.; Claudia Ventura; Kylie Anglin, Ph.D.
+by Brittney Hernandez, Ph.D.; Claudia Ventura, M.A.; Kylie Anglin, Ph.D.
 
 **Description** 
 
 This interactive workshop covers methods of binary text classification using large language models: API calls to non-locally hosted models, local models, and finetuned models. Participants will build text-classification pipelines with an emphasis on practicalities and measurement validity. Tradeoffs in approaches (cost, performance, privacy, etc.) will be discussed throughout.
 
 <p align="center">
-    <img src="readme_images/focus logo.jpg" height="120">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="readme_images/focus logo.jpg" height="120">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="readme_images/uconn-wordmark-stacked-blue.png" height="80">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="readme_images/cb_logo_black.jpg" height="80">
+
 </p>
+
+
 
 # Prerequisite Knowledge & Skills
 **Text Classification**
@@ -214,6 +219,24 @@ Your output should look like this:
 <img src="readme_images/output.png" height="750">
 </p>
 
+### FOR THE DAY OF THE WORKSHOP:
+### Update the GitHub Repo in Google Drive
+In a new Colab Notebook, run,
+```
+import os
+from google.colab import drive
+from google.colab import userdata
+
+drive.mount('/content/drive/')
+os.chdir("./drive/MyDrive/llm-text-classification/")
+
+!git fetch origin
+!git reset --hard origin/main
+
+os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
+os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+```
+
 ---
 # Option B) Local
 
@@ -315,15 +338,20 @@ python3 test-local.py
 
 If it works you'll see ✅ Setup Complete.
 
-### Run 
+### FOR THE DAY OF THE WORKSHOP:
+### Update the GitHub Repo Locally
+Set your working directory to the llm-text-classification folder
 ```
-import os
-from google.colab import drive
-from google.colab import userdata
-drive.mount('/content/drive/')
-os.chdir("./drive/MyDrive/llm-text-classification/")
-!git fetch origin
-!git reset --hard origin/main
-os.environ["HF_TOKEN"] = userdata.get('HF_TOKEN')
-os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+cd path/to/llm-text-classification
 ```
+and pull any updates to the repo,
+
+```
+git pull origin main
+```
+
+If you're met with an error `fatal: not a git repository (or any of the parent directories): .git` it means your working directory is not a GitHub repo. To check run,
+```
+ls -all
+```
+This should show a hidden file called `.git` inside your working directory. Change your directory to the llm-text-classification with the `.git` folder. 
