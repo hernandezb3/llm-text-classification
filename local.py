@@ -107,7 +107,7 @@ path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 MODEL = path_to_finetuned_model
-PROMPT = "baseline_c0t1d1g0"
+PROMPT = "prompt3_c5t1d4g6"
 TASK = "text-generation"
 TOKENS = 500
 TEMPERATURE = 0
