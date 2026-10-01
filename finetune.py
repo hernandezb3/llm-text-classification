@@ -45,14 +45,14 @@ DATA_SOURCE = "train" # train, validate, test
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 MODEL = "meta-llama/Llama-3.2-1B-Instruct"
-PROMPT_ID = "prompt3_c5t1d4g6"
+PROMPT_ID = "baseline_c0t1d1g0"
 RANDOM_STATE = 42
 TASK_TYPE = "CAUSAL_LM"
 LEARN_RATE = 2e-4
 TRAIN_SAMPLE_NAME = "train_balanced"
 DROP_LONG_CASES = False
 # based on variables ^^ add a description/id to the ft model
-DESCRIPTION = "bestPrompt_baseConfig"
+DESCRIPTION = "basePrompt_baseConfig"
 
 print(f"\nUsing device: {DEVICE}")
 if DEVICE == "cuda":

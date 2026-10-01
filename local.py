@@ -76,7 +76,7 @@ def prompt_case(case, p):
     return "\n\n".join(part for part in parts if part)
 
 # choose which prompt to use
-prompt_id = "prompt3_c5t1d4g6"
+prompt_id = "baseline_c0t1d1g0"
 
 
 # ---- set up model ----
@@ -101,15 +101,15 @@ login(token = os.getenv("HF_TOKEN"))
 # google/gemma-4-31B-it
 
 # finetuned models supply path
-path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT_bestPrompt_baseConfig"
+path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT_basePrompt_baseConfig"
 
 
 # ON COLAB
 # meta-llama/Llama-3.2-1B-Instruct (baseline) x
 MODEL = path_to_finetuned_model
-PROMPT = "prompt3_c5t1d4g6"
+#PROMPT = "baseline_c0t1d1g0"
 TASK = "text-generation"
-TOKENS = 500
+TOKENS = 1000
 TEMPERATURE = 0
 PRECISION = torch.bfloat16 # can use bfloat16 or bfloat32 if cuda is available (float for cpu, bfloat for gpu)
 
