@@ -45,12 +45,12 @@ DATA_SOURCE = "train" # train, validate, test
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 MODEL = "meta-llama/Llama-3.2-1B-Instruct"
-PROMPT_ID = "baseline_c0t1d1g0"
+PROMPT_ID = "prompt3_c5t1d4g6"
 RANDOM_STATE = 42
 TASK_TYPE = "CAUSAL_LM"
 LEARN_RATE = 2e-4
 TRAIN_SAMPLE_NAME = "train_balanced"
-DROP_LONG_CASES = True
+DROP_LONG_CASES = False
 # based on variables ^^ add a description/id to the ft model
 DESCRIPTION = "bestPrompt_baseConfig"
 
@@ -325,7 +325,7 @@ results = f"""\n\nTraining Results:\n\n
 path_to_finetuned_model = RESULTS_DIR / f'{MODEL}_FT_{DESCRIPTION}'
 trainer.save_model(path_to_finetuned_model)
 
-with open(path_to_finetuned_model / "README.md", "a") as f:
+with open(path_to_finetuned_model / "README.md", "w", encoding = "utf-8") as f:
     f.write("\n" + run_info + "\n" + results)
 
 # trainer.push_to_hub()
