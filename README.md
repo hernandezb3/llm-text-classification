@@ -17,7 +17,7 @@ This interactive workshop covers methods of binary text classification using lar
 </p>
 
 
-This project is supported by Javits Gifted and Talented Students Education Grant Program, PR/Award Number S206A230027, as administered by the OESE, U.S. Department of Education.
+Project Focus is supported by Javits Gifted and Talented Students Education Grant Program, PR/Award Number S206A230027, as administered by the OESE, U.S. Department of Education.
 
 # Prerequisite Knowledge & Skills
 **Text Classification**
