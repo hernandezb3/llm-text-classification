@@ -62,10 +62,10 @@ The directory structure is set up as follows:
 │   │   ├── test.xlsx
 │   │   └── train.xlsx
 │   ├── data_management/
-│   │   ├── empirical_prompts_50.xlsx
+│   │   ├── empirical_prompts_50.csv
 │   │   ├── human_prompt_codebook.docx
 │   │   ├── llm_prompt_codebook.xlsx
-│   │   └── llm_prompt_variants.docx
+│   │   └── empirical_prompt_variants.docx
 │   ├── results/
 │   │   ├── local/
 │   │   ├── non-local/
@@ -75,9 +75,8 @@ The directory structure is set up as follows:
 │   ├── README.md
 │   ├── requirements.txt
 │   ├── dot_env.txt
-│   ├── 01_non-local.ipynb
-│   ├── 02_local.ipynb
-│   ├── 03_prompt-engineering.ipynb
+│   ├── 00_intro.ipynb
+│   ├── 01_inference.ipynb
 │   ├── 04_fine-tuning.ipynb
 │   └── test-local.py
 ```
