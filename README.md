@@ -77,7 +77,7 @@ The directory structure is set up as follows:
 │   ├── dot_env.txt
 │   ├── 00_intro.ipynb
 │   ├── 01_inference.ipynb
-│   ├── 04_fine-tuning.ipynb
+│   ├── 02_fine-tuning.ipynb
 │   └── test-local.py
 ```
 
