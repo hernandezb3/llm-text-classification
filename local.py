@@ -37,7 +37,7 @@ elif USER =="colab":
     DATA_DIR = WORKING_DIR / "data"
 
 RESULTS_DIR = WORKING_DIR / "results"
-DATA_SOURCE = "dev" # train, dev, test
+DATA_SOURCE = "test" # train, dev, test
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 print(f"\nUsing device: {DEVICE}")
@@ -76,7 +76,7 @@ def prompt_case(case, p):
     return "\n\n".join(part for part in parts if part)
 
 # choose which prompt to use
-prompt_id = "baseline_c0t1d1g0"
+prompt_id = "prompt3_c5t1d4g6"
 
 
 # ---- set up model ----
@@ -101,7 +101,7 @@ login(token = os.getenv("HF_TOKEN"))
 # google/gemma-4-31B-it
 
 # finetuned models supply path
-path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT_basePrompt_baseConfig"
+path_to_finetuned_model = RESULTS_DIR / "meta-llama" / "Llama-3.2-1B-Instruct_FT_bestPrompt_baseConfig"
 
 
 # ON COLAB
