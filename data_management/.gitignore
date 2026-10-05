@@ -2,6 +2,7 @@
 *
 # Except this file
 !.gitignore
-!human_prompt_codebook.docx
+!human_codebook.docx
 !llm_codebook.xlsx
 !empirical_prompts_50.csv
+!empirical_prompt_variants.xlsx

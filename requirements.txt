@@ -6,11 +6,12 @@ tqdm
 
 kagglehub
 datasets
-#textwrap
 
 # ------- api calls ------- #
 # secrets managment
 python-dotenv
+# tokenizer
+tiktoken
 # third party models
 openai
 anthropic 
